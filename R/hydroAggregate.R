@@ -188,9 +188,9 @@ Buildwas_Analysis <- hydroAggregate(Buildwas, rolling_aggregations = c(1, 2, 3, 
 
 # QMED derivation
 QMED.HydroAggsmax <- function(x, ...) {
-  QMED_flow<- median(x[['Hydro_year']]$HydroYear_Max)
+  QMED_flow<- median(x[['Hydro_year']]$Hydro_year_Max)
   QMED <- noquote(paste("Estimated QMED:", QMED_flow, "cumecs"))
-  plot(x[['Hydro_year']]$HydrologicalYear, x[['Hydro_year']]$HydroYear_Max,
+  plot(x[['Hydro_year']]$HydrologicalYear, x[['Hydro_year']]$Hydro_year_Max,
        xlab = 'Hydrological Year',
        ylab = expression(Flow ~ m^3 ~ s^-1),
        main = 'AMAX flow by hydrological year',
@@ -233,7 +233,6 @@ summary.HydroAggs <- function(x, quantiles = c(0.1, 0.5, 0.7, 0.95), ...) {
   
   return(df)
 }
-
 summary <- function(x,...) {
   UseMethod('summary', x)
 }

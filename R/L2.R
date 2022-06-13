@@ -7,7 +7,7 @@ L2.default <- function(x, ...) {
   b0 <- sum(camp)/n
   b1 <- sum(p1*camp)/n
   l2 <- 2*b1-b0
-  class(l2) <- append(class(x), 'L2')
+  class(l2) <- 'L2'
   return(l2)
 }
 
@@ -20,7 +20,7 @@ L2.HydroAggsmax <- function(x, ...){
   b0 <- sum(camp)/n
   b1 <- sum(p1*camp)/n
   l2 <- 2*b1-b0
-  class(l2) <- append(class(x), 'L2')
+  class(l2) <- 'L2'
   return(l2)
 }
 
@@ -33,7 +33,7 @@ L2.HydroAMAX <- function(x, ...){
   b0 <- sum(camp)/n
   b1 <- sum(p1*camp)/n
   l2 <- 2*b1-b0
-  class(l2) <- append(class(x), 'L2')
+  class(l2) <- 'L2'
   return(l2)
 }
 
@@ -47,7 +47,7 @@ L2.FlowLoad <- function(x, ...){
   b0 <- sum(camp)/n
   b1 <- sum(p1*camp)/n
   l2 <- 2*b1-b0
-  class(l2) <- append(class(x), 'L2')
+  class(l2) <- 'L2'
   return(l2)
 }
 
