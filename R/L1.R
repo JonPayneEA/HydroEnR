@@ -5,7 +5,7 @@ L1.default <- function(x, ...) {
 }
 
 L1.HydroAggsmax <- function(x, ...){
-  x <- mean(x$Hydro_year$HydroYear_Max, na.rm = TRUE)
+  x <- mean(x$Hydro_year$Hydro_year_Max, na.rm = TRUE)
   class(x) <- append(class(x), 'L1')
   return(x)
 }

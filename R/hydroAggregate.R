@@ -12,13 +12,13 @@ hourlyAgg.FlowLoad <- function(x, method = mean, ...){
     Hourly <- x[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
   }
   if(method  == 'median') {
-    Hourly <- x[, .(Hourly_Mean = median(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+    Hourly <- x[, .(Hourly_Median = median(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
   }
   if(method  == 'min') {
-    Hourly <- x[, .(Hourly_Mean = min(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+    Hourly <- x[, .(Hourly_Min = min(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
   }
   if(method  == 'max') {
-    Hourly <- x[, .(Hourly_Mean = max(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+    Hourly <- x[, .(Hourly_Max = max(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
   }
   return(Hourly)
 }
@@ -32,13 +32,13 @@ dailyAgg.FlowLoad <- function(x, method = mean, ...){
     Daily <- x[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date] 
   }
   if(method  == 'median') {
-    Daily <- x[, .(Daily_Mean = median(Value, na.rm = TRUE)), Date] 
+    Daily <- x[, .(Daily_Median = median(Value, na.rm = TRUE)), Date] 
   }
   if(method  == 'min') {
-    Daily <- x[, .(Daily_Mean = min(Value, na.rm = TRUE)), Date] 
+    Daily <- x[, .(Daily_Min = min(Value, na.rm = TRUE)), Date] 
   }
   if(method  == 'max') {
-    Daily <- x[, .(Daily_Mean = max(Value, na.rm = TRUE)), Date] 
+    Daily <- x[, .(Daily_Max = max(Value, na.rm = TRUE)), Date] 
   }
   return(Daily)
 }
@@ -52,13 +52,13 @@ monthlyAgg.FlowLoad <- function(x, method = mean, ...){
     Monthly <- x[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
   if(method  == 'median') {
-    Monthly <- x[, .(Monthly_Mean = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+    Monthly <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
   if(method  == 'min') {
-    Monthly <- x[, .(Monthly_Mean = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))] 
+    Monthly <- x[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))] 
   }
   if(method  == 'max') {
-    Monthly <- x[, .(Monthly_Mean = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+    Monthly <- x[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
   return(Monthly)
 }
@@ -72,13 +72,13 @@ annualAgg.FlowLoad <- function(x, method = mean, ...){
     Annual <- x[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   if(method  == 'median') {
-    Annual <- x[, .(Monthly_Mean = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   if(method  == 'min') {
-    Annual <- x[, .(Annual_Mean = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   if(method  == 'max') {
-    Annual <- x[, .(Annual_Mean = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   return(Annual)
 }
@@ -92,13 +92,13 @@ hydroYearAgg.FlowLoad <- function(x, method = mean, ...){
     Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
   }
   if(method  == 'median') {
-    Hydro_year <- x[, .(Monthly_Mean = median(Value, na.rm = TRUE)), HydrologicalYear]
+    Hydro_year <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), HydrologicalYear]
   }
   if(method  == 'min') {
-    Hydro_year <- x[, .(Hydro_year_Mean = min(Value, na.rm = TRUE)), HydrologicalYear]
+    Hydro_year <- x[, .(Hydro_year_Min = min(Value, na.rm = TRUE)), HydrologicalYear]
   }
   if(method  == 'max') {
-    Hydro_year <- x[, .(Hydro_year_Mean = max(Value, na.rm = TRUE)), HydrologicalYear]
+    Hydro_year <- x[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
   }
   return(Hydro_year)
 }
@@ -179,6 +179,7 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
     Rolling_Aggregations <- rollingAggs(dt, interval = interval, rolling_aggregations = rolling_aggregations, method = method)
   }
   data_list[['Rolling_Aggregations']] <- Rolling_Aggregations
+  class(data_list) <- append(class(data_list), c(paste('HydroAggs', method, sep = ''), 'HydroAggs'))
   return(data_list)
 }
 
