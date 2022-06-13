@@ -6,6 +6,130 @@
 # Aggregation methods available mean, sum, min, max
 # When max is selected AMAX plot is produced
 
+# Hourly aggregation
+hourlyAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Hourly <- x[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+  }
+  if(method  == 'median') {
+    Hourly <- x[, .(Hourly_Mean = median(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+  }
+  if(method  == 'min') {
+    Hourly <- x[, .(Hourly_Mean = min(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+  }
+  if(method  == 'max') {
+    Hourly <- x[, .(Hourly_Mean = max(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+  }
+  return(Hourly)
+}
+hourlyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('hourlyAgg', x)
+}
+
+# Daily aggregation
+dailyAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Daily <- x[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date] 
+  }
+  if(method  == 'median') {
+    Daily <- x[, .(Daily_Mean = median(Value, na.rm = TRUE)), Date] 
+  }
+  if(method  == 'min') {
+    Daily <- x[, .(Daily_Mean = min(Value, na.rm = TRUE)), Date] 
+  }
+  if(method  == 'max') {
+    Daily <- x[, .(Daily_Mean = max(Value, na.rm = TRUE)), Date] 
+  }
+  return(Daily)
+}
+dailyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('dailyAgg', x)
+}
+
+# Monthly aggregation
+monthlyAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Monthly <- x[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'median') {
+    Monthly <- x[, .(Monthly_Mean = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'min') {
+    Monthly <- x[, .(Monthly_Mean = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))] 
+  }
+  if(method  == 'max') {
+    Monthly <- x[, .(Monthly_Mean = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  return(Monthly)
+}
+monthlyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('monthlyAgg', x)
+}
+
+# Annual aggregation
+annualAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Annual <- x[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'median') {
+    Annual <- x[, .(Monthly_Mean = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'min') {
+    Annual <- x[, .(Annual_Mean = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'max') {
+    Annual <- x[, .(Annual_Mean = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  return(Annual)
+}
+annualAgg <- function(x, method = 'mean', ...) {
+  UseMethod('anualAgg', x)
+}
+
+# Hydrological year aggregation
+hydroYearAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'median') {
+    Hydro_year <- x[, .(Monthly_Mean = median(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'min') {
+    Hydro_year <- x[, .(Hydro_year_Mean = min(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'max') {
+    Hydro_year <- x[, .(Hydro_year_Mean = max(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  return(Hydro_year)
+}
+hydroYearAgg <- function(x, method = 'mean', ...) {
+  UseMethod('hydroYearAgg', x)
+}
+
+# Rolling Aggregations
+rollingAggs.FlowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
+  roller <- get(paste0("roll_", method))
+  agg <- length(rolling_aggregations)
+  Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Value)
+  for(i in seq_along(rolling_aggregations)){
+    window <- rolling_aggregations[i]/interval
+    if(rolling_aggregations[i] %% interval > 0){
+      cat("Using a rolling aggregation of ", rolling_aggregations[i], "is not divisible by 0.25, skipping for next accumulation\n")
+      Rolling_Aggregations[, paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "") := rep(NA, length(Rolling_Aggregations$DateTime))]
+      next
+    } else {
+      window <- rolling_aggregations[i]/interval
+    }
+    
+    cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
+    Rolling_Aggregations[,paste("Roll_",rolling_aggregations[i], "hr", sep = ""):=roller(Rolling_Aggregations$Raw, window, fill = NA)] 
+  }
+  return(Rolling_Aggregations)
+}
+rollingAggs <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean') {
+  UseMethod('rollingAggs', dt)
+}
+
 hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), method = 'mean') {
   if(missingArg(dt)){
     stop("Data missing. Please supply data to run this function")
@@ -26,214 +150,40 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
     stop("Hour field missing from data.table")
   }
   
-  agg <- length(rolling_aggregations)
   data_list <- list()
-  if(method == 'mean'){
-    
-    if(interval<1){
-      cat("====================== Calculating hourly aggregations =====================\n")
-      Hourly <- dt[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
-    } else {
-      Hourly <- NA
-    }
-    data_list[['Hourly']] <- Hourly
-    
-    cat("====================== Calculating daily aggregations ======================\n")
-    Daily <- dt[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
-    data_list[['Daily']] <- Daily
-    
-    cat("====================== Calculating monthly aggregations ====================\n")
-    Monthly <- dt[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
-    data_list[['Monthly']] <- Monthly
-    
-    cat("====================== Calculating annual aggregations =====================\n")
-    Annual <- dt[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
-    data_list[['Annual']] <- Annual
-    
-    cat("====================== Calculating Hydro Year aggregations =================\n")
-    Hydro_year <- dt[, .(HydroYear_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
-    data_list[['Hydro_year']] <- Hydro_year
-    
-    if(is.null(rolling_aggregations)){
-      stop
-    } else {
-      Rolling_Aggregations <- data.frame(DateTime = dt$DateTime, Raw = dt$Value)
-      for(i in seq_along(rolling_aggregations)){
-        window <- rolling_aggregations[i]/interval
-        if(rolling_aggregations[i] %% interval > 0){
-          cat("Using a rolling aggregation of ", i, "is not divisible by 0.25, skipping for next accumulation\n")
-          Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "")] <- rep(NA, length(Rolling_Aggregations[1]))
-          next
-        } else {
-          window <- rolling_aggregations[i]/interval
-        }
-        
-        cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
-        Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_mean(dt$Value, window, fill = NA)
-      }
-      data_list[['Rolling_aggs']] <- Rolling_Aggregations
-    }
-    
-  } else if(method == 'sum'){
-    
-    if(interval<1){
-      cat("====================== Calculating hourly aggregations =====================\n")
-      Hourly <- dt[, .(Hourly_Sum = sum(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
-    } else {
-      Hourly <- NA
-    }
-    data_list[['Hourly']] <- Hourly
-    
-    cat("====================== Calculating daily aggregations ======================\n")
-    Daily <- dt[, .(Daily_Sum = sum(Value, na.rm = TRUE)), Date]
-    data_list[['Daily']] <- Daily
-    
-    cat("====================== Calculating monthly aggregations ====================\n")
-    Monthly <- dt[, .(Monthly_Sum = sum(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
-    data_list[['Monthly']] <- Monthly
-    
-    cat("====================== Calculating annual aggregations =====================\n")
-    Annual <- dt[, .(Annual_Sum = sum(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
-    data_list[['Annual']] <- Annual
-    
-    cat("====================== Calculating Hydro Year aggregations =================\n")
-    Hydro_year <- dt[, .(HydroYear_Sum = sum(Value, na.rm = TRUE)), HydrologicalYear]
-    data_list[['Hydro_year']] <- Hydro_year
-    
-    if(is.null(rolling_aggregations)){
-      stop
-    } else {
-      Rolling_Aggregations <- data.frame(DateTime = dt$DateTime, Raw = dt$Value)
-      for(i in seq_along(rolling_aggregations)){
-        window <- rolling_aggregations[i]/interval
-        if(rolling_aggregations[i] %% interval > 0){
-          cat("Using a rolling aggregation of ", i, "is not divisible by 0.25, skipping for next accumulation\n")
-          Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "")] <- rep(NA, length(Rolling_Aggregations[1]))
-          next
-        } else {
-          window <- rolling_aggregations[i]/interval
-        }
-        
-        cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
-        Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_sum(dt$Value, window, fill = NA)
-      }
-      data_list[['Rolling_aggs']] <- Rolling_Aggregations
-    }
-    
-  } else if(method == 'max'){
-    
-    if(interval<1){
-      cat("====================== Calculating hourly aggregations =====================\n")
-      Hourly <- dt[, .(Hourly_Max = max(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
-    } else {
-      Hourly <- NA
-    }
-    data_list[['Hourly']] <- Hourly
-    
-    cat("====================== Calculating daily aggregations ======================\n")
-    Daily <- dt[, .(Daily_Max = max(Value, na.rm = TRUE)), .(Daily = Date)]
-    data_list[['Daily']] <- Daily
-    
-    cat("====================== Calculating monthly aggregations ====================\n")
-    Monthly <- dt[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
-    data_list[['Monthly']] <- Monthly
-    
-    cat("====================== Calculating annual aggregations =====================\n")
-    Annual <- dt[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
-    data_list[['Annual']] <- Annual
-    
-    cat("====================== Calculating Hydro Year aggregations =================\n")
-    Hydro_year <- dt[, .(HydroYear_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
-    data_list[['Hydro_year']] <- Hydro_year
-    # QMED <- median(Hydro_year$Max)
-    # data_list[['QMED']] <- noquote(paste("Estimated QMED: ", QMED))
-    # p <- plot(data_list[[5]]$HydrologicalYear, data_list[[5]]$Max,
-    #           xlab = "Hydrological Year",
-    #           ylab = expression(Flow ~ m^3 ~ s^-1),
-    #           main = "AMAX flow by hydrological year",
-    #           type = "l",
-    #           lwd = 2);
-    # abline(h = QMED, lwd = 2, col = "#00A33B")
-    # data_list[['Plot']] <- p
-    
-    if(is.null(rolling_aggregations)){
-      stop
-    } else {
-      Rolling_Aggregations <- data.frame(DateTime = dt$DateTime, Raw = dt$Value)
-      for(i in seq_along(rolling_aggregations)){
-        window <- rolling_aggregations[i]/interval
-        if(rolling_aggregations[i] %% interval > 0){
-          cat("Using a rolling aggregation of ", i, "is not divisible by 0.25, skipping for next accumulation\n")
-          Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "")] <- rep(NA, length(Rolling_Aggregations[1]))
-          next
-        } else {
-          window <- rolling_aggregations[i]/interval
-        }
-        
-        cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
-        Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_max(dt$Value, window, fill = NA)
-      }
-      data_list[['Rolling_aggs']] <- Rolling_Aggregations
-    }
-    
-  } else if(method == 'min'){
-    
-    if(interval<1){
-      cat("====================== Calculating hourly aggregations =====================\n")
-      Hourly <- dt[, .(Hourly_Min = min(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
-    } else {
-      Hourly <- NA
-    }
-    data_list[['Hourly']] <- Hourly
-    
-    cat("====================== Calculating daily aggregations ======================\n")
-    Daily <- dt[, .(Daily_Min = min(Value, na.rm = TRUE)), Date]
-    data_list[['Daily']] <- Daily
-    
-    cat("====================== Calculating monthly aggregations ====================\n")
-    Monthly <- dt[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
-    data_list[['Monthly']] <- Monthly
-    
-    cat("====================== Calculating annual aggregations =====================\n")
-    Annual <- dt[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
-    data_list[['Annual']] <- Annual
-    
-    cat("====================== Calculating Hydro Year aggregations =================\n")
-    Hydro_year <- dt[, .(HydroYear_Min = min(Value, na.rm = TRUE)), HydrologicalYear]
-    data_list[['Hydro_year']] <- Hydro_year
-    
-    if(is.null(rolling_aggregations)){
-      stop
-    } else {
-      Rolling_Aggregations <- data.frame(DateTime = dt$DateTime, Raw = dt$Value)
-      for(i in seq_along(rolling_aggregations)){
-        window <- rolling_aggregations[i]/interval
-        if(rolling_aggregations[i] %% interval > 0){
-          cat("Using a rolling aggregation of ", i, "is not divisible by 0.25, skipping for next accumulation\n")
-          Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "")] <- rep(NA, length(Rolling_Aggregations[1]))
-          next
-        } else {
-          window <- rolling_aggregations[i]/interval
-        }
-        
-        cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
-        Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_min(dt$Value, window, fill = NA)
-      }
-      data_list[['Rolling_aggs']] <- Rolling_Aggregations
-    }
-    
+  if(interval<1) {
+    cat("====================== Calculating hourly aggregations =====================\n")
+    Hourly <- hourlyAgg(dt, method = method)
   } else {
-    
-    stop("Method has either not been stated or cannot be applied")
-    
+    Hourly <- NA
   }
-  class(data_list) <- append(class(data_list)[1:2], c(paste('HydroAggs', method, sep = ''), 'HydroAggs'))
+  data_list[['Hourly']] <- Hourly
+  
+  cat("====================== Calculating daily aggregations ======================\n")
+  Daily <- dailyAgg(dt, method = method)
+  data_list[['Daily']] <- Daily
+  
+  cat("====================== Calculating monthly aggregations ====================\n")
+  Monthly <- monthlyAgg(dt, method = method)
+  data_list[['Monthly']] <- Monthly
+  
+  cat("====================== Calculating annual aggregations =====================\n")
+  Annual <- annualAgg(dt, method = method)
+  data_list[['Annual']] <- Annual
+  
+  cat("====================== Calculating Hydro Year aggregations =================\n")
+  Hydro_year <- hydroYearAgg(dt, method = method)
+  data_list[['Hydro_year']] <- Hydro_year
+  
+  if(length(rolling_aggregations) > 0){
+    Rolling_Aggregations <- rollingAggs(dt, interval = interval, rolling_aggregations = rolling_aggregations, method = method)
+  }
+  data_list[['Rolling_Aggregations']] <- Rolling_Aggregations
   return(data_list)
 }
 
 # Example
 Buildwas_Analysis <- hydroAggregate(Buildwas, rolling_aggregations = c(1, 2, 3, 4, 5, 6, 24, 120), method = 'max')
-
 
 # QMED derivation
 QMED.HydroAggsmax <- function(x, ...) {
