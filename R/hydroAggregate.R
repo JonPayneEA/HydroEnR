@@ -186,28 +186,6 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
 # Example
 Buildwas_Analysis <- hydroAggregate(Buildwas, rolling_aggregations = c(1, 2, 3, 4, 5, 6, 24, 120), method = 'max')
 
-# QMED derivation
-QMED.HydroAggsmax <- function(x, ...) {
-  QMED_flow<- median(x[['Hydro_year']]$Hydro_year_Max)
-  QMED <- noquote(paste("Estimated QMED:", QMED_flow, "cumecs"))
-  plot(x[['Hydro_year']]$HydrologicalYear, x[['Hydro_year']]$Hydro_year_Max,
-       xlab = 'Hydrological Year',
-       ylab = expression(Flow ~ m^3 ~ s^-1),
-       main = 'AMAX flow by hydrological year',
-       type = 'l',
-       lwd = 2,
-       ...)
-  abline(h = QMED_flow, lwd = 2, col = '#00A33B')
-  return(QMED)
-}
-
-QMED<- function(x,...) {
-  UseMethod('QMED', x)
-}
-
-# Example
-QMED(Buildwas_Analysis)
-
 # Summary stats
 summary.HydroAggs <- function(x, quantiles = c(0.1, 0.5, 0.7, 0.95), ...) {
   lst <- list()
@@ -239,32 +217,6 @@ summary <- function(x,...) {
 
 # Example
 summary(Buildwas_Analysis)
-
-
-# Month plot
-monthplot.HydroAggs <- function(x, name = 'Gauge', polar = FALSE, ...) {
-  dt <- x$Monthly
-  #dt[, c("Year", "Month") := tstrsplit(Year_Month, " ", fixed=TRUE)]
-  dt$Year_Month <- gsub(" ", "-", dt$Year_Month)
-  dt$Year_Month <- as.Date(paste(dt$Year_Month,"-01",sep=""))
-  p <- ggplot(dt, aes(x = month(Year_Month), y = Monthly_Max, group = year(Year_Month),colour = year(Year_Month))) +
-    geom_line(size = 1) +
-    xlab("Month") +
-    ylab(expression(Flow ~ m^3 ~ s^-1)) +
-    ggtitle(paste("Season plot of ", name, sep = "")) +
-    labs(colour = 'Year') +
-    scale_color_gradient(low = '#D2DE26', high = '#00A33B') +
-    scale_x_continuous(breaks = sort(unique(month(dt$Year_Month))), labels = month.abb) +
-    theme_light()
-  if(polar == TRUE) {
-    p <- p + coord_polar()
-  }
-  return(p)
-}
-
-monthplot <- function(x,...) {
-  UseMethod('monthplot', x)
-}
 
 # Example
 monthplot(Buildwas_Analysis, name = 'Buildwas', polar = FALSE)
