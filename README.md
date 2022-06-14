@@ -4,7 +4,7 @@ HydroEnR
 Jonathan Payne
 14/06/2022
 
-# Welcome to HydroEnR
+# Welcome to HydroEnR!
 
 This package is designed for members of Evidence and Risk. It allows you
 to;
