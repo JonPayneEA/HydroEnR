@@ -8,8 +8,7 @@ GEVParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   }
   C <- (2/(3+Ls$LSkew)) - (log(2)/log(3))
   Shape <- 7.859*C+2.95548*C^2
-  L2 <- Ls$L1*Ls$Lcv
-  Scale <- (L2*Shape)/((1-2^-Shape)*gamma(1+Shape))
+  Scale <- (Ls$L2*Shape)/((1-2^-Shape)*gamma(1+Shape))
   Loc <- Ls$L1-Scale*((1-gamma(1+Shape))/Shape)
   df <- data.frame(Loc, Scale, Shape)
   class(df) <- append(class(df), 'GEVPar')
@@ -24,7 +23,7 @@ GumbelParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }  
-  Scale <- (Ls$L1*Ls$Lcv)/log(2)
+  Scale <- (Ls$L1*Ls$LCV)/log(2)
   Loc <- Ls$L1 - 0.5772*Scale
   Shape <- NA
   df <- data.frame(Loc, Scale, Shape)
@@ -40,8 +39,7 @@ GenLogParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
   Shape <- -Ls$LSkew
-  L2 <- Ls$L1 * Ls$Lcv
-  Scale <- (L2 * sin(Shape * pi))/(Shape * pi)
+  Scale <- (Ls$L2 * sin(Shape * pi))/(Shape * pi)
   Loc <- Ls$L1 - Scale * ((1/Shape) - (pi/sin(Shape * pi)))
   df <- data.frame(Loc, Scale, Shape)
   class(df) <- append(class(df), 'GenLogPar')
@@ -55,9 +53,8 @@ GenParetoParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
   Shape <- (1 - 3 * Ls$LSkew)/(1 + Ls$LSkew)
-  L2 <- Ls$L1 * Ls$Lcv
-  Scale <- (1 + Shape) * (2 + Shape) * L2
-  Loc <- Ls$L1 - (2 + Shape) * L2
+  Scale <- (1 + Shape) * (2 + Shape) * Ls$L2
+  Loc <- Ls$L1 - (2 + Shape) * Ls$L2
   df <- data.frame(Loc, Scale, Shape)
   class(df) <- append(class(df), 'GenParetorPar')
   return(df)
@@ -66,19 +63,19 @@ GenParetoParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
 GEVParams(Ls(Buildwas))
 GEVParams(Buildwas)
 GEVParams(Buildwas_Analysis)
-GEVParams(Buildwas_Analysis$Hydro_year$HydroYear_Max)
+GEVParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
 GumbelParams(Ls(Buildwas))
 GumbelParams(Buildwas)
 GumbelParams(Buildwas_Analysis)
-GumbelParams(Buildwas_Analysis$Hydro_year$HydroYear_Max)
+GumbelParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
 GenLogParams(Ls(Buildwas))
 GenLogParams(Buildwas)
 GenLogParams(Buildwas_Analysis)
-GenLogParams(Buildwas_Analysis$Hydro_year$HydroYear_Max)
+GenLogParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
 GenParetoParams(Ls(Buildwas))
 GenParetoParams(Buildwas)
 GenParetoParams(Buildwas_Analysis)
-GenParetoParams(Buildwas_Analysis$Hydro_year$HydroYear_Max)
+GenParetoParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
 
 Params <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   GEV <- GEVParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
@@ -102,7 +99,7 @@ GEVGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FALSE,
   }
   C <- (2/(3+Ls$LSkew)) - (log(2)/log(3))
   kgev <- 7.859*C+2.95548*C^2
-  Bgev <- (kgev*Ls$Lcv)/(Ls$Lcv*(gamma(1+kgev)-(log(2))^kgev)+gamma(1+kgev)*(1-2^-kgev))
+  Bgev <- (kgev*Ls$LCV)/(Ls$LCV*(gamma(1+kgev)-(log(2))^kgev)+gamma(1+kgev)*(1-2^-kgev))
   gf <- 1+(Bgev/kgev)*(log(2)^kgev - (log(RP/(RP-1)))^kgev)
   df <- data.frame(Rerurn_Period = RP, Growth_Factor = gf)
   return(df)
@@ -116,7 +113,7 @@ GumbelGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FAL
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
-  B <- Ls$Lcv/(log(2)-Ls$Lcv*(0.5772+log(log(2))))
+  B <- Ls$LCV/(log(2)-Ls$LCV*(0.5772+log(log(2))))
   gf <- 1+B*(log(log(2))-log(-log(1-(1/RP))))
   df <- data.frame(Rerurn_Period = RP, Growth_Factor = gf)
   return(df)
@@ -131,7 +128,7 @@ GenLogGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FAL
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
   k <- -Ls$LSkew
-  B <- Ls$Lcv*k*sin((pi)*k)/(k*pi*(k+Ls$Lcv)-Ls$Lcv*sin((pi)*k))
+  B <- Ls$LCV*k*sin((pi)*k)/(k*pi*(k+Ls$LCV)-Ls$LCV*sin((pi)*k))
   gf <- 1+(B/k)*(1-(RP-1)^Ls$LSkew)
   df <- data.frame(Rerurn_Period = RP, Growth_Factor = gf)
   return(df)
@@ -146,7 +143,7 @@ GenParetoGF <- function(x, RP = c(2,4,10,25,50,100), ppy = 1, URBEXT2000 = NULL,
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
   k <- (1-3*Ls$LSkew)/(1+Ls$LSkew)
-  Bgp <- (Ls$Lcv*k*(1+k)*(2+k))/(k-Ls$Lcv*(2+k)*(2^-k*(1+k)-1))
+  Bgp <- (Ls$LCV*k*(1+k)*(2+k))/(k-Ls$LCV*(2+k)*(2^-k*(1+k)-1))
   RPppy <- 1/((1/RP)/ppy)
   gf <- 1 + (Bgp/k) *((2^-k)-(1-(1-(1/RPppy)))^k)
   df <- data.frame(Rerurn_Period = RP, Growth_Factor = gf)
@@ -183,7 +180,6 @@ Estimates.GEVPar <- function (x, q = NULL, RP = 100)
   return(res)
 }
 
-Estimates(GEVParams(Buildwas))
 
 Estimates.GumbelPar <- function(x, q = NULL, RP = 100){
   if(is.null(q) == TRUE) {res <- x$Loc+x$Scale*(-log(-log(1-(1/RP))))}
@@ -193,7 +189,6 @@ Estimates.GumbelPar <- function(x, q = NULL, RP = 100){
   return(res)
 }
 
-Estimates(GumbelParams(Buildwas))
 
 Estimates.GenLogPar <- function(x, q = NULL, RP = 100){
   if(is.null(q) == TRUE) {
@@ -207,7 +202,6 @@ Estimates.GenLogPar <- function(x, q = NULL, RP = 100){
   return(res)
 }
 
-Estimates(GenLogParams(Buildwas))
 
 Estimates.GenParetorPar <- function(x, q = NULL, RP = 100, ppy = 1){
   if (is.null(q) == TRUE) {
@@ -221,8 +215,6 @@ Estimates.GenParetorPar <- function(x, q = NULL, RP = 100, ppy = 1){
   }
   return(res)
 }
-
-Estimates(GenParetoParams(Buildwas))
 
 Estimates.Params <- function(x, q = NULL, RP = 100, ppy = 1){
   GEV <- x[1,]
@@ -250,4 +242,10 @@ Estimates.Params(Buildwas)
 Estimates <- function(x, ...){
   UseMethod('Estimates', x)
 }
+
+Estimates(GEVParams(Buildwas))
+Estimates(GumbelParams(Buildwas))
+Estimates(GenLogParams(Buildwas))
+Estimates(GenParetoParams(Buildwas))
+Estimates(Buildwas)
 
