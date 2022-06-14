@@ -83,7 +83,7 @@ annualAgg.FlowLoad <- function(x, method = mean, ...){
   return(Annual)
 }
 annualAgg <- function(x, method = 'mean', ...) {
-  UseMethod('anualAgg', x)
+  UseMethod('annualAgg', x)
 }
 
 # Hydrological year aggregation
