@@ -216,28 +216,28 @@ Estimates.GenParetorPar <- function(x, q = NULL, RP = 100, ppy = 1){
   return(res)
 }
 
-Estimates.Params <- function(x, q = NULL, RP = 100, ppy = 1){
-  GEV <- x[1,]
-  class(GEV) <- append(class(GEV)[1], 'GEVPar')
-  GEV <- Estimates(GEV, RP = RP)
-  Gumbel <- x[2,]
-  class(Gumbel) <- append(class(Gumbel)[1], 'GumbelPar')
-  Gumbel <- Estimates(Gumbel, RP = RP)
-  GenLog <- x[3,]
-  class(GenLog) <- append(class(GenLog)[1], 'GenLogPar')
-  GenLog <- Estimates(GenLog, RP = RP)
-  GenPareto <- x[4,]
-  class(GenPareto) <- append(class(GenPareto)[1], 'GenParetorPar')
-  GenPareto <- Estimates(GenPareto, RP = RP, q = q, ppy = ppy)
-  df <- cbind.data.frame(GEV, Gumbel, GenLog, GenPareto)
-  colnames(df) <- c('GEV', 'Gumbel', 'GenLog', 'GenPareto')
-  rownames(df) <- RP
-  class(df) <- append(class(df)[1], 'RPs')
-  return(df)
-}
-
- 
-Estimates.Params(Buildwas)
+# Estimates.Params <- function(x, q = NULL, RP = 100, ppy = 1){
+#   GEV <- x[1,]
+#   class(GEV) <- append(class(GEV)[1], 'GEVPar')
+#   GEV <- Estimates(GEV, RP = RP)
+#   Gumbel <- x[2,]
+#   class(Gumbel) <- append(class(Gumbel)[1], 'GumbelPar')
+#   Gumbel <- Estimates(Gumbel, RP = RP)
+#   GenLog <- x[3,]
+#   class(GenLog) <- append(class(GenLog)[1], 'GenLogPar')
+#   GenLog <- Estimates(GenLog, RP = RP)
+#   GenPareto <- x[4,]
+#   class(GenPareto) <- append(class(GenPareto)[1], 'GenParetorPar')
+#   GenPareto <- Estimates(GenPareto, RP = RP, q = q, ppy = ppy)
+#   df <- cbind.data.frame(GEV, Gumbel, GenLog, GenPareto)
+#   colnames(df) <- c('GEV', 'Gumbel', 'GenLog', 'GenPareto')
+#   rownames(df) <- RP
+#   class(df) <- append(class(df)[1], 'RPs')
+#   return(df)
+# }
+# 
+#  
+# Estimates.Params(Buildwas)
 
 Estimates <- function(x, ...){
   UseMethod('Estimates', x)

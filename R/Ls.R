@@ -2,6 +2,8 @@
 Ls <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   L1 <- L1(x)
   L2 <- L2(x)
+  L3 <- L3(x)
+  L4 <- L4(x)
   LCV <- LCV(x)
   LCA <- LCA(x)
   LKUR <- LKur(x)
@@ -11,7 +13,7 @@ Ls <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
     LCV <- Urb(LCV, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
     LSkew <- Urb(LSkew, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
-  x <- data.frame(L1, L2, LCV, LCA, LKUR, LSkew, QMED)
+  x <- data.frame(L1, L2, L3, L4, LCV, LCA, LKUR, LSkew, QMED)
   class(x) <- append(class(x), 'Ls')
   return(x)
 }
@@ -32,6 +34,8 @@ Ls(Buildwas)
 #   b3 <- sum(p3*camp)/n
 #   l1 <- b0
 #   l2 <- 2*b1-b0
+#   L3 <- 6 * b2 - 6 * b1 + b0
+#   L4 <- 20 * b3 - 30 * b2 + 12 * b1 - b0
 #   lcv <- 2*b1/b0-1
 #   lca <- 2*(3*b2-b0)/(2*b1-b0)-3
 #   lkur <- 5*(2*(2*b3-3*b2)+b0)/(2*b1-b0)+6
