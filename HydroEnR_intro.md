@@ -9,7 +9,7 @@ This package is designed for members of Evidence and Risk. It allows you
 to;
 
   - Easily load data from WISKI
-      - Carry out checks on these data sets  
+      - Carry out quality checks on these data sets  
   - Aggregate data by different periods and through various functions
     using rapid C++ elements
   - Detect peaks in hydrological data
