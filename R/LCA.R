@@ -1,4 +1,4 @@
-LCA.default <- function(x, ...) {
+LCA.numeric <- function(x, ...) {
   camp <- sort(x)
   n <- length(camp)
   nn <- rep(n-1,n)

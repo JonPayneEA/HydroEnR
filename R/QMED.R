@@ -1,11 +1,11 @@
-QMED.default <- function(x, ...) {
+QMED.numeric <- function(x, ...) {
   x <- median(x, na.rm = TRUE)
   class(x) <- append(class(x), 'QMED')
   return(x)
 }
 
 QMED.HydroAggsmax <- function(x, ...){
-  x <- median(x$Hydro_year$HydroYear_Max, na.rm = TRUE)
+  x <- median(x$Hydro_year$Hydro_year_Max, na.rm = TRUE)
   class(x) <- append(class(x), 'QMED')
   return(x)
 }
@@ -39,9 +39,9 @@ QMED(Buildwas_Analysis)
 
 
 QMEDPlot.HydroAggsmax <- function(x, ...) {
-  QMED_flow<- median(x$Hydro_year$HydroYear_Max, na.rm = TRUE)
+  QMED_flow<- median(x$Hydro_year$Hydro_year_Max, na.rm = TRUE)
   QMED <- noquote(paste("Estimated QMED:", QMED_flow, "cumecs"))
-  p <- ggplot(x$Hydro_year, aes(x = HydrologicalYear, y = HydroYear_Max)) +
+  p <- ggplot(x$Hydro_year, aes(x = HydrologicalYear, y = Hydro_year_Max)) +
     geom_line(size = 1.2) +
     xlab('Hydrological Year') +
     ylab(expression(Flow ~ m^3 ~ s^-1)) +

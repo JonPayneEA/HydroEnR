@@ -1,4 +1,4 @@
-LCV.default <- function(x) {
+LCV.numeric <- function(x) {
   Sort_x <- sort(x)
   ln <- length(x)
   Rank <- seq(1, ln)

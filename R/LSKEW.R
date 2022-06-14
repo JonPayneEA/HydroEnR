@@ -1,6 +1,6 @@
 # LSkew
 
-LSKEW.default <- function(x){
+LSKEW.numeric <- function(x){
   Sort_x <- sort(x)
   ln <- length(x)
   Rank <- seq(1, ln)
@@ -17,7 +17,7 @@ LSKEW.default <- function(x){
 }
 
 LSKEW.HydroAggsmax <- function(x){
-  x <- x$Hydro_year$HydroYear_Max
+  x <- x$Hydro_year$Hydro_year_Max
   Sort_x <- sort(x)
   ln <- length(x)
   Rank <- seq(1, ln)
@@ -32,8 +32,6 @@ LSKEW.HydroAggsmax <- function(x){
   class(LSKEW) <- append(class(LSKEW),'LSkew')
   return(LSKEW)
 }
-
-LSKEW(Buildwas_Analysis)
 
 LSKEW.HydroAMAX <- function(x){
   x <- x$AMAX

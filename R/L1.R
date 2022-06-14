@@ -1,4 +1,4 @@
-L1.default <- function(x, ...) {
+L1.numeric <- function(x, ...) {
   x <- mean(x, na.rm = TRUE)
   class(x) <- append(class(x), 'L1')
   return(x)
