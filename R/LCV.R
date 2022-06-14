@@ -14,10 +14,10 @@ LCV.default <- function(x) {
 }
 
 LCV.HydroAggsmax <- function(x){
-  x <- x$Hydro_year$HydroYear_Max
+  x <- x$Hydro_year$Hydro_year_Max
   Sort_x <- sort(x)
   ln <- length(x)
-    Rank <- seq(1, ln)
+  Rank <- seq(1, ln)
   b0 <- mean(x, na.rm = TRUE)
   b1 <- mean((Rank - 1)/(ln - 1) * Sort_x, na.rm = TRUE)
   b2 <- mean(((Rank - 1) * (Rank - 2))/((ln - 1) * (ln - 2)) * Sort_x, na.rm = TRUE)
@@ -77,7 +77,7 @@ LCV(Buildwas)
 LCV(Buildwas_Analysis)
 LCV(Buildwas_Analysis) %>% Urb(0.3)
 LCV(Buildwas_Analysis) %>% urb(0.3)
-LCV(Buildwas_Analysis$Hydro_year$HydroYear_Max)
+LCV(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
 LCV(GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))
 
 

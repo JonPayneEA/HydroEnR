@@ -64,4 +64,4 @@ print.L2 <- function(x, ...) {
 L2(Buildwas)
 L2(Buildwas_Analysis)
 L2(GetAMAX(Buildwas))
-L2(Buildwas_Analysis$Hydro_year$HydroYear_Max)
+L2(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
