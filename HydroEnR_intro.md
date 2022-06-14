@@ -9,7 +9,7 @@ This package is designed for members of Evidence and Risk. It allows you
 to;
 
   - Easily load data from WISKI
-      - Carry out quality checks on these data sets  
+      - Carry out quality checks on these data  
   - Aggregate data by different periods and through various functions
     using rapid C++ elements
   - Detect peaks in hydrological data
@@ -35,10 +35,10 @@ to;
 monthplot(Buildwas_Analysis, name = 'Buildwas', polar = FALSE)
 ```
 
-![](HydroEnR_intro_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](README_figs/README-unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
 ```
 
-![](HydroEnR_intro_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_figs/README-unnamed-chunk-4-1.png)<!-- -->

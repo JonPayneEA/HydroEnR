@@ -2,15 +2,21 @@
 title: "HydroEnR"
 author: "Jonathan Payne"
 date: "14/06/2022"
-output: github_document
+output: rmarkdown::github_document
 ---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  fig.path = "README_figs/README-"
+)
+```
 
 # Welcome to HydroEnR
 
 This package is designed for members of Evidence and Risk. It allows you to;
 
 * Easily load data from WISKI  
-  * Carry out quality checks on these data sets  
+  * Carry out quality checks on these data   
 * Aggregate data by different periods and through various functions using rapid C++ elements 
 * Detect peaks in hydrological data
 * Convert flow data to a volumetric measure over a designated time step
