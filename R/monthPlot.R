@@ -43,4 +43,7 @@ monthPlot <- function(x,...) {
   UseMethod('monthPlot', x)
 }
 
+# Examples
+monthplot(Buildwas_Analysis, name = 'Buildwas', polar = FALSE)
+monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
 monthPlot(Buildwas)

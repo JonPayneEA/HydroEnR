@@ -218,7 +218,5 @@ summary <- function(x,...) {
 # Example
 summary(Buildwas_Analysis)
 
-# Example
-monthplot(Buildwas_Analysis, name = 'Buildwas', polar = FALSE)
-monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
+
 

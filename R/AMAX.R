@@ -1,22 +1,22 @@
 # AMAX Functions
 
 # Default AMX function, user specified flow and date required
-GetAMAX.numeric <- function(Flows = flow, Date = date, ...){
+GetAMAX.numeric <- function(x = flow, Date = date, ...){
   if(is(Date, 'Date') == FALSE){ # To account for numerous classes 
     Date <- as.Date(Date)
   }
   hydro_year <- 'oct_us_gb'
   hydroData <- hydroYearDay(Date, hy_cal = hydro_year)
-  dt <- data.table(Date, hydroData, Flows)
-  AMAX <- dt[, .(HydroYear_Max = max(Flows, na.rm = TRUE)), HydrologicalYear]
+  dt <- data.table(Date, hydroData, x)
+  AMAX <- dt[, .(Hydro_year_Max = max(x, na.rm = TRUE)), HydrologicalYear]
   class(AMAX) <- append(class(AMAX), 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
 }
 
 # Extract AMAX table from HydroAggsmax object
-GetAMAX.HydroAggsmax <- function(Flows){
-  AMAX <- Flows$Hydro_year
+GetAMAX.HydroAggsmax <- function(x){
+  AMAX <- x$Hydro_year
   class(AMAX) <- append(class(AMAX), 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
@@ -24,7 +24,7 @@ GetAMAX.HydroAggsmax <- function(Flows){
 
 # Extract AMAX from data just loaded in via loadAllFlow()
 GetAMAX.FlowLoad <- function(Flows, ...){
-  AMAX <- Flows[, .(HydroYear_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
+  AMAX <- Flows[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
   class(AMAX) <- append(class(AMAX)[1:2], 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
