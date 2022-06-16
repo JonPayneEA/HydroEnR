@@ -1,6 +1,6 @@
 # Import 15min data - done
 #   Data checks - done
-#     convert blanks to NAs - done
+#   Convert blanks to NAs - done
 #   Decide on selection of durations - loops defined by length of vector of values c(1 hr, 3 hr, 6 hr, 24 hr etc.) - done
 #   Treat as volumes - to do
 #   Peak detection - to do

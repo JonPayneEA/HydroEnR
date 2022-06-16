@@ -20,18 +20,34 @@ Ls <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
 
 Ls(Buildwas)
 
+
+LComponents.HydroAggsmax <- function(x, ...){
+  x <- x$Hydro_year$Hydro_year_Max
+  camp <- sort(x)
+  n <- length(camp)
+  nn <- rep(n-1,n)
+  pp <- seq(0,n-1)
+  p1 <- pp/nn
+  p2 <- p1 * (pp-1)/(nn-1)
+  p3 <- p2 * (pp-2)/(nn-2)
+  b0 <- sum(camp)/n
+  b1 <- sum(p1*camp)/n
+  b2 <- sum(p2*camp)/n
+  b3 <- sum(p3*camp)/n
+  cs <- data.frame(n, b0, b1, b2, b3)
+  class(cs) <- append(class(cs), 'LCs')
+  return(cs)
+}
+
+LComponents <- function(x, ...){
+  UseMethod('LComponents', x)
+}
+
+LComponents(Buildwas_Analysis)
+
+
 # Lmoments <- function(x) {
-#   camp <- sort(x)
-#   n <- length(camp)
-#   nn <- rep(n-1,n)
-#   pp <- seq(0,n-1)
-#   p1 <- pp/nn
-#   p2 <- p1 * (pp-1)/(nn-1)
-#   p3 <- p2 * (pp-2)/(nn-2)
-#   b0 <- sum(camp)/n
-#   b1 <- sum(p1*camp)/n
-#   b2 <- sum(p2*camp)/n
-#   b3 <- sum(p3*camp)/n
+
 #   l1 <- b0
 #   l2 <- 2*b1-b0
 #   L3 <- 6 * b2 - 6 * b1 + b0
