@@ -20,6 +20,9 @@ hourlyAgg.FlowLoad <- function(x, method = mean, ...){
   if(method  == 'max') {
     Hourly <- x[, .(Hourly_Max = max(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
   }
+  if(method  == 'sum') {
+    Hourly <- x[, .(Hourly_Sum = sum(Volume, na.rm = TRUE)), .(Hourly = paste(Date, Hour))] 
+  }
   return(Hourly)
 }
 hourlyAgg <- function(x, method = 'mean', ...) {
@@ -39,6 +42,9 @@ dailyAgg.FlowLoad <- function(x, method = mean, ...){
   }
   if(method  == 'max') {
     Daily <- x[, .(Daily_Max = max(Value, na.rm = TRUE)), Date] 
+  }
+  if(method  == 'sum') {
+    Daily <- x[, .(Daily_Sum = sum(Volume, na.rm = TRUE)), Date] 
   }
   return(Daily)
 }
@@ -60,6 +66,9 @@ monthlyAgg.FlowLoad <- function(x, method = mean, ...){
   if(method  == 'max') {
     Monthly <- x[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
+  if(method  == 'sum') {
+    Monthly <- x[, .(Monthly_Sum = sum(Volume, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
   return(Monthly)
 }
 monthlyAgg <- function(x, method = 'mean', ...) {
@@ -79,6 +88,9 @@ annualAgg.FlowLoad <- function(x, method = mean, ...){
   }
   if(method  == 'max') {
     Annual <- x[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'sum') {
+    Annual <- x[, .(Annual_Sum = sum(Volume, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   return(Annual)
 }
@@ -100,6 +112,9 @@ hydroYearAgg.FlowLoad <- function(x, method = mean, ...){
   if(method  == 'max') {
     Hydro_year <- x[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
   }
+  if(method  == 'sum') {
+    Hydro_year <- x[, .(Hydro_year_Sum = sum(Volume, na.rm = TRUE)), HydrologicalYear]
+  }
   return(Hydro_year)
 }
 hydroYearAgg <- function(x, method = 'mean', ...) {
@@ -110,7 +125,11 @@ hydroYearAgg <- function(x, method = 'mean', ...) {
 rollingAggs.FlowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
+  if(method == 'sum'){
+    Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Volume)
+  } else {
   Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Value)
+  }
   for(i in seq_along(rolling_aggregations)){
     window <- rolling_aggregations[i]/interval
     if(rolling_aggregations[i] %% interval > 0){
@@ -149,7 +168,7 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
   if("Hour" %in% colnames(dt) == FALSE){
     stop("Hour field missing from data.table")
   }
-  
+  dt <-  dt[, Volume := interval*60*60*Value]
   data_list <- list()
   if(interval<1) {
     cat("====================== Calculating hourly aggregations =====================\n")
