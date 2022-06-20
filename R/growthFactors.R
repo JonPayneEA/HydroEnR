@@ -1,7 +1,7 @@
 # Growth Factors
 GEVGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
@@ -13,11 +13,11 @@ GEVGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FALSE,
   return(df)
 }
 
-GEVGF(Buildwas, URBEXT2000 = 0.3)
+# GEVGF(Buildwas, URBEXT2000 = 0.3)
 
 GumbelGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
@@ -27,11 +27,11 @@ GumbelGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FAL
   return(df)
 }
 
-GumbelGF(Buildwas)
+# GumbelGF(Buildwas)
 
 GenLogGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
@@ -42,11 +42,11 @@ GenLogGF <- function(x, RP = c(2,4,10,25,50,100), URBEXT2000 = NULL, DeUrb = FAL
   return(df)
 }
 
-GenLogGF(Buildwas)
+# GenLogGF(Buildwas)
 
 GenParetoGF <- function(x, RP = c(2,4,10,25,50,100), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
@@ -58,7 +58,7 @@ GenParetoGF <- function(x, RP = c(2,4,10,25,50,100), ppy = 1, URBEXT2000 = NULL,
   return(df)
 }
 
-GenParetoGF(Ls(Buildwas))
+# GenParetoGF(Ls(Buildwas))
 
 GrowthFactors <- function(x, RP = c(2,4,10,25,50,100), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   GEV <- GEVGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[2]
@@ -72,5 +72,5 @@ GrowthFactors <- function(x, RP = c(2,4,10,25,50,100), ppy = 1, URBEXT2000 = NUL
   return(df)
 }
 
-GrowthFactors(Buildwas_Analysis)
-GrowthFactors(Ls(Buildwas, URBEXT2000 = 0.3))
+# GrowthFactors(Buildwas_Analysis)
+# GrowthFactors(Ls(Buildwas, URBEXT2000 = 0.3))

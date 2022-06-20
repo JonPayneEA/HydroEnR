@@ -73,11 +73,11 @@ print.Lcv <- function(x, ...) {
   print.default(x, ...)
 }
 
-LCV(Buildwas)
-LCV(Buildwas_Analysis)
-LCV(Buildwas_Analysis) %>% Urb(0.3)
-LCV(Buildwas_Analysis) %>% urb(0.3)
-LCV(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-LCV(GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))
+# LCV(Buildwas)
+# LCV(Buildwas_Analysis)
+# LCV(Buildwas_Analysis) %>% Urb(0.3)
+# LCV(Buildwas_Analysis) %>% urb(0.3)
+# LCV(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# LCV(GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))
 
 

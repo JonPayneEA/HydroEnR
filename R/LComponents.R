@@ -79,7 +79,7 @@ print.LComponents <- function(x, ...) {
   print.default(x, ...)
 }
 
-LComponents(Buildwas)
-LComponents(Buildwas_Analysis)
-LComponents(GetAMAX(Buildwas))
-LComponents(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# LComponents(Buildwas)
+# LComponents(Buildwas_Analysis)
+# LComponents(GetAMAX(Buildwas))
+# LComponents(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

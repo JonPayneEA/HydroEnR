@@ -1,5 +1,5 @@
 # Estimates
-Estimates.GEVPar <- function (x, q = NULL, RP = 100) 
+Estimates.GEVPar <- function (x, q = NULL, RP = 100)
 {
   if (is.null(q) == TRUE) {
     res <- x$Loc + x$Scale/x$Shape * (1 - (-log(1 - 1/RP))^x$Shape)
@@ -67,17 +67,17 @@ Estimates.GenParetorPar <- function(x, q = NULL, RP = 100, ppy = 1){
 #   class(df) <- append(class(df)[1], 'RPs')
 #   return(df)
 # }
-# 
-#  
+#
+#
 # Estimates.Params(Buildwas)
 
 Estimates <- function(x, ...){
   UseMethod('Estimates', x)
 }
 
-Estimates(GEVParams(Buildwas))
-Estimates(GumbelParams(Buildwas))
-Estimates(GenLogParams(Buildwas))
-Estimates(GenParetoParams(Buildwas))
-Estimates(Buildwas)
+# Estimates(GEVParams(Buildwas))
+# Estimates(GumbelParams(Buildwas))
+# Estimates(GenLogParams(Buildwas))
+# Estimates(GenParetoParams(Buildwas))
+# Estimates(Buildwas)
 

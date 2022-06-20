@@ -69,7 +69,7 @@ print.LCA <- function(x, ...) {
   print.default(x, ...)
 }
 
-LCA(Buildwas)
-LCA(Buildwas_Analysis)
-LCA(GetAMAX(Buildwas))
-LCA(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# LCA(Buildwas)
+# LCA(Buildwas_Analysis)
+# LCA(GetAMAX(Buildwas))
+# LCA(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

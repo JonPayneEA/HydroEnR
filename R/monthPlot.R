@@ -13,9 +13,9 @@ monthPlot.HydroAggs <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, m
     scale_x_continuous(breaks = sort(unique(month(dt1$Year_Month))), labels = month.abb) +
     theme_light()
   if('HydroAggssum' %in% class(dt)){
-    p <- p + ylab(expression(Flow ~ m^3)) 
+    p <- p + ylab(expression(Flow ~ m^3))
   } else {
-    p <- p + ylab(expression(Flow ~ m^3 ~ s^-1)) 
+    p <- p + ylab(expression(Flow ~ m^3 ~ s^-1))
   }
   if(polar == TRUE) {
     p <- p + coord_polar()
@@ -38,9 +38,9 @@ monthPlot.FlowLoad <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, me
     scale_x_continuous(breaks = sort(unique(month(dt1$Year_Month))), labels = month.abb) +
     theme_light()
   if('HydroAggssum' %in% class(Buildwas_Analysis)){
-    p <- p + ylab(expression(Flow ~ m^3)) 
+    p <- p + ylab(expression(Flow ~ m^3))
   } else {
-    p <- p + ylab(expression(Flow ~ m^3 ~ s^-1)) 
+    p <- p + ylab(expression(Flow ~ m^3 ~ s^-1))
   }
   if(polar == TRUE) {
     p <- p + coord_polar()
@@ -53,6 +53,6 @@ monthPlot <- function(x,...) {
 }
 
 # Examples
-monthplot(Buildwas_Analysis, method = 'sum', name = 'Buildwas', polar = FALSE)
-monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
-monthPlot(Buildwas)
+# monthplot(Buildwas_Analysis, method = 'sum', name = 'Buildwas', polar = FALSE)
+# monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
+# monthPlot(Buildwas)

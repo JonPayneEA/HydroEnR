@@ -78,8 +78,8 @@ print.LSkew <- function(x, ...) {
   print.default(x, ...)
 }
 
-LSKEW(Buildwas)
-LSKEW(Buildwas_Analysis)
-Urb(LSKEW(Buildwas_Analysis), 0.3)
-LSKEW(Buildwas_Analysis$Hydro_year$HydroYear_Max) %>% Urb(0.3)
-LSKEW(GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))
+# LSKEW(Buildwas)
+# LSKEW(Buildwas_Analysis)
+# Urb(LSKEW(Buildwas_Analysis), 0.3)
+# LSKEW(Buildwas_Analysis$Hydro_year$HydroYear_Max) %>% Urb(0.3)
+# LSKEW(GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))

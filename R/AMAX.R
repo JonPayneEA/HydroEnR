@@ -2,7 +2,7 @@
 
 # Default AMX function, user specified flow and date required
 GetAMAX.numeric <- function(x = flow, Date = date, ...){
-  if(is(Date, 'Date') == FALSE){ # To account for numerous classes 
+  if(is(Date, 'Date') == FALSE){ # To account for numerous classes
     Date <- as.Date(Date)
   }
   hydro_year <- 'oct_us_gb'
@@ -43,7 +43,7 @@ zataTable <- function(x, ...) {
 
 GetAMAX.zoo <- function(Flows, ...){
   AMAX <- zataTable(Flows)
-  if(is(AMAX$Date, 'Date') == FALSE){ # To account for numerous classes 
+  if(is(AMAX$Date, 'Date') == FALSE){ # To account for numerous classes
     AMAX$Date <- as.Date(AMAX$Date)
   }
   AMAX$Date <- hydroYearDay(AMAX$Date, hy_cal = 'oct_us_gb')[1]
@@ -57,8 +57,8 @@ GetAMAX <- function(Flows, ...) {
   UseMethod('GetAMAX', Flows)
 }
 
-GetAMAX(Flows = Buildwas$Value, Date = Buildwas$DateTime)
-GetAMAX(Buildwas_Analysis)
-GetAMAX(Buildwas)
-rnrfa::get_ts(id = 2001, type = 'amax-flow') %>% GetAMAX()
-GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+# GetAMAX(Flows = Buildwas$Value, Date = Buildwas$DateTime)
+# GetAMAX(Buildwas_Analysis)
+# GetAMAX(Buildwas)
+# rnrfa::get_ts(id = 2001, type = 'amax-flow') %>% GetAMAX()
+# GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))

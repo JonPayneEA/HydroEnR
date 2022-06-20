@@ -2,7 +2,7 @@
 # Works with different classes
 GEVParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
@@ -19,10 +19,10 @@ GEVParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
 
 GumbelParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
-  }  
+  }
   Scale <- (Ls$L1*Ls$LCV)/log(2)
   Loc <- Ls$L1 - 0.5772*Scale
   Shape <- NA
@@ -34,7 +34,7 @@ GumbelParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
 
 GenLogParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
@@ -48,7 +48,7 @@ GenLogParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
 
 GenParetoParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
-    Ls <- x 
+    Ls <- x
   } else {
     Ls <- Ls(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
@@ -60,22 +60,22 @@ GenParetoParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   return(df)
 }
 
-GEVParams(Ls(Buildwas))
-GEVParams(Buildwas)
-GEVParams(Buildwas_Analysis)
-GEVParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-GumbelParams(Ls(Buildwas))
-GumbelParams(Buildwas)
-GumbelParams(Buildwas_Analysis)
-GumbelParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-GenLogParams(Ls(Buildwas))
-GenLogParams(Buildwas)
-GenLogParams(Buildwas_Analysis)
-GenLogParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-GenParetoParams(Ls(Buildwas))
-GenParetoParams(Buildwas)
-GenParetoParams(Buildwas_Analysis)
-GenParetoParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# GEVParams(Ls(Buildwas))
+# GEVParams(Buildwas)
+# GEVParams(Buildwas_Analysis)
+# GEVParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# GumbelParams(Ls(Buildwas))
+# GumbelParams(Buildwas)
+# GumbelParams(Buildwas_Analysis)
+# GumbelParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# GenLogParams(Ls(Buildwas))
+# GenLogParams(Buildwas)
+# GenLogParams(Buildwas_Analysis)
+# GenLogParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# GenParetoParams(Ls(Buildwas))
+# GenParetoParams(Buildwas)
+# GenParetoParams(Buildwas_Analysis)
+# GenParetoParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
 
 Params <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   GEV <- GEVParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
@@ -88,4 +88,4 @@ Params <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   return(t(df))
 }
 
-Params(Ls(Buildwas, URBEXT2000 = 0.3))
+# Params(Ls(Buildwas, URBEXT2000 = 0.3))

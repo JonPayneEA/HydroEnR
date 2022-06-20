@@ -1,9 +1,9 @@
 # Dim version that can handle 1D vectors
 dimC <- function(item) {
-  if (is.null(base::dim(item)) ) { 
-    dims<-length(item)  
+  if (is.null(base::dim(item)) ) {
+    dims<-length(item)
   } else{
-    dims  <- base::dim(item)  
+    dims  <- base::dim(item)
   }
   return(dims)
 }
@@ -14,11 +14,11 @@ headTail <- function(x, n = NULL){
     n <- dimC(x)[1]
   }
   if(n < 0){
-    dt <-head(x,n*-1) 
+    dt <-head(x,n*-1)
   } else {
     dt <- tail(x, n)
   }
   return(dt)
 }
 
-headTail(Buildwas_Analysis$Hydro_year, 10)
+# headTail(Buildwas_Analysis$Hydro_year, 10)

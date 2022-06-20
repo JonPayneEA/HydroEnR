@@ -8,15 +8,15 @@
 #   QMED - done
 #   Single site analysis - to do
 
-if (!require("data.table")) install.packages("data.table") 
+if (!require("data.table")) install.packages("data.table")
 library(data.table)
-if (!require("RcppRoll")) install.packages("RcppRoll") 
+if (!require("RcppRoll")) install.packages("RcppRoll")
 library(RcppRoll)
-if (!require("UKFE")) install.packages("UKFE") 
+if (!require("UKFE")) install.packages("UKFE")
 library(UKFE)
-if (!require("tidyverse")) install.packages("tidyverse") 
+if (!require("tidyverse")) install.packages("tidyverse")
 library(tidyverse)
-if (!require("beepr")) install.packages("beepr") 
+if (!require("beepr")) install.packages("beepr")
 library(beepr)
 
 
@@ -27,75 +27,75 @@ library(beepr)
 
 # Functions required
 hydroYearDay<-function(d,hy_cal){
-  
+
   # note: this function includes get_hydro_year and should be used instead
-  
+
   # input variables:
   # d: array of dates of class Date
   # hy_cal: hydrological year calendar, current options are 'oct_us_gb', 'sep_br' and 'apr_cl'
-  
+
   if(class(d)!='Date'){stop('d should be of class Date - use as.Date')}
-  
+
   m<-as.numeric(month(d)) # extract month
   y<-as.numeric(year(d)) # extract year
   HydrologicalYear <-y                         # create array for hydrological year
-  
+
   if(hy_cal=='oct_us_gb'){      # USA and Great Britian
-    
+
     HydrologicalYear[m>=10]<-(HydrologicalYear[m>=10]+1)    # hydrological year 2010 starts on Oct 1st 2009 and finishes on Sep 30th 2010
     start_hy<-as.Date(paste0(HydrologicalYear-1,'-10-01'))
-    
+
   } else if(hy_cal=='sep_br'){  # Brazil
-    
+
     HydrologicalYear[m>=9]<-(HydrologicalYear[m>=9]+1)      # hydrological year 2010 starts on Sep 1st 2009 and finishes on Aug 31st 2010
     start_hy<-as.Date(paste0(HydrologicalYear-1,'-09-01'))
-    
+
   } else if(hy_cal=='apr_cl'){  # Chile
-    
+
     HydrologicalYear[m<=3]<-(HydrologicalYear[m<=3]-1)      # hydrological year 2010 starts on Apr 1st 2010 and finishes on Mar 31st 2011
     start_hy<-as.Date(paste0(HydrologicalYear,'-04-01'))
-    
+
   } else {
-    
+
     stop(paste0('Unkown hydrological year calendar:',hy_cal))
-    
+
   }
-  
+
   day_of_hy<-as.numeric(d-start_hy+1) # days since the beginning of the hydro year
-  
+
   if(any(day_of_hy<1|day_of_hy>366)){
-    
+
     stop('Error when computing day of hydro year')
-    
+
   }
-  
+
   return(data.frame(HydrologicalYear,day_of_hy))
-  
+
 }
 loadAllFlow <- function(file, hydro_year = 'oct_us_gb'){
-  dt <- fread(file, 
+  dt <- fread(file,
               #skip = 2,
-              na.strings = '---', 
+              na.strings = '---',
               header = TRUE,
               showProgress = TRUE,
               verbose = TRUE,
               col.names = c('DateTime', 'Value', 'ValueState', 'Runoff', 'RunoffQuality', 'Tags', 'Remarks'))
-  
+
   cat('Removing blank elements\n')
   first_data <- min(which(dt$Value != "NA")) # Locates the first non NA value in the Values field
   dt <- dt[first_data: length(dt$Value)]
-  
+
   cat('Converting dates and times\n')
   dt <- dt[, c("Date", "Time") := tstrsplit(DateTime, " ", fixed=TRUE)]
   dt$Date <- as.Date(dt$Date, format = '%d/%m/%Y')
   dt$DateTime <- as.POSIXct(dt$DateTime, format = "%d/%m/%Y %H:%M:%S", tz = "GMT")
   dt$Hour <- as.numeric(substr(dt$Time, 1, 2))
-  
+
   # Hydrological day and year
   cat("Calculating hydrological year and day\n")
   hydro_year <- 'oct_us_gb'
   hydroData <- hydroYearDay(dt$Date, hy_cal = hydro_year)
-  
+
   # Merge 2 tables
   cat("Compilation complete\n")
   dt_1 <- data.table(dt, hydroData)
@@ -121,11 +121,11 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
   if("Hour" %in% colnames(dt) == FALSE){
     stop("Hour field missing from data.table")
   }
-  
+
   agg <- length(rolling_aggregations)
   data_list <- list()
   if(method == 'mean'){
-    
+
     if(interval<1){
       cat("====================== Calculating hourly aggregations =====================\n")
       Hourly <- dt[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
@@ -134,27 +134,27 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
     }
     class(Hourly) <- append(class(Hourly)[1:2], paste('Hourly', method, sep = ''))
     data_list[['Hourly']] <- Hourly
-    
+
     cat("====================== Calculating daily aggregations ======================\n")
     Daily <- dt[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
     class(Daily) <- append(class(Daily)[1:2], paste('Daily', method, sep = ''))
     data_list[['Daily']] <- Daily
-    
+
     cat("====================== Calculating monthly aggregations ====================\n")
     Monthly <- dt[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
     class(Monthly) <- append(class(Monthly)[1:2], paste('Monthly', method, sep = ''))
     data_list[['Monthly']] <- Monthly
-    
+
     cat("====================== Calculating annual aggregations =====================\n")
     Annual <- dt[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
     class(Monthly) <- append(class(Monthly)[1:2], paste('Monthly', method, sep = ''))
     data_list[['Annual']] <- Annual
-    
+
     cat("====================== Calculating Hydro Year aggregations =================\n")
     Hydro_year <- dt[, .(HydroYear_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
     class(Hydro_year) <- append(class(Hydro_year)[1:2], paste('Hydro_year', method, sep = ''))
     data_list[['Hydro_year']] <- Hydro_year
-    
+
     if(is.null(rolling_aggregations)){
       stop
     } else {
@@ -168,15 +168,15 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
         } else {
           window <- rolling_aggregations[i]/interval
         }
-        
+
         cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
         Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_mean(dt$Value, window, fill = NA)
       }
       data_list[['Rolling_aggs']] <- Rolling_Aggregations
     }
-    
+
   } else if(method == 'sum'){
-    
+
     if(interval<1){
       cat("====================== Calculating hourly aggregations =====================\n")
       Hourly <- dt[, .(Hourly_Sum = sum(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
@@ -185,27 +185,27 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
     }
     class(Hourly) <- append(class(Hourly)[1:2], paste('Hourly', method, sep = ''))
     data_list[['Hourly']] <- Hourly
-    
+
     cat("====================== Calculating daily aggregations ======================\n")
     Daily <- dt[, .(Daily_Sum = sum(Value, na.rm = TRUE)), Date]
     class(Daily) <- append(class(Daily)[1:2], paste('Daily', method, sep = ''))
     data_list[['Daily']] <- Daily
-    
+
     cat("====================== Calculating monthly aggregations ====================\n")
     Monthly <- dt[, .(Monthly_Sum = sum(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
     class(Monthly) <- append(class(Monthly)[1:2], paste('Monthly', method, sep = ''))
     data_list[['Monthly']] <- Monthly
-    
+
     cat("====================== Calculating annual aggregations =====================\n")
     Annual <- dt[, .(Annual_Sum = sum(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
     class(Annual) <- append(class(Annual)[1:2], paste('Annual', method, sep = ''))
     data_list[['Annual']] <- Annual
-    
+
     cat("====================== Calculating Hydro Year aggregations =================\n")
     Hydro_year <- dt[, .(HydroYear_Sum = sum(Value, na.rm = TRUE)), HydrologicalYear]
     class(Hydro_year) <- append(class(Hydro_year)[1:2], paste('Hydro_year', method, sep = ''))
     data_list[['Hydro_year']] <- Hydro_year
-    
+
     if(is.null(rolling_aggregations)){
       stop
     } else {
@@ -219,15 +219,15 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
         } else {
           window <- rolling_aggregations[i]/interval
         }
-        
+
         cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
         Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_sum(dt$Value, window, fill = NA)
       }
       data_list[['Rolling_aggs']] <- Rolling_Aggregations
     }
-    
+
   } else if(method == 'max'){
-    
+
     if(interval<1){
       cat("====================== Calculating hourly aggregations =====================\n")
       Hourly <- dt[, .(Hourly_Max = max(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
@@ -236,22 +236,22 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
     }
     class(Hourly) <- append(class(Hourly)[1:2], paste('Hourly', method, sep = ''))
     data_list[['Hourly']] <- Hourly
-    
+
     cat("====================== Calculating daily aggregations ======================\n")
     Daily <- dt[, .(Daily_Max = max(Value, na.rm = TRUE)), .(Daily = Date)]
     class(Daily) <- append(class(Daily)[1:2], paste('Daily', method, sep = ''))
     data_list[['Daily']] <- Daily
-    
+
     cat("====================== Calculating monthly aggregations ====================\n")
     Monthly <- dt[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
     class(Monthly) <- append(class(Monthly)[1:2], paste('Monthly', method, sep = ''))
     data_list[['Monthly']] <- Monthly
-    
+
     cat("====================== Calculating annual aggregations =====================\n")
     Annual <- dt[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
     class(Annual) <- append(class(Annual)[1:2], paste('Annual', method, sep = ''))
     data_list[['Annual']] <- Annual
-    
+
     cat("====================== Calculating Hydro Year aggregations =================\n")
     Hydro_year <- dt[, .(HydroYear_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
     class(Hydro_year) <- append(class(Hydro_year)[1:2], paste('Hydro_year', method, sep = ''))
@@ -269,15 +269,15 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
         } else {
           window <- rolling_aggregations[i]/interval
         }
-        
+
         cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
         Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_max(dt$Value, window, fill = NA)
       }
       data_list[['Rolling_aggs']] <- Rolling_Aggregations
     }
-    
+
   } else if(method == 'min'){
-    
+
     if(interval<1){
       cat("====================== Calculating hourly aggregations =====================\n")
       Hourly <- dt[, .(Hourly_Min = min(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
@@ -285,23 +285,23 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
       Hourly <- NA
     }
     data_list[['Hourly']] <- Hourly
-    
+
     cat("====================== Calculating daily aggregations ======================\n")
     Daily <- dt[, .(Daily_Min = min(Value, na.rm = TRUE)), Date]
     data_list[['Daily']] <- Daily
-    
+
     cat("====================== Calculating monthly aggregations ====================\n")
     Monthly <- dt[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
     data_list[['Monthly']] <- Monthly
-    
+
     cat("====================== Calculating annual aggregations =====================\n")
     Annual <- dt[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
     data_list[['Annual']] <- Annual
-    
+
     cat("====================== Calculating Hydro Year aggregations =================\n")
     Hydro_year <- dt[, .(HydroYear_Min = min(Value, na.rm = TRUE)), HydrologicalYear]
     data_list[['Hydro_year']] <- Hydro_year
-    
+
     if(is.null(rolling_aggregations)){
       stop
     } else {
@@ -315,17 +315,17 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
         } else {
           window <- rolling_aggregations[i]/interval
         }
-        
+
         cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
         Rolling_Aggregations[paste("Roll_",rolling_aggregations[i], "hr", sep = "")] <- roll_min(dt$Value, window, fill = NA)
       }
       data_list[['Rolling_aggs']] <- Rolling_Aggregations
     }
-    
+
   } else {
-    
+
     stop("Method has either not been stated or cannot be applied")
-    
+
   }
   class(data_list) <- append(class(data_list), c(paste('HydroAggs', method, sep = ''), 'HydroAggs'))
   return(data_list)
@@ -369,7 +369,7 @@ summary.HydroAggs <- function(x, quantiles = c(0.1, 0.5, 0.7, 0.95), ...) {
   delete <- c('Calendar_Year', 'HydrologicalYear')
   df <- df[!(row.names(df) %in% delete),]
   colnames(df) <- c('Min', 'Max', 'Mean', 'Median', paste('Q',quantiles*100, sep = ''))
-  
+
   return(df)
 }
 summary <- function(x,...) {
@@ -405,16 +405,16 @@ singleSite <- function(Date, AMAX, returns = c(2,5,15,20,50,75,100,200,1000), fi
   if(fit == 'all'){
     # Growth curve plots
     par(mfrow = c(2,2))
-    EVPlot1(AMAX, dist = "GEV", 
+    EVPlot1(AMAX, dist = "GEV",
             Title = 'Generalised Extreme Value')
-    EVPlot1(AMAX, dist = "GenPareto", 
+    EVPlot1(AMAX, dist = "GenPareto",
             Title = 'Generalised Pareto')
-    EVPlot1(AMAX, dist = "Gumbel", 
+    EVPlot1(AMAX, dist = "Gumbel",
             Title = 'Gumbel')
-    EVPlot1(AMAX, dist = "GenLog", 
+    EVPlot1(AMAX, dist = "GenLog",
             Title = 'Generalised Logistic')
     par(mfrow = c(1,1))
-    
+
     # Growth curve parameters
     param <- c('Loc', 'Scale','Shape')
     gev <- GEVPars(AMAX)
@@ -422,74 +422,74 @@ singleSite <- function(Date, AMAX, returns = c(2,5,15,20,50,75,100,200,1000), fi
     gum <- GumbelPars(AMAX)
     gum$Shape <- NA
     genL <- GenLogPars(AMAX)
-    
-    Shapes <- data.frame(GEV = t(gev), 
+
+    Shapes <- data.frame(GEV = t(gev),
                          GenPareto = t(gum),
                          Gumbel = t(genP),
                          GenLogistic = t(genL))
-    
+
     # Model Fits
     gev_fit <- GoTF1(AMAX, dist = "GEV")
     genP_fit <- GoTF1(AMAX, dist = "GenPareto")
     gum_fit <- GoTF1(AMAX, dist = "Gumbel")
     genL_fit <- GoTF1(AMAX, dist = "GenLog")
-    
-    fits <- data.frame(GEV = t(gev_fit), 
-                       GenPareto = t(genP_fit), 
+
+    fits <- data.frame(GEV = t(gev_fit),
+                       GenPareto = t(genP_fit),
                        Gumbel = t(gum_fit),
                        GenLogistic = t(genL_fit))
-    
+
     # Growth Factors
     gev_gf <- GEVGF(Lcv(AMAX), LSkew(AMAX), RP = returns)
     genP_gf <- GenParetoGF(Lcv(AMAX), LSkew(AMAX), ppy = 1, RP = returns)
     gum_gf <- GumbelGF(Lcv(AMAX), RP = returns)
     genL_gf <- GenLogGF(Lcv(AMAX), LSkew(AMAX), RP = returns)
-    
+
     gf <- data.frame(Return_period = returns,
                      GEV = gev_gf,
                      GenPareto = genP_gf,
                      Gumbel = gum_gf,
                      GenLogistic = genL_gf)
-    
+
     # Flows by return period
     GEV_flows <- GEVAM(AMAX, RP = returns, q = NULL, trend = trend)
     GenPareto_flows <- GenParetoPOT(AMAX, ppy = 1, RP = returns, q = NULL)
     Gumbel_flows <- GumbelAM(AMAX, RP = returns, q = NULL, trend = trend)
     GenLog_flows <- GenLogAM(AMAX, RP = returns, q = NULL, trend = trend)
-    
-    Flows <- data.frame(Return_Period = returns, 
-                        GEV = GEV_flows, 
-                        GenPareto = GenPareto_flows, 
+
+    Flows <- data.frame(Return_Period = returns,
+                        GEV = GEV_flows,
+                        GenPareto = GenPareto_flows,
                         Gumbel = Gumbel_flows,
                         GenLogistic = GenLog_flows)
-    
+
     data[['Model_Shapes']] <- Shapes
     data[['Model_Fits']] <- fits
     data[['Growth_Factors']] <- gf
     data[['Estimated_Flows']] <- Flows
-    
-    
+
+
     # Estimated return period of user specified flow
     if(is.null(flows)){
       stop
     } else{
-      
+
       GEV_rp <- GEVAM(AMAX, RP = NULL, q = flows, trend = trend)
       Gumbel_rp <- GumbelAM(AMAX, RP = NULL, q = flows, trend = trend)
       GenPareto_rp <- GenParetoPOT(AMAX, ppy = 1, RP = NULL, q = flows)
       GenLog_rp <- GenLogAM(AMAX, RP = NULL, q = flows, trend = trend)
-      
-      RPs <- data.frame(Sample_Flows = flows, 
-                        GEV = GEV_rp, 
+
+      RPs <- data.frame(Sample_Flows = flows,
+                        GEV = GEV_rp,
                         Gumbel = Gumbel_rp,
-                        GenPareto = GenPareto_rp, 
+                        GenPareto = GenPareto_rp,
                         GenLogistic = GenLog_rp)
-      
+
       data[['Estimated_RP']] <- RPs
     }
-    
+
     return(data)
-    
+
   }
 }
 
@@ -577,7 +577,7 @@ GoTF1 <- function(x, dist = "GenLog", pars = NULL, GF = NULL, RepDist = NULL){
     if(Ind == Inf | Ind == 0) {Prop <- 0.0002} else {Prop <- Ind/5000}
     if(Prop > 0.5) {res <- 1-Prop} else {res <- Prop}
     if(Ind == Inf | res == 0) {res <- "< 0.0002"} else {res <- res/0.5}
-    
+
     TailMean <- function(x) {mean(x[x > quantile(x, 0.75, na.rm = TRUE)])}
     Mat.2 <- matrix(RepDist, nrow = length(x), ncol = 5000)
     TMs <- apply(Mat.1, 2, TailMean)
@@ -587,13 +587,13 @@ GoTF1 <- function(x, dist = "GenLog", pars = NULL, GF = NULL, RepDist = NULL){
     if(Ind2 == Inf | Ind2 == 0) {Prop2 <- 0.0002} else {Prop2 <- Ind2/5000}
     if(Prop2 > 0.5) {res2 <- 1-Prop2} else {res2 <- Prop2}
     if(Ind2 == Inf | res2 == 0) {res2 <- "< 0.0002"} else {res2 <- res2/0.5}
-    
+
     ResDF <- data.frame(res, res2)
     colnames(ResDF) <- c("p(Tail cv)", "p(Tail mean)")
     return(ResDF)
-    
+
   } else {
-    
+
     if(dist == "GenLog") {funcX <- GenLogAM
     funcPars <- GenLogEst
     funcGF <- GenLogGF}
@@ -618,7 +618,7 @@ GoTF1 <- function(x, dist = "GenLog", pars = NULL, GF = NULL, RepDist = NULL){
     if(is.null(GF) == FALSE)  {
       if(dist == "Gumbel") {Sims <- funcGF(GF[1], RP = Rands)*GF[3]} else
       {Sims <- funcGF(GF[1], GF[2], RP = Rands)*GF[3]}}
-    
+
     Mat.1 <- matrix(Sims, nrow = length(x), ncol = 5000)
     MMRs <- apply(Mat.1, 2, MMR)
     MMRo <- MMR(x)
@@ -627,7 +627,7 @@ GoTF1 <- function(x, dist = "GenLog", pars = NULL, GF = NULL, RepDist = NULL){
     if(Ind == Inf | Ind == 0) {Prop <- 0.0002} else {Prop <- Ind/5000}
     if(Prop > 0.5) {res <- 1-Prop} else {res <- Prop}
     if(Ind == Inf | res == 0) {res <- "< 0.0002"} else {res <- res/0.5}
-    
+
     TailMean <- function(x) {mean(x[x > quantile(x, 0.75, na.rm = TRUE)])}
     Mat.2 <- matrix(Sims, nrow = length(x), ncol = 5000)
     TMs <- apply(Mat.1, 2, TailMean)
@@ -642,7 +642,7 @@ GoTF1 <- function(x, dist = "GenLog", pars = NULL, GF = NULL, RepDist = NULL){
     ResDF <- data.frame(res, res2)
     colnames(ResDF) <- c("p(Tail cv)", "p(Tail mean)")
     return(ResDF)
-    
+
   }
 }
 EVPlot1 <- function(x, dist = "GenLog", scaled = TRUE, Title = "Extreme value plot", ylabel = NULL, LineName = NULL, Unc = TRUE) {
@@ -677,7 +677,7 @@ EVPlot1 <- function(x, dist = "GenLog", scaled = TRUE, Title = "Extreme value pl
   ymin <- median(AM.sort)-(UpperObsRange)
   if(Ymax < max(AM.sort)) {Ymax <- max(AM.sort)} else {Ymax <- Ymax}
   if(LowerYRange > 0.143*UpperYRange) {ymin <- min(AM.sort)} else {ymin <- ymin}
-  
+
   plot(Log.Red.Var, SimSS, type = "l", xlim = c(min(LRV.obs),7), ylim = c(ymin, Ymax), main = Title, ylab = YLab, xlab = "logistic reduced variate", lwd = 2)
   points(LRV.obs, AM.sort, col = "blue", lwd = 1.5)
   if(Unc == FALSE) {
@@ -715,7 +715,7 @@ EVPlot1 <- function(x, dist = "GenLog", scaled = TRUE, Title = "Extreme value pl
     }
     points(Log.Red.Var, lower95, type = "l", lty = 3, lwd = 2)
     points(Log.Red.Var, upper95, type = "l", lty = 3, lwd = 2)
-    
+
   }
 }
 
@@ -724,14 +724,14 @@ EVPlot1 <- function(x, dist = "GenLog", scaled = TRUE, Title = "Extreme value pl
 # Load Buildwas data in
 
 #link <-'O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/HydroER_package/Aggregations/Buildwas_15min_Flow.csv'
-link <- 'C:/Users/jpayne05/Desktop/Buildwas_15min_Flow.csv'
-Buildwas <- loadAllFlow(link)
-Buildwas_Analysis <- hydroAggregate(Buildwas, rolling_aggregations = c(1,2,3,4,5,6,24, 120), method = 'max')
-QMEDPlot(Buildwas_Analysis)
-summary(Buildwas_Analysis)
-monthplot(Buildwas_Analysis, name = 'Buildwas', polar = FALSE)
-monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
-singleSite(Buildwas_Analysis[[5]]$HydrologicalYear, Buildwas_Analysis[[5]]$HydroYear_Max, flows = c(300,500, 980))
+# link <- 'C:/Users/jpayne05/Desktop/Buildwas_15min_Flow.csv'
+# Buildwas <- loadAllFlow(link)
+# Buildwas_Analysis <- hydroAggregate(Buildwas, rolling_aggregations = c(1,2,3,4,5,6,24, 120), method = 'max')
+# QMEDPlot(Buildwas_Analysis)
+# summary(Buildwas_Analysis)
+# monthplot(Buildwas_Analysis, name = 'Buildwas', polar = FALSE)
+# monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
+# singleSite(Buildwas_Analysis[[5]]$HydrologicalYear, Buildwas_Analysis[[5]]$HydroYear_Max, flows = c(300,500, 980))
 #beepr::beep(sound = 3, expr = NULL)
 
 #UncSS(Buildwas_Analysis[[5]]$Max, func = GEVAM, RP = c(2,4,5,10,25,50, 75, 100, 200))

@@ -77,7 +77,7 @@ print.LKur <- function(x, ...) {
   print.default(x, ...)
 }
 
-LKur(Buildwas)
-LKur(Buildwas_Analysis)
-LKur(GetAMAX(Buildwas))
-LKur(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# LKur(Buildwas)
+# LKur(Buildwas_Analysis)
+# LKur(GetAMAX(Buildwas))
+# LKur(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

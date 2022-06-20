@@ -33,7 +33,7 @@ print.L1 <- function(x, ...) {
   print.default(x, ...)
 }
 
-L1(Buildwas)
-L1(Buildwas_Analysis)
-L1(GetAMAX(Buildwas))
-L1(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+# L1(Buildwas)
+# L1(Buildwas_Analysis)
+# L1(GetAMAX(Buildwas))
+# L1(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

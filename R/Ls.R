@@ -18,7 +18,7 @@ Ls <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   return(x)
 }
 
-Ls(Buildwas)
+# Ls(Buildwas)
 
 
 LComponents.HydroAggsmax <- function(x, ...){
@@ -43,7 +43,7 @@ LComponents <- function(x, ...){
   UseMethod('LComponents', x)
 }
 
-LComponents(Buildwas_Analysis)
+# LComponents(Buildwas_Analysis)
 
 
 # Lmoments <- function(x) {
