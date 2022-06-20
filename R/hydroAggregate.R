@@ -141,7 +141,7 @@ rollingAggs.FlowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24,
     }
 
     cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
-    Rolling_Aggregations[,paste("Roll_",rolling_aggregations[i], "hr", sep = ""):=roller(Rolling_Aggregations$Raw, window, fill = NA)]
+    Rolling_Aggregations[,paste("Roll_",rolling_aggregations[i], "hr", sep = ""):= roller(Rolling_Aggregations$Raw, window, fill = NA)]
   }
   return(Rolling_Aggregations)
 }
@@ -168,7 +168,7 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
   if("Hour" %in% colnames(dt) == FALSE){
     stop("Hour field missing from data.table")
   }
-  dt <-  dt[, Volume := interval*60*60*Value]
+  dt <-  dt[, Volume := interval * 60 * 60 * Value]
   data_list <- list()
   if(interval<1) {
     cat("====================== Calculating hourly aggregations =====================\n")
