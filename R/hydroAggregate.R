@@ -203,7 +203,7 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
 }
 
 # Example
-Buildwas_Analysis <- hydroAggregate(Buildwas, rolling_aggregations = c(1, 2, 3, 4, 5, 6, 24, 120), method = 'max')
+# Buildwas_Analysis <- hydroAggregate(Buildwas, rolling_aggregations = c(1, 2, 3, 4, 5, 6, 24, 120), method = 'max')
 
 # Summary stats
 summary.HydroAggs <- function(x, quantiles = c(0.1, 0.5, 0.7, 0.95), ...) {
