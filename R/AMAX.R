@@ -9,22 +9,22 @@ GetAMAX.numeric <- function(x = flow, Date = date, ...){
   hydroData <- hydroYearDay(Date, hy_cal = hydro_year)
   dt <- data.table(Date, hydroData, x)
   AMAX <- dt[, .(Hydro_year_Max = max(x, na.rm = TRUE)), HydrologicalYear]
-  class(AMAX) <- append(class(AMAX), 'HydroAMAX')
+  class(AMAX) <- append(class(x), 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
 }
 
 # Extract AMAX table from HydroAggsmax object
 GetAMAX.HydroAggsmax <- function(x){
-  AMAX <- x$Hydro_year
+  AMAX <- data.table(Year = x$Hydro_year$HydrologicalYear, AMAX = x$Hydro_year$Hydro_year_Max)
   class(AMAX) <- append(class(AMAX), 'HydroAMAX')
-  colnames(AMAX) <- c('Year', 'AMAX')
+  #colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
 }
 
 # Extract AMAX from data just loaded in via loadAllFlow()
-GetAMAX.FlowLoad <- function(Flows, ...){
-  AMAX <- Flows[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
+GetAMAX.FlowLoad <- function(x, ...){
+  AMAX <- x[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
   class(AMAX) <- append(class(AMAX)[1:2], 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
@@ -41,8 +41,8 @@ zataTable <- function(x, ...) {
   UseMethod('zataTable', x)
 }
 
-GetAMAX.zoo <- function(Flows, ...){
-  AMAX <- zataTable(Flows)
+GetAMAX.zoo <- function(x, ...){
+  AMAX <- zataTable(x)
   if(is(AMAX$Date, 'Date') == FALSE){ # To account for numerous classes
     AMAX$Date <- as.Date(AMAX$Date)
   }

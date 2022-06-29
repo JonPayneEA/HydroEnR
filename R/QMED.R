@@ -33,15 +33,14 @@ print.QMED <- function(x, ...) {
   print.default(x, ...)
 }
 
-
 # QMED(Buildwas)
 # QMED(Buildwas_Analysis)
 
-
-QMEDPlot.HydroAggsmax <- function(x, ...) {
-  QMED_flow<- median(x$Hydro_year$Hydro_year_Max, na.rm = TRUE)
+QMEDPlot <- function(x, ...) {
+  AMAX <- GetAMAX(x)
+  QMED_flow <- QMED(AMAX)
   QMED <- noquote(paste("Estimated QMED:", QMED_flow, "cumecs"))
-  p <- ggplot(x$Hydro_year, aes(x = HydrologicalYear, y = Hydro_year_Max)) +
+  p <- ggplot(AMAX, aes(x = Year, y = AMAX)) +
     geom_line(size = 1.2) +
     xlab('Hydrological Year') +
     ylab(expression(Flow ~ m^3 ~ s^-1)) +
@@ -52,12 +51,5 @@ QMEDPlot.HydroAggsmax <- function(x, ...) {
   print(QMED)
   p
 }
-
-QMEDPlot<- function(x,...) {
-  UseMethod('QMEDPlot', x)
-}
-
-# a <- QMEDPlot(Buildwas_Analysis)
-# a
 
 
