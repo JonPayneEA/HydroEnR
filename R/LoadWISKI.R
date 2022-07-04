@@ -50,8 +50,7 @@ cumSkipNA <- function(x, FUNC){
 a <- loadWISKI(csvfile)
 summary(a$GaugeData)
 
-plot(a$GaugeData$`Value [mm]`, type = 'l')
-
+plot(a$GaugeData$Value, type = 'l')
 
 cumsumRG <- cumSkipNA(a$GaugeData$Value, sum)
 plot(cumsumRG, type = 'l')

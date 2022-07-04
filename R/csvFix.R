@@ -8,7 +8,7 @@ csvFix <- function(file,
                    sep = '|',
                    comment.char = '',
                    rowskip = 0,
-                   expected_row = 5,
+                   expected_col = 5,
                    edit = FALSE
                    ) {
 
@@ -24,7 +24,7 @@ csvFix <- function(file,
 
   # Removes anything after the expected column delim
   tmpframe <- sub(sprintf("^((?:[^,]*,){%d}).*",
-                          expected_row -1), "\\1", z[1:dim(tmpframe)[1],])
+                          expected_col -1), "\\1", tmpframe[1:dim(tmpframe)[1],])
 
   # Open data editor if required by user
   if(edit == TRUE) tmpframe <- edit(tmpframe)
