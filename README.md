@@ -1,10 +1,6 @@
----
-HydroEnR
-================
-Jonathan Payne
-14/06/2022
+# HydroEnR <img src="logo.png" align="right" width="120" />
 
-# Welcome to HydroEnR!
+## Welcome to HydroEnR!
 
 This package is designed for members of Evidence and Risk. It allows you
 to;
@@ -30,16 +26,3 @@ to;
   - Use a greater selection of objective functions during model
     calibration
 
-<!-- end list -->
-
-``` r
-monthplot(Buildwas_Analysis, name = 'Buildwas', polar = FALSE)
-```
-
-![](README_figs/README-unnamed-chunk-3-1.png)<!-- -->
-
-``` r
-monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
-```
-
-![](README_figs/README-unnamed-chunk-4-1.png)<!-- -->
