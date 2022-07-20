@@ -1,11 +1,12 @@
 library(sf)
 library(leaflet)
+library(htmltools)
 
 # Voronoi in leaflet https://stackoverflow.com/questions/55048518/creating-bordering-polygons-from-spatial-point-data-for-plotting-in-leaflet
 
 #Import shapefile
 shape <- st_read("C:/Users/jpayne05/Desktop/Chanters_Brook/FEH_Catchment_368450_404350.shp")
-shape_t <- st_transform(shape, "+init=epsg:4326") # Change projection to WGS 84
+shape_t <- st_transform(shape, "+init=epsg:4326", coords) # Change projection to WGS 84
 
 df_example <- read.csv(textConnection(
   "Name,Lat,Long, Percent
@@ -65,7 +66,7 @@ leaflet(v_poly) %>%
                             "<strong> Coverage: </strong>",
                             round(st_area(v_poly)/sum(st_area(v_poly))*100, 2),
                             '%')) %>%
-  addCircleMarkers(data = stations,
+  addCircleMarkers(data = df,
                    color = "orangered",
                    radius = 6,
                    fillOpacity = 0.8,
@@ -73,4 +74,3 @@ leaflet(v_poly) %>%
   addMarkers(data = df,
              popup = ~htmlEscape(paste(a))) %>%
   setView(-2.482667, 53.55954 , zoom = 13)
-a[[p1]]

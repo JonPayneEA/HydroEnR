@@ -1,0 +1,282 @@
+# rainAggs
+
+# Hourly aggregation
+hourlyAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Hourly <- x[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
+  }
+  if(method  == 'median') {
+    Hourly <- x[, .(Hourly_Median = median(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
+  }
+  if(method  == 'min') {
+    Hourly <- x[, .(Hourly_Min = min(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
+  }
+  if(method  == 'max') {
+    Hourly <- x[, .(Hourly_Max = max(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
+  }
+  if(method  == 'sum') {
+    Hourly <- x[, .(Hourly_Sum = sum(Volume, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
+  }
+  return(Hourly)
+}
+
+hourlyAgg.rainAll <- function(x, method = 'mean', ...){
+  if(method  == 'mean') {
+    Hourly <- x[, lapply(.SD, mean, na.rm = TRUE), .(Hourly = paste(as.Date(DateTime), hour(DateTime)))]
+  }
+  if(method  == 'median') {
+    Hourly <- x[, lapply(.SD, median, na.rm = TRUE), .(Hourly = paste(as.Date(DateTime), hour(DateTime)))]
+  }
+  if(method  == 'min') {
+    Hourly <- x[, lapply(.SD, min, na.rm = TRUE), .(Hourly = paste(as.Date(DateTime), hour(DateTime)))]
+  }
+  if(method  == 'max') {
+    Hourly <- x[, lapply(.SD, max, na.rm = TRUE), .(Hourly = paste(as.Date(DateTime), hour(DateTime)))]
+  }
+  if(method  == 'sum') {
+    Hourly <- x[, lapply(.SD, sum, na.rm = TRUE), .(Hourly = paste(as.Date(DateTime), hour(DateTime)))]
+  }
+  class(Hourly)[3] <- 'rainAllHourly'
+  return(Hourly)
+}
+
+hourlyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('hourlyAgg', x)
+}
+
+# Daily aggregation
+dailyAgg.FlowLoad <- function(x, method = 'mean', ...){
+  if(method  == 'mean') {
+    Daily <- x[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'median') {
+    Daily <- x[, .(Daily_Median = median(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'min') {
+    Daily <- x[, .(Daily_Min = min(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'max') {
+    Daily <- x[, .(Daily_Max = max(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'sum') {
+    Daily <- x[, .(Daily_Sum = sum(Volume, na.rm = TRUE)), Date]
+  }
+  return(Daily)
+}
+
+dailyAgg.rainAll <- function(x, method = 'mean', ...){
+  if(method  == 'mean') {
+    Daily <- x[, lapply(.SD, mean, na.rm = TRUE), .(DateTime = as.Date(DateTime))]
+  }
+  if(method  == 'median') {
+    Daily <- x[, lapply(.SD, median, na.rm = TRUE), .(DateTime = as.Date(DateTime))]
+  }
+  if(method  == 'min') {
+    Daily <- x[, lapply(.SD, min, na.rm = TRUE), .(DateTime = as.Date(DateTime))]
+  }
+  if(method  == 'max') {
+    Daily <- x[, lapply(.SD, max, na.rm = TRUE), .(DateTime = as.Date(DateTime))]
+  }
+  if(method  == 'sum') {
+    Daily <- x[, lapply(.SD, sum, na.rm = TRUE), .(DateTime = as.Date(DateTime))]
+  }
+  class(Daily)[3] <- 'rainAllDaily' 
+  return(Daily)
+}
+
+
+dailyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('dailyAgg', x)
+}
+
+# Monthly aggregation
+monthlyAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Monthly <- x[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'median') {
+    Monthly <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'min') {
+    Monthly <- x[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'max') {
+    Monthly <- x[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'sum') {
+    Monthly <- x[, .(Monthly_Sum = sum(Volume, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  return(Monthly)
+}
+
+monthlyAgg.rainAll <- function(x, method = 'mean', ...){
+  if(method  == 'mean') {
+    Monthly <- x[, lapply(.SD, mean, na.rm = TRUE), .(Year_Month = paste(year(DateTime), month(DateTime)))]
+  }
+  if(method  == 'median') {
+    Monthly <- x[, lapply(.SD, median, na.rm = TRUE), .(Year_Month = paste(year(DateTime), month(DateTime)))]
+  }
+  if(method  == 'min') {
+    Monthly <- x[, lapply(.SD, min, na.rm = TRUE), .(Year_Month = paste(year(DateTime), month(DateTime)))]
+  }
+  if(method  == 'max') {
+    Monthly <- x[, lapply(.SD, max, na.rm = TRUE), .(Year_Month = paste(year(DateTime), month(DateTime)))]
+  }
+  if(method  == 'sum') {
+    Monthly <- x[, lapply(.SD, sum, na.rm = TRUE), .(Year_Month = paste(year(DateTime), month(DateTime)))]
+  }
+  class(Monthly)[3] <- 'rainAllMonthly' 
+  return(Monthly)
+}
+
+monthlyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('monthlyAgg', x)
+}
+
+# Annual aggregation
+annualAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Annual <- x[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'median') {
+    Annual <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'min') {
+    Annual <- x[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'max') {
+    Annual <- x[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'sum') {
+    Annual <- x[, .(Annual_Sum = sum(Volume, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  return(Annual)
+}
+
+annualAgg.rainAll <- function(x, method = 'mean', ...){
+  if(method  == 'mean') {
+    Annual <- x[, lapply(.SD, mean, na.rm = TRUE), .(Calendar_Year = year(DateTime))]
+  }
+  if(method  == 'median') {
+    Annual <- x[, lapply(.SD, median, na.rm = TRUE), .(Calendar_Year = year(DateTime))]
+  }
+  if(method  == 'min') {
+    Annual <- x[, lapply(.SD, min, na.rm = TRUE), .(Calendar_Year = year(DateTime))]
+  }
+  if(method  == 'max') {
+    Annual <- x[, lapply(.SD, max, na.rm = TRUE), .(Calendar_Year = year(DateTime))]
+  }
+  if(method  == 'sum') {
+    Annual <- x[, lapply(.SD, sum, na.rm = TRUE), .(Calendar_Year = year(DateTime))]
+  }
+  class(Annual)[3] <- 'rainAllYear' 
+  return(Annual)
+}
+
+annualAgg <- function(x, method = 'mean', ...) {
+  UseMethod('annualAgg', x)
+}
+
+# Hydrological year aggregation
+hydroYearAgg.FlowLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'median') {
+    Hydro_year <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'min') {
+    Hydro_year <- x[, .(Hydro_year_Min = min(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'max') {
+    Hydro_year <- x[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'sum') {
+    Hydro_year <- x[, .(Hydro_year_Sum = sum(Volume, na.rm = TRUE)), HydrologicalYear]
+  }
+  return(Hydro_year)
+}
+hydroYearAgg <- function(x, method = 'mean', ...) {
+  UseMethod('hydroYearAgg', x)
+}
+
+# Rolling Aggregations
+rollingAggs.FlowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
+  roller <- get(paste0("roll_", method))
+  agg <- length(rolling_aggregations)
+  if(method == 'sum'){
+    Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Volume)
+  } else {
+    Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Value)
+  }
+  for(i in seq_along(rolling_aggregations)){
+    window <- rolling_aggregations[i]/interval
+    if(rolling_aggregations[i] %% interval > 0){
+      cat("Using a rolling aggregation of ", rolling_aggregations[i], "is not divisible by 0.25, skipping for next accumulation\n")
+      Rolling_Aggregations[, paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "") := rep(NA, length(Rolling_Aggregations$DateTime))]
+      next
+    } else {
+      window <- rolling_aggregations[i]/interval
+    }
+    
+    cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
+    Rolling_Aggregations[,paste("Roll_",rolling_aggregations[i], "hr", sep = ""):= roller(Rolling_Aggregations$Raw, window, fill = NA)]
+  }
+  return(Rolling_Aggregations)
+}
+rollingAggs <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean') {
+  UseMethod('rollingAggs', dt)
+}
+
+hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), method = 'mean') {
+  if(missingArg(dt)){
+    stop("Data missing. Please supply data to run this function")
+  }
+  if(class(Buildwas)[1] != "data.table"){
+    stop("Please supply data as a data.table. Try loading data into R using loadAllFlow() to get correct format for analysis.")
+  }
+  if("Value" %in% colnames(dt) == FALSE){
+    stop("Values (flow) field missing from data.table")
+  }
+  if("DateTime" %in% colnames(dt) == FALSE){
+    stop("DateTime field missing from data.table")
+  }
+  if("Date" %in% colnames(dt) == FALSE){
+    stop("Date field missing from data.table")
+  }
+  if("Hour" %in% colnames(dt) == FALSE){
+    stop("Hour field missing from data.table")
+  }
+  dt <-  dt[, Volume := interval * 60 * 60 * Value]
+  data_list <- list()
+  if(interval<1) {
+    cat("====================== Calculating hourly aggregations =====================\n")
+    Hourly <- hourlyAgg(dt, method = method)
+  } else {
+    Hourly <- NA
+  }
+  data_list[['Hourly']] <- Hourly
+  
+  cat("====================== Calculating daily aggregations ======================\n")
+  Daily <- dailyAgg(dt, method = method)
+  data_list[['Daily']] <- Daily
+  
+  cat("====================== Calculating monthly aggregations ====================\n")
+  Monthly <- monthlyAgg(dt, method = method)
+  data_list[['Monthly']] <- Monthly
+  
+  cat("====================== Calculating annual aggregations =====================\n")
+  Annual <- annualAgg(dt, method = method)
+  data_list[['Annual']] <- Annual
+  
+  cat("====================== Calculating Hydro Year aggregations =================\n")
+  Hydro_year <- hydroYearAgg(dt, method = method)
+  data_list[['Hydro_year']] <- Hydro_year
+  
+  if(length(rolling_aggregations) > 0){
+    Rolling_Aggregations <- rollingAggs(dt, interval = interval, rolling_aggregations = rolling_aggregations, method = method)
+  }
+  data_list[['Rolling_Aggregations']] <- Rolling_Aggregations
+  class(data_list) <- append(class(data_list)[1:2], c(paste('HydroAggs', method, sep = ''), 'HydroAggs'))
+  return(data_list)
+}

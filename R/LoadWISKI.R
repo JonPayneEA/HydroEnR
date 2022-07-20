@@ -38,14 +38,14 @@ loadWISKI <- function(link, skip = 0, meta_rows = 15){
   data[['GaugeData']] <- dt
   return(data)
 }
-cumSkipNA <- function(x, FUNC){
-  d <- deparse(substitute(FUNC))
-  funs <- c("max", "min", "prod", "sum")
-  stopifnot(is.vector(x), is.numeric(x), d %in% funs)
-  FUNC <- match.fun(paste0("cum", d))
-  x[!is.na(x)] <- FUNC(x[!is.na(x)])
-  x
-}
+# cumSkipNA <- function(x, FUNC){
+#   d <- deparse(substitute(FUNC))
+#   funs <- c("max", "min", "prod", "sum")
+#   stopifnot(is.vector(x), is.numeric(x), d %in% funs)
+#   FUNC <- match.fun(paste0("cum", d))
+#   x[!is.na(x)] <- FUNC(x[!is.na(x)])
+#   x
+# }
 
 a <- loadWISKI(csvfile)
 summary(a$GaugeData)
