@@ -1,4 +1,4 @@
-window.rainAllDaily <- function(x, start = NULL, end = NULL){
+window.rainAll <- function(x, start = NULL, end = NULL){
   if(is.null(start)) {
     first <- 1
   } else {
@@ -29,7 +29,7 @@ window.rainAllDaily <- function(x, start = NULL, end = NULL){
 }
 
 window <- function(x, start, end){
-  useMethod('window', x)
+  UseMethod('window', x)
 }
 
 z <- cumsumNA.rainAll(window.rainALL(rain, start = '2005-06-12 23:00:00'))
