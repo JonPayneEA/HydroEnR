@@ -32,12 +32,3 @@ window <- function(x, start, end){
   UseMethod('window', x)
 }
 
-z <- cumsumNA.rainAll(window.rainALL(rain, start = '2005-06-12 23:00:00'))
-
-daily_cumsum <- cumsumNA.rainAll(window.rainAllDaily(zzz, start = '2005-06-12'))
-
-
-
-window(zzz, start = '2005-06-12')
-
-class(zzz)

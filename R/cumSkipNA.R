@@ -63,12 +63,3 @@ cumsumNA <- function(x, ...) {
   UseMethod('cumsumNA', x)
 }
 
-
-
-
-
-
-tail(cumsumNA.numeric(corby$GaugeData$Value))
-a <- cumsumNA.rainAll(rain)
-b <- cumsumNA(zzz)
-b

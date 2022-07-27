@@ -54,16 +54,16 @@ plotQA <- function(x, ...){
   UseMethod('plotQA', x)
 }
 
-# Example
-plotQA(b)
-
-rain %>%
-  window.rainAll(start = '2021-06-16 18:00', end = '2021-06-20 00:00') %>%
-  # cumsumNA.rainAll() %>%
-  plotQA()
-
-plotQA(zzz)
-plotQA(cumsumNA.rainAll(window.rainAllDaily(zzz, start = '2005-06-12')))
-
-plotQA(window(zzz, start = '2005-06-12'))
+# # Example
+# plotQA(b)
+#
+# rain %>%
+#   window.rainAll(start = '2021-06-16 18:00', end = '2021-06-20 00:00') %>%
+#   # cumsumNA.rainAll() %>%
+#   plotQA()
+#
+# plotQA(zzz)
+# plotQA(cumsumNA.rainAll(window.rainAllDaily(zzz, start = '2005-06-12')))
+#
+# plotQA(window(zzz, start = '2005-06-12'))
 

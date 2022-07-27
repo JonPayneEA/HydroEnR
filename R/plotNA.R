@@ -16,5 +16,5 @@ plotNA.rainAll <- function(x){
   return(p)
 }
 
-plotNA.rainAll(rain)
+# plotNA.rainAll(rain)
 

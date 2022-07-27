@@ -49,5 +49,5 @@ csvFix <- function(file,
               col.names = FALSE)
 }
 
-csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
+# csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
 

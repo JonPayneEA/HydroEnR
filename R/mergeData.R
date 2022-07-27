@@ -25,4 +25,4 @@ mergeData <- function(...){
   return(full_dt)
 }
 
-rain <- mergeData(corby, brigstock, yelden, oundle, wellingborough, kingscliffe)
+# rain <- mergeData(corby, brigstock, yelden, oundle, wellingborough, kingscliffe)
