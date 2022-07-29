@@ -1,3 +1,27 @@
+#' @title LCV moment
+#'
+#' @description Calculates the LCV moment from AMAX data. Can also convert time
+#' series data imported via HydroEnR into LCV moments.
+#'
+#' @param x AMAX or flow time series
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' LCV(Buildwas)
+#' LCV(Buildwas_Analysis)
+#' LCV(Buildwas_Analysis) %>% Urb(0.3)
+#' LCV(Buildwas_Analysis) %>% urb(0.3)
+#' LCV(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+#' LCV(getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))
+LCV <- function(x, ...) {
+  UseMethod('LCV', x)
+}
+
+#' @rdname LCV
+#' @export
 LCV.numeric <- function(x) {
   Sort_x <- sort(x)
   ln <- length(x)
@@ -13,6 +37,8 @@ LCV.numeric <- function(x) {
   return(LCV)
 }
 
+#' @rdname LCV
+#' @export
 LCV.HydroAggsmax <- function(x){
   x <- x$Hydro_year$Hydro_year_Max
   Sort_x <- sort(x)
@@ -29,6 +55,8 @@ LCV.HydroAggsmax <- function(x){
   return(LCV)
 }
 
+#' @rdname LCV
+#' @export
 LCV.HydroAMAX <- function(x){
   x <- x$AMAX
   Sort_x <- sort(x)
@@ -45,9 +73,10 @@ LCV.HydroAMAX <- function(x){
   return(LCV)
 }
 
-
-LCV.FlowLoad <- function(x){
-  x <- GetAMAX(x)
+#' @rdname LCV
+#' @export
+LCV.flowLoad <- function(x){
+  x <- getAMAX(x)
   x <- x$AMAX
   Sort_x <- sort(x)
   ln <- length(x)
@@ -63,12 +92,10 @@ LCV.FlowLoad <- function(x){
   return(LCV)
 }
 
-LCV <- function(x,...) {
-  UseMethod('LCV', x)
-}
-
-# Fixing the print of Lcv class data
+#' @rdname LCV
+#' @export
 print.Lcv <- function(x, ...) {
+  # Fixing the print of Lcv class data
   attr(x, "class") <- NULL
   print.default(x, ...)
 }

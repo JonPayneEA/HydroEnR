@@ -1,3 +1,15 @@
+#' @title Merge WISKI datasets
+#'
+#' @description Merges multiple time series data sets into a single data.table.
+#' Pads shorter time serries with NAs
+#'
+#' @param ... Multiple flowLoad, rainLoad, and /or stageLoad class data.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' rain <- mergeData(corby, brigstock, yelden, oundle, wellingborough, kingscliffe)
 mergeData <- function(...){
   # Compile list of data tables
   dtlst <- list(...)
@@ -24,5 +36,3 @@ mergeData <- function(...){
   class(full_dt) <- append(class(full_dt), 'rainAll')
   return(full_dt)
 }
-
-# rain <- mergeData(corby, brigstock, yelden, oundle, wellingborough, kingscliffe)

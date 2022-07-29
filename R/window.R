@@ -1,3 +1,30 @@
+#' @description window is a generic function which extracts the subset of the
+#' object x observed between the times start and end. If a frequency is specified, the
+#' series is then re-sampled at the new frequency.
+#'
+#' @description Currently this is only valid with merged rainfall data tables.
+#'
+#' @description Future updates will include application to other data sets
+#'
+#' @title Time (Series) Windows
+#'
+#' @param x a data table or other input table
+#' @param start Start date and time. If NULL it will default to the start of the
+#' series.
+#' @param end End date and time. If NULL it will default to the end of the
+#' series
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' window(rain, start = '1988-06-12 23:30')
+window <- function(x, start, end){
+  UseMethod('window', x)
+}
+
+#' @rdname window
+#' @export
 window.rainAll <- function(x, start = NULL, end = NULL){
   if(is.null(start)) {
     first <- 1
@@ -13,6 +40,8 @@ window.rainAll <- function(x, start = NULL, end = NULL){
   return(dt)
 }
 
+#' @rdname window
+#' @export
 window.rainAllDaily <- function(x, start = NULL, end = NULL){
   if(is.null(start)) {
     first <- 1
@@ -28,7 +57,4 @@ window.rainAllDaily <- function(x, start = NULL, end = NULL){
   return(dt)
 }
 
-window <- function(x, start, end){
-  UseMethod('window', x)
-}
 

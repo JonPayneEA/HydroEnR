@@ -20,8 +20,8 @@ summary(Buildwas_Analysis)
 
 
 # Get AMAX using different methods wrapped into one function
-GetAMAX(Buildwas_Analysis)
-GetAMAX(Buildwas)
+getAMAX(Buildwas_Analysis)
+getAMAX(Buildwas)
 
 # Plot QMED
 QMEDPlot(Buildwas)

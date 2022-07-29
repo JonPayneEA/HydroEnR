@@ -1,10 +1,26 @@
-# Data preprocess
-# Adapted from https://gist.github.com/noamross/4114258
-# Constrains an irregular csv columns to those of a user specified value
-# Fixes uncommented tags from H&T with additional commas
-
+#' @title csvFix
+#'
+#' @description Data preprocessing for WISKI files, Constrains an irregular csv
+#' columns to those of a user specified value. This negates the issue where
+#' commented data have commas included.
+#'
+#' @description Adapted from https://gist.github.com/noamross/4114258
+#'
+#' @param file File link
+#' @param new.name Set as TRUE, you will require to give fixed file a new name
+#' @param sep Delimiter used in file
+#' @param comment.char Include if comments are differentiated
+#' @param rowskip Set as 0, but can offset where the function starts
+#' @param expected_col Constrains the csv to a certain number of columns
+#' @param edit If you wish to manually change file contents set as TRUE
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
 csvFix <- function(file,
-                   new.name=TRUE,
+                   new.name = TRUE,
                    sep = '|',
                    comment.char = '',
                    rowskip = 0,
@@ -49,5 +65,4 @@ csvFix <- function(file,
               col.names = FALSE)
 }
 
-# csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
 

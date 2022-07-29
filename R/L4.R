@@ -1,3 +1,25 @@
+#' @title L4 moment
+#'
+#' @description Calculates the L4 moment from AMAX data. Can also convert time
+#' series data imported via HydroEnR into L4 moments.
+#'
+#' @param x AMAX or flow time series
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' L4(Buildwas)
+#' L4(Buildwas_Analysis)
+#' L4(getAMAX(Buildwas))
+#' L4(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+L4 <- function(x, ...) {
+  UseMethod('L4', x)
+}
+
+#' @rdname L4
+#' @export
 L4.numeric <- function(x, ...) {
   camp <- sort(x)
   n <- length(camp)
@@ -15,6 +37,8 @@ L4.numeric <- function(x, ...) {
   return(L4)
 }
 
+#' @rdname L4
+#' @export
 L4.HydroAggsmax <- function(x, ...){
   camp <- sort(x$Hydro_year$Hydro_year_Max)
   n <- length(camp)
@@ -32,6 +56,8 @@ L4.HydroAggsmax <- function(x, ...){
   return(L4)
 }
 
+#' @rdname L4
+#' @export
 L4.HydroAMAX <- function(x, ...){
   camp <- sort(x$AMAX)
   n <- length(camp)
@@ -49,8 +75,10 @@ L4.HydroAMAX <- function(x, ...){
   return(L4)
 }
 
-L4.FlowLoad <- function(x, ...){
-  x <- GetAMAX(x)
+#' @rdname L4
+#' @export
+L4.fowLoad <- function(x, ...){
+  x <- getAMAX(x)
   camp <- sort(x$AMAX)
   n <- length(camp)
   nn <- rep(n-1,n)
@@ -67,17 +95,10 @@ L4.FlowLoad <- function(x, ...){
   return(L4)
 }
 
-L4 <- function(x, ...) {
-  UseMethod('L4', x)
-}
-
-# Fixing the print of Lcv class data
+#' @rdname L4
+#' @export
 print.L4 <- function(x, ...) {
+  # Fixing the print of L4 class data
   attr(x, "class") <- NULL
   print.default(x, ...)
 }
-
-# L4(Buildwas)
-# L4(Buildwas_Analysis)
-# L4(GetAMAX(Buildwas))
-# L4(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

@@ -1,5 +1,25 @@
 # NA aggregate plots - done by year
 
+
+#' @title plotNA
+#'
+#' @description Shows a proportions of missing data for each year.
+#'
+#' @description Further updates will include flow and stage data.
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' plotNA(rain)
+#'
+plotNA <- function(x){
+  UseMethod('plotNA', x)
+}
+#' @rdname plotNA
+#' @export
 plotNA.rainAll <- function(x){
   cols <- dim(a)[2]
   a1 <- x[ , lapply(.SD,FUN = function(x) sum(!is.na(x))), by = year(DateTime)]

@@ -23,7 +23,7 @@ monthPlot.HydroAggs <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, m
   return(p)
 }
 
-monthPlot.FlowLoad <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, method = 'max', ...) {
+monthPlot.flowLoad <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, method = 'max', ...) {
   dt1 <- monthlyAgg(x, method = method)
   dt1$Year_Month <- gsub(' ', '-', dt1$Year_Month)
   dt1$Year_Month <- as.Date(paste(dt1$Year_Month,'-01',sep=''))

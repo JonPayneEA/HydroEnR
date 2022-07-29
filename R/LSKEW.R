@@ -50,8 +50,8 @@ LSKEW.HydroAMAX <- function(x){
   return(LSKEW)
 }
 
-LSKEW.FlowLoad <- function(x){
-  x <- GetAMAX(x)
+LSKEW.flowLoad <- function(x){
+  x <- getAMAX(x)
   x <- x$AMAX
   Sort_x <- sort(x)
   ln <- length(x)

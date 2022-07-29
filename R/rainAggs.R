@@ -1,7 +1,7 @@
 # rainAggs
 
 # Hourly aggregation
-hourlyAgg.FlowLoad <- function(x, method = mean, ...){
+hourlyAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Hourly <- x[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
   }
@@ -45,7 +45,7 @@ hourlyAgg <- function(x, method = 'mean', ...) {
 }
 
 # Daily aggregation
-dailyAgg.FlowLoad <- function(x, method = 'mean', ...){
+dailyAgg.flowLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Daily <- x[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
   }
@@ -80,7 +80,7 @@ dailyAgg.rainAll <- function(x, method = 'mean', ...){
   if(method  == 'sum') {
     Daily <- x[, lapply(.SD, sum, na.rm = TRUE), .(DateTime = as.Date(DateTime))]
   }
-  class(Daily)[3] <- 'rainAllDaily' 
+  class(Daily)[3] <- 'rainAllDaily'
   return(Daily)
 }
 
@@ -90,7 +90,7 @@ dailyAgg <- function(x, method = 'mean', ...) {
 }
 
 # Monthly aggregation
-monthlyAgg.FlowLoad <- function(x, method = mean, ...){
+monthlyAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Monthly <- x[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
@@ -125,7 +125,7 @@ monthlyAgg.rainAll <- function(x, method = 'mean', ...){
   if(method  == 'sum') {
     Monthly <- x[, lapply(.SD, sum, na.rm = TRUE), .(Year_Month = paste(year(DateTime), month(DateTime)))]
   }
-  class(Monthly)[3] <- 'rainAllMonthly' 
+  class(Monthly)[3] <- 'rainAllMonthly'
   return(Monthly)
 }
 
@@ -134,7 +134,7 @@ monthlyAgg <- function(x, method = 'mean', ...) {
 }
 
 # Annual aggregation
-annualAgg.FlowLoad <- function(x, method = mean, ...){
+annualAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Annual <- x[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
@@ -169,7 +169,7 @@ annualAgg.rainAll <- function(x, method = 'mean', ...){
   if(method  == 'sum') {
     Annual <- x[, lapply(.SD, sum, na.rm = TRUE), .(Calendar_Year = year(DateTime))]
   }
-  class(Annual)[3] <- 'rainAllYear' 
+  class(Annual)[3] <- 'rainAllYear'
   return(Annual)
 }
 
@@ -178,7 +178,7 @@ annualAgg <- function(x, method = 'mean', ...) {
 }
 
 # Hydrological year aggregation
-hydroYearAgg.FlowLoad <- function(x, method = mean, ...){
+hydroYearAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
   }
@@ -201,7 +201,7 @@ hydroYearAgg <- function(x, method = 'mean', ...) {
 }
 
 # Rolling Aggregations
-rollingAggs.FlowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
+rollingAggs.flowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
   if(method == 'sum'){
@@ -218,7 +218,7 @@ rollingAggs.FlowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24,
     } else {
       window <- rolling_aggregations[i]/interval
     }
-    
+
     cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
     Rolling_Aggregations[,paste("Roll_",rolling_aggregations[i], "hr", sep = ""):= roller(Rolling_Aggregations$Raw, window, fill = NA)]
   }
@@ -256,23 +256,23 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
     Hourly <- NA
   }
   data_list[['Hourly']] <- Hourly
-  
+
   cat("====================== Calculating daily aggregations ======================\n")
   Daily <- dailyAgg(dt, method = method)
   data_list[['Daily']] <- Daily
-  
+
   cat("====================== Calculating monthly aggregations ====================\n")
   Monthly <- monthlyAgg(dt, method = method)
   data_list[['Monthly']] <- Monthly
-  
+
   cat("====================== Calculating annual aggregations =====================\n")
   Annual <- annualAgg(dt, method = method)
   data_list[['Annual']] <- Annual
-  
+
   cat("====================== Calculating Hydro Year aggregations =================\n")
   Hydro_year <- hydroYearAgg(dt, method = method)
   data_list[['Hydro_year']] <- Hydro_year
-  
+
   if(length(rolling_aggregations) > 0){
     Rolling_Aggregations <- rollingAggs(dt, interval = interval, rolling_aggregations = rolling_aggregations, method = method)
   }

@@ -1,3 +1,25 @@
+#' @title LKur moment
+#'
+#' @description Calculates the LKur moment from AMAX data. Can also convert time
+#' series data imported via HydroEnR into LKur moments.
+#'
+#' @param x AMAX or flow time series
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' LKur(Buildwas)
+#' LKur(Buildwas_Analysis)
+#' LKur(getAMAX(Buildwas))
+#' LKur(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+LKur <- function(x, ...) {
+  UseMethod('LKur', x)
+}
+
+#' @rdname LKur
+#' @export
 LKur.numeric <- function(x, ...) {
   camp <- sort(x)
   n <- length(camp)
@@ -15,6 +37,8 @@ LKur.numeric <- function(x, ...) {
   return(lkur)
 }
 
+#' @rdname LKur
+#' @export
 LKur.HydroAggsmax <- function(x, ...){
   camp <- sort(x$Hydro_year$Hydro_year_Max)
   n <- length(camp)
@@ -32,6 +56,8 @@ LKur.HydroAggsmax <- function(x, ...){
   return(lkur)
 }
 
+#' @rdname LKur
+#' @export
 LKur.HydroAMAX <- function(x, ...){
   camp <- sort(x$AMAX)
   n <- length(camp)
@@ -49,8 +75,10 @@ LKur.HydroAMAX <- function(x, ...){
   return(lkur)
 }
 
-LKur.FlowLoad <- function(x, ...){
-  x <- GetAMAX(x)
+#' @rdname LKur
+#' @export
+LKur.flowLoad <- function(x, ...){
+  x <- getAMAX(x)
   camp <- sort(x$AMAX)
   n <- length(camp)
   nn <- rep(n-1,n)
@@ -67,17 +95,10 @@ LKur.FlowLoad <- function(x, ...){
   return(lkur)
 }
 
-LKur <- function(x, ...) {
-  UseMethod('LKur', x)
-}
-
-# Fixing the print of Lcv class data
+#' @rdname LKur
+#' @export
 print.LKur <- function(x, ...) {
+  # Fixing the print of Lcv class data
   attr(x, "class") <- NULL
   print.default(x, ...)
 }
-
-# LKur(Buildwas)
-# LKur(Buildwas_Analysis)
-# LKur(GetAMAX(Buildwas))
-# LKur(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

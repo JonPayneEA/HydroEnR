@@ -7,7 +7,7 @@
 # When max is selected AMAX plot is produced
 
 # Hourly aggregation
-hourlyAgg.FlowLoad <- function(x, method = mean, ...){
+hourlyAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Hourly <- x[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
   }
@@ -30,7 +30,7 @@ hourlyAgg <- function(x, method = 'mean', ...) {
 }
 
 # Daily aggregation
-dailyAgg.FlowLoad <- function(x, method = mean, ...){
+dailyAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Daily <- x[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
   }
@@ -53,7 +53,7 @@ dailyAgg <- function(x, method = 'mean', ...) {
 }
 
 # Monthly aggregation
-monthlyAgg.FlowLoad <- function(x, method = mean, ...){
+monthlyAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Monthly <- x[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
@@ -76,7 +76,7 @@ monthlyAgg <- function(x, method = 'mean', ...) {
 }
 
 # Annual aggregation
-annualAgg.FlowLoad <- function(x, method = mean, ...){
+annualAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Annual <- x[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
@@ -99,7 +99,7 @@ annualAgg <- function(x, method = 'mean', ...) {
 }
 
 # Hydrological year aggregation
-hydroYearAgg.FlowLoad <- function(x, method = mean, ...){
+hydroYearAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
   }
@@ -122,7 +122,7 @@ hydroYearAgg <- function(x, method = 'mean', ...) {
 }
 
 # Rolling Aggregations
-rollingAggs.FlowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
+rollingAggs.flowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
   if(method == 'sum'){

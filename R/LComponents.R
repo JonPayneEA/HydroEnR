@@ -1,3 +1,25 @@
+#' @title L components
+#'
+#' @description Calculates the components of the L moment calculations from AMAX data. Can also convert time
+#' series data imported via HydroEnR into LKur moments.
+#'
+#' @param x AMAX or flow time series
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' LComponents(Buildwas)
+#' LComponents(Buildwas_Analysis)
+#' LComponents(getAMAX(Buildwas))
+#' LComponents(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+LComponents <- function(x, ...) {
+  UseMethod('LComponents', x)
+}
+
+#' @rdname LComponents
+#' @export
 LComponents.numeric <- function(x, ...) {
   camp <- sort(x)
   n <- length(camp)
@@ -15,6 +37,8 @@ LComponents.numeric <- function(x, ...) {
   return(cs)
 }
 
+#' @rdname LComponents
+#' @export
 LComponents.HydroAggsmax <- function(x, ...){
   x <- x$Hydro_year$Hydro_year_Max
   camp <- sort(x)
@@ -33,6 +57,8 @@ LComponents.HydroAggsmax <- function(x, ...){
   return(cs)
 }
 
+#' @rdname LComponents
+#' @export
 LComponents.HydroAMAX <- function(x, ...){
   x <- mean(x$AMAX, na.rm = TRUE)
   camp <- sort(x$AMAX)
@@ -51,8 +77,10 @@ LComponents.HydroAMAX <- function(x, ...){
   return(cs)
 }
 
-LComponents.FlowLoad <- function(x, ...){
-  x <- GetAMAX(x)
+#' @rdname LComponents
+#' @export
+LComponents.flowLoad <- function(x, ...){
+  x <- getAMAX(x)
   ccamp <- sort(x$AMAX)
   n <- length(camp)
   nn <- rep(n-1,n)
@@ -69,17 +97,10 @@ LComponents.FlowLoad <- function(x, ...){
   return(cs)
 }
 
-LComponents <- function(x, ...) {
-  UseMethod('LComponents', x)
-}
-
-# Fixing the print of Lcv class data
+#' @rdname LComponents
+#' @export
 print.LComponents <- function(x, ...) {
+  # Fixing the print of Lcv class data
   attr(x, "class") <- NULL
   print.default(x, ...)
 }
-
-# LComponents(Buildwas)
-# LComponents(Buildwas_Analysis)
-# LComponents(GetAMAX(Buildwas))
-# LComponents(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

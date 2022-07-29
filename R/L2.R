@@ -1,3 +1,25 @@
+#' @title L2 moment
+#'
+#' @description Calculates the L2 moment from AMAX data. Can also convert time
+#' series data imported via HydroEnR into L2 moments.
+#'
+#' @param x AMAX or flow time series
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' L2(Buildwas)
+#' L2(Buildwas_Analysis)
+#' L2(getAMAX(Buildwas))
+#' L2(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+L2 <- function(x, ...) {
+  UseMethod('L2', x)
+}
+
+#' @rdname L2
+#' @export
 L2.numeric <- function(x, ...) {
   camp <- sort(x)
   n <- length(camp)
@@ -11,6 +33,8 @@ L2.numeric <- function(x, ...) {
   return(l2)
 }
 
+#' @rdname L2
+#' @export
 L2.HydroAggsmax <- function(x, ...){
   camp <- sort(x$Hydro_year$Hydro_year_Max)
   n <- length(camp)
@@ -24,6 +48,8 @@ L2.HydroAggsmax <- function(x, ...){
   return(l2)
 }
 
+#' @rdname L2
+#' @export
 L2.HydroAMAX <- function(x, ...){
   camp <- sort(x$AMAX)
   n <- length(camp)
@@ -37,8 +63,10 @@ L2.HydroAMAX <- function(x, ...){
   return(l2)
 }
 
-L2.FlowLoad <- function(x, ...){
-  x <- GetAMAX(x)
+#' @rdname L2
+#' @export
+L2.flowLoad <- function(x, ...){
+  x <- getAMAX(x)
   camp <- sort(x$AMAX)
   n <- length(camp)
   nn <- rep(n-1,n)
@@ -51,17 +79,11 @@ L2.FlowLoad <- function(x, ...){
   return(l2)
 }
 
-L2 <- function(x, ...) {
-  UseMethod('L2', x)
-}
-
-# Fixing the print of Lcv class data
+#' @rdname L2
+#' @export
+# Fixing the print of L2 class data
 print.L2 <- function(x, ...) {
   attr(x, "class") <- NULL
   print.default(x, ...)
 }
 
-# L2(Buildwas)
-# L2(Buildwas_Analysis)
-# L2(GetAMAX(Buildwas))
-# L2(Buildwas_Analysis$Hydro_year$Hydro_year_Max)

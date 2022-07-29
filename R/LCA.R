@@ -1,3 +1,25 @@
+#' @title LCA moment
+#'
+#' @description Calculates the LCA moment from AMAX data. Can also convert time
+#' series data imported via HydroEnR into LCA moments.
+#'
+#' @param x AMAX or flow time series
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' LCA(Buildwas)
+#' LCA(Buildwas_Analysis)
+#' LCA(getAMAX(Buildwas))
+#' LCA(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+LCA <- function(x, ...) {
+  UseMethod('LCA', x)
+}
+
+#' @rdname LCA
+#' @export
 LCA.numeric <- function(x, ...) {
   camp <- sort(x)
   n <- length(camp)
@@ -13,6 +35,8 @@ LCA.numeric <- function(x, ...) {
   return(lca)
 }
 
+#' @rdname LCA
+#' @export
 LCA.HydroAggsmax <- function(x, ...){
   camp <- sort(x$Hydro_year$Hydro_year_Max)
   n <- length(camp)
@@ -28,6 +52,8 @@ LCA.HydroAggsmax <- function(x, ...){
   return(lca)
 }
 
+#' @rdname LCA
+#' @export
 LCA.HydroAMAX <- function(x, ...){
   camp <- sort(x$AMAX)
   n <- length(camp)
@@ -43,8 +69,10 @@ LCA.HydroAMAX <- function(x, ...){
   return(lca)
 }
 
-LCA.FlowLoad <- function(x, ...){
-  x <- GetAMAX(x)
+#' @rdname LCA
+#' @export
+LCA.flowLoad <- function(x, ...){
+  x <- getAMAX(x)
   camp <- sort(x$AMAX)
   n <- length(camp)
   nn <- rep(n-1,n)
@@ -59,17 +87,10 @@ LCA.FlowLoad <- function(x, ...){
   return(lca)
 }
 
-LCA <- function(x, ...) {
-  UseMethod('LCA', x)
-}
-
-# Fixing the print of Lcv class data
+#' @rdname LCA
+#' @export
 print.LCA <- function(x, ...) {
+  # Fixing the print of LCA class data
   attr(x, "class") <- NULL
   print.default(x, ...)
 }
-
-# LCA(Buildwas)
-# LCA(Buildwas_Analysis)
-# LCA(GetAMAX(Buildwas))
-# LCA(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
