@@ -1,4 +1,3 @@
-
 library(dygraphs)
 #' @title plotQA
 #'

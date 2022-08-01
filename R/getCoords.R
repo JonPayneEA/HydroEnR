@@ -1,8 +1,18 @@
 library(sf)
 library(s2)
 
-# Extract GGIS data from Metadata
-
+#' @title getCoords
+#'
+#' @description This extracts the site name, Latitude, and Longitude data from the imported
+#' WISKI metadata associated with each file. Outputs are a shapefile of class SF.
+#'
+#' @param ... The files you wish to include
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' getCoords(oundle, yelden, corby)
 getCoords <- function(...){
   lst <- list(...)
   coordsLst <- list()
@@ -21,12 +31,17 @@ getCoords <- function(...){
   return(sf)
 }
 
-# s <- getCoords(oundle, yelden, corby)
-# s
-
-# Make voronoi polygonn
-
-
+#' @title teeSun
+#'
+#' @description Creates a Thiessen/Voronoi polygon shapefile.
+#'
+#' @param x SF file with point data within.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' teeSun(s)
 teeSun <- function(x){
   if('sf' %in% class(x)){
     voronoi <- st_union(x)
@@ -37,11 +52,3 @@ teeSun <- function(x){
   stop('This function only works with data of class type "sf"')
 }
 
-# z <- teeSun(s)
-#
-# voronoi <- st_union(s)
-# voronoi <- st_voronoi(s)
-# voronoi <- st_collection_extract(voronoi)
-#
-# class(voronoi)
-# class(s)

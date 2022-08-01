@@ -1,5 +1,26 @@
-# LSkew
+#' @title L-Skew moment
+#'
+#' @description Calculates the L-Skew moment from AMAX data. Can also convert time
+#' series data imported via HydroEnR into L-Skew moments.
+#'
+#' @param x AMAX or flow time series
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' LSKEW(Buildwas)
+#' LSKEW(Buildwas_Analysis)
+#' Urb(LSKEW(Buildwas_Analysis), 0.3)
+#' LSKEW(Buildwas_Analysis$Hydro_year$HydroYear_Max) %>% Urb(0.3)
+#' LSKEW(GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))
+LSKEW <- function(x,...) {
+  UseMethod('LSKEW', x)
+}
 
+#' @rdname LSKEW
+#' @export
 LSKEW.numeric <- function(x){
   Sort_x <- sort(x)
   ln <- length(x)
@@ -16,6 +37,8 @@ LSKEW.numeric <- function(x){
   return(LSKEW)
 }
 
+#' @rdname LSKEW
+#' @export
 LSKEW.HydroAggsmax <- function(x){
   x <- x$Hydro_year$Hydro_year_Max
   Sort_x <- sort(x)
@@ -33,6 +56,8 @@ LSKEW.HydroAggsmax <- function(x){
   return(LSKEW)
 }
 
+#' @rdname LSKEW
+#' @export
 LSKEW.HydroAMAX <- function(x){
   x <- x$AMAX
   Sort_x <- sort(x)
@@ -50,6 +75,8 @@ LSKEW.HydroAMAX <- function(x){
   return(LSKEW)
 }
 
+#' @rdname LSKEW
+#' @export
 LSKEW.flowLoad <- function(x){
   x <- getAMAX(x)
   x <- x$AMAX
@@ -68,18 +95,10 @@ LSKEW.flowLoad <- function(x){
   return(LSKEW)
 }
 
-LSKEW <- function(x,...) {
-  UseMethod('LSKEW', x)
-}
-
-# Fixing the print of LSkew class data
+#' @rdname LSKEW
+#' @export
 print.LSkew <- function(x, ...) {
+  # Fixing the print of LSkew class data
   attr(x, "class") <- NULL
   print.default(x, ...)
 }
-
-# LSKEW(Buildwas)
-# LSKEW(Buildwas_Analysis)
-# Urb(LSKEW(Buildwas_Analysis), 0.3)
-# LSKEW(Buildwas_Analysis$Hydro_year$HydroYear_Max) %>% Urb(0.3)
-# LSKEW(GetAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))

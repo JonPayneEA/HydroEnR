@@ -14,7 +14,7 @@ mergeData(...)
 }
 \description{
 Merges multiple time series data sets into a single data.table.
-Pads shorter time serries with NAs
+Pads shorter time series with NAs.
 }
 \examples{
 rain <- mergeData(corby, brigstock, yelden, oundle, wellingborough, kingscliffe)

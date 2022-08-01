@@ -46,7 +46,7 @@ getAMAX.HydroAggsmax <- function(x){
 #' @rdname getAMAX
 #' @export
 getAMAX.flowLoad <- function(x, ...){
-  AMAX <- x[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
+  AMAX <- x$GaugeData[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
   class(AMAX) <- append(class(AMAX)[1:2], 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)

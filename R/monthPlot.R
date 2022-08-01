@@ -1,3 +1,29 @@
+#' @title monthPlot
+#'
+#' @description Creates a plot of monthly flows using the aggregations in the
+#' hydroAggs function.
+#'
+#' @param x Data set
+#' @param name Gauge used
+#' @param polar Set to FALSE, if TRUE plot will be circular
+#' @param method Set as 'max' change to type of aggregation used
+#' @param snip Used to determine where to cut time series using headTail function
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' monthplot(Buildwas_Analysis, method = 'sum', name = 'Buildwas', polar = FALSE)
+#' monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
+#' monthPlot(Buildwas)
+
+monthPlot <- function(x, name, polar, method, snip, ...) {
+  UseMethod('monthPlot', x)
+}
+
+#' @rdname monthPlot
+#' @export
 monthPlot.HydroAggs <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, method = 'max', ...) {
   dt1 <- x$Monthly
   dt1$Year_Month <- gsub(' ', '-', dt1$Year_Month)
@@ -23,6 +49,8 @@ monthPlot.HydroAggs <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, m
   return(p)
 }
 
+#' @rdname monthPlot
+#' @export
 monthPlot.flowLoad <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, method = 'max', ...) {
   dt1 <- monthlyAgg(x, method = method)
   dt1$Year_Month <- gsub(' ', '-', dt1$Year_Month)
@@ -48,11 +76,3 @@ monthPlot.flowLoad <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, me
   return(p)
 }
 
-monthPlot <- function(x,...) {
-  UseMethod('monthPlot', x)
-}
-
-# Examples
-# monthplot(Buildwas_Analysis, method = 'sum', name = 'Buildwas', polar = FALSE)
-# monthplot(Buildwas_Analysis, name = 'Buildwas', polar = TRUE)
-# monthPlot(Buildwas)

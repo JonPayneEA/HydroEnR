@@ -1,18 +1,68 @@
 library(data.table)
 #data.table::update.dev.pkg()
 
-#csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all'
-csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv' # Alternate
-loadWISKI <- function(link, skip = 0, meta_rows = 15, hydro_year = 'oct_us_gb'){
+
+#' @title loadWISKI
+#'
+#' @description Load data downloaded from WISKI, in the EA csv, format. Metadata
+#' are preserved. Loaded data are in the form of a list, called either flowLoad,
+#' rainLoad, or stageLoad. Data are in two parts MetaData and GaugeData.
+#'
+#' @param link Link to the specified file forr import
+#' @param skip Stet to zero, denotes the number off rrows you wish to skip
+#' @param meta_rows Set to 15, deterrmines the amount of rrows set as metadata
+#' @param hydro_year Set to 'oct_us_gb' (USA and UK), but can also be 'sep_br'
+#' (Brazil),'apr_cl' (Chille).
+#' @param cols Set to NULL, but can be set as a vector of column names. Note
+#' the first 2 must be 'DateTime' and 'Value'
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
+#' a <- loadWISKI(csvfile)
+loadWISKI <- function(link,
+                      skip = 0,
+                      meta_rows = 15,
+                      hydro_year = 'oct_us_gb',
+                      cols = NULL
+                      ){
   cat('Importing meta data\n')
   rdata<- fread(link,
                 nrows = meta_rows,
                 skip = skip,
-                sep= '\t',
-                header=FALSE,
-                col.names= c('Parameter', 'Data'),
-                na.strings= c('---', 'NA')
+                sep = '\t',
+                header = FALSE,
+                col.names = c('Parameter', 'Data'),
+                na.strings = c('---', 'NA')
   )
+  col_row <- fread(link,
+               nrows = 1,
+               skip = 15,
+               sep = ',',
+               header = FALSE,
+               na.strings = c('---', 'NA')
+  )
+  if(length(col_row) == 5)
+    col_names <- c('DateTime', 'Value', 'ValueState', 'Tags', 'Remarks')
+  if(length(col_row) == 7)
+    col_names <- c('DateTime', 'Value', 'ValueState', 'Runoff', 'RunoffQuality',
+                   'Tags', 'Remarks')
+  if(!is.null(cols)){
+    col_names <- cols
+    if(length(cols) != length()){
+      stop('The number of column names does not match the columnn number of the data table')
+    }
+    if(cols[1] != 'DateTime'){
+      cols[1] <- 'DateTime'
+      message('The first column has to be called "DateTime", this has been corerced')
+    }
+    if(cols[1] != 'Value'){
+      cols[1] <- 'Value'
+      message('The first column has to be called "Value", this has been corerced')
+    }
+  }
   if(rdata[9,2]=='Precipitation'){
     cat('Importing precipitation data\n')
     dt <- fread(link,
@@ -20,8 +70,10 @@ loadWISKI <- function(link, skip = 0, meta_rows = 15, hydro_year = 'oct_us_gb'){
                 sep= ',',
                 header=TRUE,
                 na.strings= c('---', 'NA'),
-                col.names = c('DateTime', 'Value', 'ValueState', 'Tags', 'Remarks'),
-                fill = TRUE
+                col.names = col_names,
+                fill = TRUE,
+                showProgress = TRUE,
+                verbose = TRUE
                 )
     cat('Removing blank elements at top\n')
     first_data <- min(which(dt$Value != "NA")) # Locates the first non NA value in the Values field
@@ -41,8 +93,10 @@ loadWISKI <- function(link, skip = 0, meta_rows = 15, hydro_year = 'oct_us_gb'){
                 sep= ',',
                 header=TRUE,
                 na.strings= c('---', 'NA'),
-                col.names = c('DateTime', 'Value', 'ValueState', 'Tags', 'Remarks'),
-                fill = TRUE
+                col.names = col_names,
+                fill = TRUE,
+                showProgress = TRUE,
+                verbose = TRUE
     )
     cat('Removing blank elements at top\n')
     first_data <- min(which(dt$Value != "NA")) # Locates the first non NA value in the Values field
@@ -62,8 +116,10 @@ loadWISKI <- function(link, skip = 0, meta_rows = 15, hydro_year = 'oct_us_gb'){
                 sep= ',',
                 header=TRUE,
                 na.strings= c('---', 'NA'),
-                col.names = c('DateTime', 'Value', 'ValueState', 'Tags', 'Remarks'),
-                fill = TRUE
+                col.names = col_names,
+                fill = TRUE,
+                showProgress = TRUE,
+                verbose = TRUE
     )
     cat('Removing blank elements at top\n')
     first_data <- min(which(dt$Value != "NA")) # Locates the first non NA value in the Values field
@@ -99,6 +155,7 @@ loadWISKI <- function(link, skip = 0, meta_rows = 15, hydro_year = 'oct_us_gb'){
 #   x
 # }
 
+# csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
 # a <- loadWISKI(csvfile)
 # summary(a$GaugeData)
 #

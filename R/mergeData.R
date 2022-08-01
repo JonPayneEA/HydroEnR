@@ -1,7 +1,7 @@
 #' @title Merge WISKI datasets
 #'
 #' @description Merges multiple time series data sets into a single data.table.
-#' Pads shorter time serries with NAs
+#' Pads shorter time series with NAs.
 #'
 #' @param ... Multiple flowLoad, rainLoad, and /or stageLoad class data.
 #'

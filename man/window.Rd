@@ -25,7 +25,7 @@ series}
 
 }
 \description{
-window is a generic function which extracts the subset of the
+Window is a generic function which extracts the subset of the
 object x observed between the times start and end. If a frequency is specified, the
 series is then re-sampled at the new frequency.
 

@@ -3,7 +3,7 @@
 # First 16 rows are skipped
 # The WISKI format for missing data '---' are converted to NAs
 # Datatimes are converted to POSIXct format and split into sepereate datae, time and hour columns
-# Claculates hydrological year and day
+# Caculates hydrological year and day
 # Exports data as optimised data.table format
 
 loadAllFlow <- function(file, hydro_year = 'oct_us_gb'){
