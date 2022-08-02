@@ -14,7 +14,11 @@ library(ggplot2)
 #' data <- rnrfa::get_ts(id = 2001, type = 'amax-flow') %>% getAMAX()
 #' plotQMED(data)
 plotQMED <- function(x, ...) {
-  AMAX <- getAMAX(x)
+  if('HydroAMAX' %in% class(x)==FALSE) {
+    AMAX <- getAMAX(x)
+  } else {
+    AMAX <- x
+  }
   QMED_flow <- QMED(AMAX)
   QMED <- noquote(paste("Estimated QMED:", QMED_flow, "cumecs"))
   p <- ggplot2::ggplot(AMAX, aes(x = Year, y = AMAX)) +
