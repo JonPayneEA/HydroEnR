@@ -9,7 +9,7 @@ plotQMED(x, ...)
 \arguments{
 \item{x}{A series of flow data loaded into the environment via HydroEnR}
 
-\item{...}{Additional parameters}
+\item{...}{Additional parameters as required}
 }
 \value{
 
@@ -19,5 +19,6 @@ Calculates and generates a plot of the QMED estimate relative
 to the AMAX series.
 }
 \examples{
-plotQMED(buildwas)
+data <- rnrfa::get_ts(id = 2001, type = 'amax-flow') \%>\% getAMAX()
+plotQMED(data)
 }

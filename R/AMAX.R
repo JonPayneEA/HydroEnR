@@ -59,10 +59,11 @@ getAMAX.zoo <- function(x, ...){
   if(is(AMAX$Date, 'Date') == FALSE){ # To account for numerous classes
     AMAX$Date <- as.Date(AMAX$Date)
   }
-  AMAX$Date <- hydroYearDay(AMAX$Date, hy_cal = 'oct_us_gb')[1]
+  AMAX$Date <- HydroYearDay(AMAX$Date, hy_cal = 'oct_us_gb')[1]
   class(AMAX) <- append(class(AMAX), 'HydroAMAX')
   colnames(AMAX) <- c('Year', 'AMAX')
-  AMAX <- AMAX[, .(AMAX = max(AMAX, na.rm = TRUE)), Year]
+  AMAX <- AMAX[, (AMAX = max(AMAX, na.rm = TRUE)), Year]
+  colnames(AMAX) <- c('Year', 'AMAX')
   return(AMAX)
 }
 

@@ -19,16 +19,19 @@ hourlyAgg(x, method = "mean", ...)
 \method{hourlyAgg}{rainAll}(x, method = "mean", ...)
 }
 \arguments{
-\item{x}{Data generrated in the HydroEnR package}
+\item{x}{Data generated in the HydroEnR package}
 
 \item{method}{'mean', 'median', 'max', 'min', or 'sum'}
 
-\item{...}{Other variables as rrequirred}
+\item{...}{Other variables as required}
 }
 \value{
 
 }
 \description{
-Aggregates sub hourly time series into a daily resolution,
-aggregations are carried out to the calendar day not a rolling 24hrs.
+Aggregates sub hourly time series into an hourly resolution,
+aggregations are carried out to the calendar day not a rolling time period.
+}
+\examples{
+hourlyAgg(Buildwas)
 }

@@ -2,17 +2,18 @@
 
 #' @title hourlyAgg
 #'
-#' @description Aggregates sub hourly time series into a daily resolution,
-#' aggregations are carried out to the calendar day not a rolling 24hrs.
+#' @description Aggregates sub hourly time series into an hourly resolution,
+#' aggregations are carried out to the calendar day not a rolling time period.
 #'
-#' @param x Data generrated in the HydroEnR package
+#' @param x Data generated in the HydroEnR package
 #' @param method 'mean', 'median', 'max', 'min', or 'sum'
-#' @param ... Other variables as rrequirred
+#' @param ... Other variables as required
 #'
 #' @return
 #' @export
 #'
 #' @examples
+#' hourlyAgg(Buildwas)
 hourlyAgg <- function(x, method = 'mean', ...) {
   UseMethod('hourlyAgg', x)
 }
@@ -102,7 +103,26 @@ hourlyAgg.rainAll <- function(x, method = 'mean', ...){
   return(Hourly)
 }
 
-# Daily aggregation
+#' @title dailyAgg
+#'
+#' @description Aggregates sub daily time series into a daily resolution,
+#' aggregations are carried out to the calendar day not a rolling time period.
+#'
+#' @param x Data generated in the HydroEnR package
+#' @param method 'mean', 'median', 'max', 'min', or 'sum'
+#' @param ... Other variables as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' dailyAgg(Buildwas)
+dailyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('dailyAgg', x)
+}
+
+#' @rdname dailyAgg
+#' @export
 dailyAgg.flowLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Daily <- x$GaugeData[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
@@ -122,6 +142,8 @@ dailyAgg.flowLoad <- function(x, method = 'mean', ...){
   return(Daily)
 }
 
+#' @rdname dailyAgg
+#' @export
 dailyAgg.rainLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Daily <- x$GaugeData[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
@@ -141,6 +163,8 @@ dailyAgg.rainLoad <- function(x, method = 'mean', ...){
   return(Daily)
 }
 
+#' @rdname dailyAgg
+#' @export
 dailyAgg.stageLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Daily <- x$GaugeData[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
@@ -160,6 +184,8 @@ dailyAgg.stageLoad <- function(x, method = 'mean', ...){
   return(Daily)
 }
 
+#' @rdname dailyAgg
+#' @export
 dailyAgg.rainAll <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Daily <- x[, lapply(.SD, mean, na.rm = TRUE), .(DateTime = as.Date(DateTime))]
@@ -180,12 +206,26 @@ dailyAgg.rainAll <- function(x, method = 'mean', ...){
   return(Daily)
 }
 
-
-dailyAgg <- function(x, method = 'mean', ...) {
-  UseMethod('dailyAgg', x)
+#' @title monthlyAgg
+#'
+#' @description Aggregates sub monthly time series into a monthly resolution,
+#' aggregations are carried out to the calendar day not a rolling time period.
+#'
+#' @param x Data generated in the HydroEnR package
+#' @param method 'mean', 'median', 'max', 'min', or 'sum'
+#' @param ... Other variables as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' monthlyAgg(Buildwas)
+monthlyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('monthlyAgg', x)
 }
 
-# Monthly aggregation
+#' @rdname monthlyAgg
+#' @export
 monthlyAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Monthly <- x$GaugeData[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
@@ -205,6 +245,8 @@ monthlyAgg.flowLoad <- function(x, method = mean, ...){
   return(Monthly)
 }
 
+#' @rdname monthlyAgg
+#' @export
 monthlyAgg.rainLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Monthly <- x$GaugeData[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
@@ -224,6 +266,8 @@ monthlyAgg.rainLoad <- function(x, method = mean, ...){
   return(Monthly)
 }
 
+#' @rdname monthlyAgg
+#' @export
 monthlyAgg.stageLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Monthly <- x$GaugeData[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
@@ -243,6 +287,8 @@ monthlyAgg.stageLoad <- function(x, method = mean, ...){
   return(Monthly)
 }
 
+#' @rdname monthlyAgg
+#' @export
 monthlyAgg.rainAll <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Monthly <- x[, lapply(.SD, mean, na.rm = TRUE), .(Year_Month = paste(year(DateTime), month(DateTime)))]
@@ -263,11 +309,27 @@ monthlyAgg.rainAll <- function(x, method = 'mean', ...){
   return(Monthly)
 }
 
-monthlyAgg <- function(x, method = 'mean', ...) {
-  UseMethod('monthlyAgg', x)
+
+#' @title annualAgg
+#'
+#' @description Aggregates sub annual time series into an annual resolution,
+#' aggregations are carried out to the calendar day not a rolling time period.
+#'
+#' @param x Data generated in the HydroEnR package
+#' @param method 'mean', 'median', 'max', 'min', or 'sum'
+#' @param ... Other variables as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' annualAgg(Buildwas)
+annualAgg <- function(x, method = 'mean', ...) {
+  UseMethod('annualAgg', x)
 }
 
-# Annual aggregation
+#' @rdname annualAgg
+#' @export
 annualAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Annual <- x$GaugeData[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
@@ -287,6 +349,8 @@ annualAgg.flowLoad <- function(x, method = mean, ...){
   return(Annual)
 }
 
+#' @rdname annualAgg
+#' @export
 annualAgg.rainLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Annual <- x$GaugeData[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
@@ -306,6 +370,8 @@ annualAgg.rainLoad <- function(x, method = mean, ...){
   return(Annual)
 }
 
+#' @rdname annualAgg
+#' @export
 annualAgg.stageLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Annual <- x$GaugeData[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
@@ -325,6 +391,8 @@ annualAgg.stageLoad <- function(x, method = mean, ...){
   return(Annual)
 }
 
+#' @rdname annualAgg
+#' @export
 annualAgg.rainAll <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Annual <- x[, lapply(.SD, mean, na.rm = TRUE), .(Calendar_Year = year(DateTime))]
@@ -345,11 +413,26 @@ annualAgg.rainAll <- function(x, method = 'mean', ...){
   return(Annual)
 }
 
-annualAgg <- function(x, method = 'mean', ...) {
-  UseMethod('annualAgg', x)
+#' @title hydroYearAgg
+#'
+#' @description Aggregates sub annual time series into a hydrological year resolution,
+#' aggregations are carried out to the calendar day not a rolling time period.
+#'
+#' @param x Data generated in the HydroEnR package
+#' @param method 'mean', 'median', 'max', 'min', or 'sum'
+#' @param ... Other variables as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' hydroYearAgg(Buildwas)
+hydroYearAgg <- function(x, method = 'mean', ...) {
+  UseMethod('hydroYearAgg', x)
 }
 
-# Hydrological year aggregation
+#' @rdname hydroYearAgg
+#' @export
 hydroYearAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
@@ -369,6 +452,8 @@ hydroYearAgg.flowLoad <- function(x, method = mean, ...){
   return(Hydro_year)
 }
 
+#' @rdname hydroYearAgg
+#' @export
 hydroYearAgg.rainLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
@@ -388,6 +473,8 @@ hydroYearAgg.rainLoad <- function(x, method = mean, ...){
   return(Hydro_year)
 }
 
+#' @rdname hydroYearAgg
+#' @export
 hydroYearAgg.stageLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
     Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
@@ -407,11 +494,28 @@ hydroYearAgg.stageLoad <- function(x, method = mean, ...){
   return(Hydro_year)
 }
 
-hydroYearAgg <- function(x, method = 'mean', ...) {
-  UseMethod('hydroYearAgg', x)
+
+
+#' @title rollingAggs
+#'
+#' @description Provides a rolling aggregation of a user defined periods.
+#'
+#' @param dt flowLoad, rainLoad, or stageLoad data
+#' @param rolling_aggregations User defined periods of aggregation
+#' @param interval Set as 0.25 to represent 15 minute data, forr hourly change to 1 etc.
+#' @param method 'min', 'max', 'mean', 'median', and 'sum' options available
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' rollingAggs(Buildwas)
+rollingAggs <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean') {
+  UseMethod('rollingAggs', dt)
 }
 
-# Rolling Aggregations
+#' @rdname rollingAggs
+#' @export
 rollingAggs.flowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
@@ -436,6 +540,8 @@ rollingAggs.flowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24,
   return(Rolling_Aggregations)
 }
 
+#' @rdname rollingAggs
+#' @export
 rollingAggs.rainLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
@@ -460,6 +566,8 @@ rollingAggs.rainLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24,
   return(Rolling_Aggregations)
 }
 
+#' @rdname rollingAggs
+#' @export
 rollingAggs.stageLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
@@ -484,9 +592,7 @@ rollingAggs.stageLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24
   return(Rolling_Aggregations)
 }
 
-rollingAggs <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean') {
-  UseMethod('rollingAggs', dt)
-}
+
 
 hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), method = 'mean') {
   if(missingArg(dt)){
