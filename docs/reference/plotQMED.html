@@ -56,7 +56,7 @@ to the AMAX series.</p>
 
 
 <dt>...</dt>
-<dd><p>Additional parameters</p></dd>
+<dd><p>Additional parameters as required</p></dd>
 
 </dl></div>
     <div id="value">
@@ -69,8 +69,9 @@ to the AMAX series.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dimnames(X) &lt;- list(rownames.value, unlist(collabs, use.names = FALSE)):</span> length of 'dimnames' [2] not equal to array extent</span>
 <span class="r-in"><span class="fu">plotQMED</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in UseMethod("getAMAX", x):</span> no applicable method for 'getAMAX' applied to an object of class "c('data.table', 'data.frame', 'HydroAMAX')"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in UseMethod("getAMAX", x):</span> no applicable method for 'getAMAX' applied to an object of class "function"</span>
 </code></pre></div>
     </div>
   </div>

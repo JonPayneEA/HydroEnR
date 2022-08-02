@@ -1,7 +1,18 @@
-# hydroYearDay
-# Calculates the hydrological year and day
-# Needs conversion to C++
-
+#' @title HydroYearDay
+#'
+#' @description Creates fields for hydrological year and hydrological day.
+#'
+#' @description Speed is slow, needs conversion to C++ in future iterrations.
+#'
+#' @param d Array of dates of class Date
+#' @param hy_cal Set to 'oct_us_gb' (USA and UK), but can also be 'sep_br'
+#' (Brazil),'apr_cl' (Chille).
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' HydroYearrDay(Buildwas$GaugeData$DateTime, hy_cal = 'oct_us_gb')
 HydroYearDay<-function(d,hy_cal){
 
   # note: this function includes get_hydro_year and should be used instead

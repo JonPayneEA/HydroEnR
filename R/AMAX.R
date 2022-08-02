@@ -55,7 +55,9 @@ getAMAX.flowLoad <- function(x, ...){
 #' @rdname getAMAX
 #' @export
 getAMAX.zoo <- function(x, ...){
-  AMAX <- zataTable(x)
+  if('HydroAMAX' %in% class(s)==FALSE) {
+    AMAX <- zataTable(x)
+  }
   if(is(AMAX$Date, 'Date') == FALSE){ # To account for numerous classes
     AMAX$Date <- as.Date(AMAX$Date)
   }
