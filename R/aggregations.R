@@ -1,6 +1,24 @@
-# rainAggs
+# Aggregation Functions
 
-# Hourly aggregation
+#' @title hourlyAgg
+#'
+#' @description Aggregates sub hourly time series into a daily resolution,
+#' aggregations are carried out to the calendar day not a rolling 24hrs.
+#'
+#' @param x Data generrated in the HydroEnR package
+#' @param method 'mean', 'median', 'max', 'min', or 'sum'
+#' @param ... Other variables as rrequirred
+#'
+#' @return
+#' @export
+#'
+#' @examples
+hourlyAgg <- function(x, method = 'mean', ...) {
+  UseMethod('hourlyAgg', x)
+}
+
+#' @rdname hourlyAgg
+#' @export
 hourlyAgg.flowLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Hourly <- x$GaugeData[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
@@ -20,6 +38,8 @@ hourlyAgg.flowLoad <- function(x, method = 'mean', ...){
   return(Hourly)
 }
 
+#' @rdname hourlyAgg
+#' @export
 hourlyAgg.stageLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Hourly <- x$GaugeData[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
@@ -39,6 +59,8 @@ hourlyAgg.stageLoad <- function(x, method = 'mean', ...){
   return(Hourly)
 }
 
+#' @rdname hourlyAgg
+#' @export
 hourlyAgg.rainLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Hourly <- x$GaugeData[, .(Hourly_Mean = mean(Value, na.rm = TRUE)), .(Hourly = paste(Date, Hour))]
@@ -58,6 +80,8 @@ hourlyAgg.rainLoad <- function(x, method = 'mean', ...){
   return(Hourly)
 }
 
+#' @rdname hourlyAgg
+#' @export
 hourlyAgg.rainAll <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
     Hourly <- x[, lapply(.SD, mean, na.rm = TRUE), .(Hourly = paste(as.Date(DateTime), hour(DateTime)))]
@@ -78,26 +102,60 @@ hourlyAgg.rainAll <- function(x, method = 'mean', ...){
   return(Hourly)
 }
 
-hourlyAgg <- function(x, method = 'mean', ...) {
-  UseMethod('hourlyAgg', x)
-}
-
 # Daily aggregation
 dailyAgg.flowLoad <- function(x, method = 'mean', ...){
   if(method  == 'mean') {
-    Daily <- x[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
+    Daily <- x$GaugeData[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
   }
   if(method  == 'median') {
-    Daily <- x[, .(Daily_Median = median(Value, na.rm = TRUE)), Date]
+    Daily <- x$GaugeData[, .(Daily_Median = median(Value, na.rm = TRUE)), Date]
   }
   if(method  == 'min') {
-    Daily <- x[, .(Daily_Min = min(Value, na.rm = TRUE)), Date]
+    Daily <- x$GaugeData[, .(Daily_Min = min(Value, na.rm = TRUE)), Date]
   }
   if(method  == 'max') {
-    Daily <- x[, .(Daily_Max = max(Value, na.rm = TRUE)), Date]
+    Daily <- x$GaugeData[, .(Daily_Max = max(Value, na.rm = TRUE)), Date]
   }
   if(method  == 'sum') {
-    Daily <- x[, .(Daily_Sum = sum(Volume, na.rm = TRUE)), Date]
+    Daily <- x$GaugeData[, .(Daily_Sum = sum(Volume, na.rm = TRUE)), Date]
+  }
+  return(Daily)
+}
+
+dailyAgg.rainLoad <- function(x, method = 'mean', ...){
+  if(method  == 'mean') {
+    Daily <- x$GaugeData[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'median') {
+    Daily <- x$GaugeData[, .(Daily_Median = median(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'min') {
+    Daily <- x$GaugeData[, .(Daily_Min = min(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'max') {
+    Daily <- x$GaugeData[, .(Daily_Max = max(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'sum') {
+    Daily <- x$GaugeData[, .(Daily_Sum = sum(Volume, na.rm = TRUE)), Date]
+  }
+  return(Daily)
+}
+
+dailyAgg.stageLoad <- function(x, method = 'mean', ...){
+  if(method  == 'mean') {
+    Daily <- x$GaugeData[, .(Daily_Mean = mean(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'median') {
+    Daily <- x$GaugeData[, .(Daily_Median = median(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'min') {
+    Daily <- x$GaugeData[, .(Daily_Min = min(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'max') {
+    Daily <- x$GaugeData[, .(Daily_Max = max(Value, na.rm = TRUE)), Date]
+  }
+  if(method  == 'sum') {
+    print('Stage data are not suitable for sumation')
   }
   return(Daily)
 }
@@ -130,19 +188,57 @@ dailyAgg <- function(x, method = 'mean', ...) {
 # Monthly aggregation
 monthlyAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
-    Monthly <- x[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+    Monthly <- x$GaugeData[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
   if(method  == 'median') {
-    Monthly <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+    Monthly <- x$GaugeData[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
   if(method  == 'min') {
-    Monthly <- x[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+    Monthly <- x$GaugeData[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
   if(method  == 'max') {
-    Monthly <- x[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+    Monthly <- x$GaugeData[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
   }
   if(method  == 'sum') {
-    Monthly <- x[, .(Monthly_Sum = sum(Volume, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+    Monthly <- x$GaugeData[, .(Monthly_Sum = sum(Volume, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  return(Monthly)
+}
+
+monthlyAgg.rainLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Monthly <- x$GaugeData[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'median') {
+    Monthly <- x$GaugeData[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'min') {
+    Monthly <- x$GaugeData[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'max') {
+    Monthly <- x$GaugeData[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'sum') {
+    Monthly <- x$GaugeData[, .(Monthly_Sum = sum(Volume, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  return(Monthly)
+}
+
+monthlyAgg.stageLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Monthly <- x$GaugeData[, .(Monthly_Mean = mean(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'median') {
+    Monthly <- x$GaugeData[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'min') {
+    Monthly <- x$GaugeData[, .(Monthly_Min = min(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'max') {
+    Monthly <- x$GaugeData[, .(Monthly_Max = max(Value, na.rm = TRUE)), .(Year_Month = paste(year(Date), month(Date)))]
+  }
+  if(method  == 'sum') {
+    print('Stage data are not suitable for sumation')
   }
   return(Monthly)
 }
@@ -174,19 +270,57 @@ monthlyAgg <- function(x, method = 'mean', ...) {
 # Annual aggregation
 annualAgg.flowLoad <- function(x, method = mean, ...){
   if(method  == 'mean') {
-    Annual <- x[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x$GaugeData[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   if(method  == 'median') {
-    Annual <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x$GaugeData[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   if(method  == 'min') {
-    Annual <- x[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x$GaugeData[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   if(method  == 'max') {
-    Annual <- x[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x$GaugeData[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
   }
   if(method  == 'sum') {
-    Annual <- x[, .(Annual_Sum = sum(Volume, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+    Annual <- x$GaugeData[, .(Annual_Sum = sum(Volume, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  return(Annual)
+}
+
+annualAgg.rainLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Annual <- x$GaugeData[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'median') {
+    Annual <- x$GaugeData[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'min') {
+    Annual <- x$GaugeData[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'max') {
+    Annual <- x$GaugeData[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'sum') {
+    Annual <- x$GaugeData[, .(Annual_Sum = sum(Volume, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  return(Annual)
+}
+
+annualAgg.stageLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Annual <- x$GaugeData[, .(Annual_Mean = mean(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'median') {
+    Annual <- x$GaugeData[, .(Monthly_Median = median(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'min') {
+    Annual <- x$GaugeData[, .(Annual_Min = min(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'max') {
+    Annual <- x$GaugeData[, .(Annual_Max = max(Value, na.rm = TRUE)), .(Calendar_Year = year(Date))]
+  }
+  if(method  == 'sum') {
+    print('Stage data are not suitable for sumation')
   }
   return(Annual)
 }
@@ -234,6 +368,45 @@ hydroYearAgg.flowLoad <- function(x, method = mean, ...){
   }
   return(Hydro_year)
 }
+
+hydroYearAgg.rainLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'median') {
+    Hydro_year <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'min') {
+    Hydro_year <- x[, .(Hydro_year_Min = min(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'max') {
+    Hydro_year <- x[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'sum') {
+    Hydro_year <- x[, .(Hydro_year_Sum = sum(Volume, na.rm = TRUE)), HydrologicalYear]
+  }
+  return(Hydro_year)
+}
+
+hydroYearAgg.stageLoad <- function(x, method = mean, ...){
+  if(method  == 'mean') {
+    Hydro_year <- x[, .(Hydro_year_Mean = mean(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'median') {
+    Hydro_year <- x[, .(Monthly_Median = median(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'min') {
+    Hydro_year <- x[, .(Hydro_year_Min = min(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'max') {
+    Hydro_year <- x[, .(Hydro_year_Max = max(Value, na.rm = TRUE)), HydrologicalYear]
+  }
+  if(method  == 'sum') {
+    print('Stage data are not suitable for sumation')
+  }
+  return(Hydro_year)
+}
+
 hydroYearAgg <- function(x, method = 'mean', ...) {
   UseMethod('hydroYearAgg', x)
 }
@@ -262,6 +435,55 @@ rollingAggs.flowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24,
   }
   return(Rolling_Aggregations)
 }
+
+rollingAggs.rainLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
+  roller <- get(paste0("roll_", method))
+  agg <- length(rolling_aggregations)
+  if(method == 'sum'){
+    Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Volume)
+  } else {
+    Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Value)
+  }
+  for(i in seq_along(rolling_aggregations)){
+    window <- rolling_aggregations[i]/interval
+    if(rolling_aggregations[i] %% interval > 0){
+      cat("Using a rolling aggregation of ", rolling_aggregations[i], "is not divisible by 0.25, skipping for next accumulation\n")
+      Rolling_Aggregations[, paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "") := rep(NA, length(Rolling_Aggregations$DateTime))]
+      next
+    } else {
+      window <- rolling_aggregations[i]/interval
+    }
+
+    cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
+    Rolling_Aggregations[,paste("Roll_",rolling_aggregations[i], "hr", sep = ""):= roller(Rolling_Aggregations$Raw, window, fill = NA)]
+  }
+  return(Rolling_Aggregations)
+}
+
+rollingAggs.stageLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean'){
+  roller <- get(paste0("roll_", method))
+  agg <- length(rolling_aggregations)
+  if(method == 'sum'){
+    stop('Stage data are not suitable for sumation')
+  } else {
+    Rolling_Aggregations <- data.table(DateTime = dt$DateTime, Raw = dt$Value)
+  }
+  for(i in seq_along(rolling_aggregations)){
+    window <- rolling_aggregations[i]/interval
+    if(rolling_aggregations[i] %% interval > 0){
+      cat("Using a rolling aggregation of ", rolling_aggregations[i], "is not divisible by 0.25, skipping for next accumulation\n")
+      Rolling_Aggregations[, paste("Roll_",rolling_aggregations[i], "hr_", method, sep = "") := rep(NA, length(Rolling_Aggregations$DateTime))]
+      next
+    } else {
+      window <- rolling_aggregations[i]/interval
+    }
+
+    cat(paste("====================== Rolling ",method," of ", rolling_aggregations[i], " hours ===========================\n"))
+    Rolling_Aggregations[,paste("Roll_",rolling_aggregations[i], "hr", sep = ""):= roller(Rolling_Aggregations$Raw, window, fill = NA)]
+  }
+  return(Rolling_Aggregations)
+}
+
 rollingAggs <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24, 120), interval = 0.25, method = 'mean') {
   UseMethod('rollingAggs', dt)
 }

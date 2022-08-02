@@ -13,11 +13,11 @@ loadWISKI(
 )
 }
 \arguments{
-\item{link}{Link to the specified file forr import}
+\item{link}{Link to the specified file for import}
 
-\item{skip}{Stet to zero, denotes the number off rrows you wish to skip}
+\item{skip}{Stet to zero, denotes the number off rows you wish to skip}
 
-\item{meta_rows}{Set to 15, deterrmines the amount of rrows set as metadata}
+\item{meta_rows}{Set to 15, determines the amount of rows set as metadata}
 
 \item{hydro_year}{Set to 'oct_us_gb' (USA and UK), but can also be 'sep_br'
 (Brazil),'apr_cl' (Chille).}

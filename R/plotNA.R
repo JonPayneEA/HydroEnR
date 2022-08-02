@@ -18,6 +18,7 @@
 plotNA <- function(x){
   UseMethod('plotNA', x)
 }
+
 #' @rdname plotNA
 #' @export
 plotNA.rainAll <- function(x){

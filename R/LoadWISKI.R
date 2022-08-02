@@ -8,9 +8,9 @@ library(data.table)
 #' are preserved. Loaded data are in the form of a list, called either flowLoad,
 #' rainLoad, or stageLoad. Data are in two parts MetaData and GaugeData.
 #'
-#' @param link Link to the specified file forr import
-#' @param skip Stet to zero, denotes the number off rrows you wish to skip
-#' @param meta_rows Set to 15, deterrmines the amount of rrows set as metadata
+#' @param link Link to the specified file for import
+#' @param skip Stet to zero, denotes the number off rows you wish to skip
+#' @param meta_rows Set to 15, determines the amount of rows set as metadata
 #' @param hydro_year Set to 'oct_us_gb' (USA and UK), but can also be 'sep_br'
 #' (Brazil),'apr_cl' (Chille).
 #' @param cols Set to NULL, but can be set as a vector of column names. Note

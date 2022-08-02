@@ -1,16 +1,8 @@
-#' @name Objectives
-#' @rdname Objectives
+
+#' @title R-squared
 #'
-#' @title Model diagnostics
-#'
-#' @description Calculate model diagnostics from an observed series, x, and
-#' modelled series, y.
-#'
-#' @usage R2 (x, y, na.rm=FALSE)
-#' RMSE (x, y, na.rm=FALSE)
-#' MAE (x, y, na.rm=FALSE)
-#' RMSEP (x, y, na.rm=FALSE)
-#' MAEP (x, y, na.rm=FALSE)
+#' @description Calculate R-squared model diagnostic from an observed series,
+#' x, and modelled series, y.
 #'
 #' @param x Observed data series
 #' @param y Estimated/modelled values
@@ -21,10 +13,6 @@
 #'
 #' @examples
 #' R2(x, y)
-#' RMSE(x, y)
-#' MAE(x, y)
-#' RMSEP(x, y)
-#' MAEP(x, y)
 R2 <- function(x, y, na.rm=FALSE) {
 
   # INPUT
@@ -46,8 +34,20 @@ R2 <- function(x, y, na.rm=FALSE) {
   return(R2)
 }
 
-#' @rdname RMSE
+#' @title Root mean squared error
+#'
+#' @description Calculate RMSE model diagnostic from an observed series,
+#' x, and modelled series, y.
+#'
+#' @param x Observed data series
+#' @param y Estimated/modelled values
+#' @param na.rm NA remove defaulted as FALSE
+#'
+#' @return
 #' @export
+#'
+#' @examples
+#' RMSE(x, y)
 RMSE <- function(x, y, na.rm=FALSE) {
 
   # INPUT
@@ -68,8 +68,20 @@ RMSE <- function(x, y, na.rm=FALSE) {
   return(RMSE)
 }
 
-#' @rdname MAE
+#' @title Mean absolute error
+#'
+#' @description Calculate MAE model diagnostic from an observed series,
+#' x, and modelled series, y.
+#'
+#' @param x Observed data series
+#' @param y Estimated/modelled values
+#' @param na.rm NA remove defaulted as FALSE
+#'
+#' @return
 #' @export
+#'
+#' @examples
+#' MAE(x, y)
 MAE <- function(x, y, na.rm=FALSE) {
 
   # INPUT
@@ -91,8 +103,20 @@ MAE <- function(x, y, na.rm=FALSE) {
   return(MAE)
 }
 
-#' @rdname RMSEP
+#' @title Root mean square error percentage
+#'
+#' @description Calculate RMSEP model diagnostic from an observed series,
+#' x, and modelled series, y.
+#'
+#' @param x Observed data series
+#' @param y Estimated/modelled values
+#' @param na.rm NA remove defaulted as FALSE
+#'
+#' @return
 #' @export
+#'
+#' @examples
+#' RMSEP(x, y)
 RMSEP <- function(x, y, na.rm=FALSE) {
 
   # INPUT
@@ -113,8 +137,20 @@ RMSEP <- function(x, y, na.rm=FALSE) {
   return(RMSEP)
 }
 
-#' @rdname MAEP
+#' @title Mean absolute error percentage
+#'
+#' @description Calculate MAEP model diagnostic from an observed series,
+#' x, and modelled series, y.
+#'
+#' @param x Observed data series
+#' @param y Estimated/modelled values
+#' @param na.rm NA remove defaulted as FALSE
+#'
+#' @return
 #' @export
+#'
+#' @examples
+#' MAEP(x, y)
 MAEP <- function(x, y, na.rm=FALSE) {
 
   # INPUT

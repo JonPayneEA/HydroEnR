@@ -15,6 +15,13 @@ mergeData <- function(...){
   dtlst <- list(...)
   # Extract the name for each dt
   names <- sapply(substitute(...()), deparse)
+  # return(dtlst[[1]]$Metadata)
+  for(i in seq_along(dtlst)){
+    if(dtlst[[i]]$Metadata[9,2] != 'Precipitation'){
+      stop('mergeData function is currrently only suitable for raingauge data. ',
+           paste(names[i], ' is of type ', dtlst[[i]]$Metadata[9,2], sep = ''))
+    }
+  }
   # Replace Value as dt name
   for(i in seq_along(dtlst)){
     colnames(dtlst[[i]]$GaugeData)[colnames(dtlst[[i]]$GaugeData) == 'Value'] <- names[i]
