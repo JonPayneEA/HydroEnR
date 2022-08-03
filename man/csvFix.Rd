@@ -40,5 +40,5 @@ commented data have commas included.
 Adapted from https://gist.github.com/noamross/4114258
 }
 \examples{
-csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
+#csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
 }

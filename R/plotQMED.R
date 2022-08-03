@@ -10,12 +10,13 @@ library(ggplot2)
 #' @return
 #' @export
 #'
+#' @import magrittr
+#' @import rnrfa
 #' @import ggplot2
 #' @import beepr
-#' @import magrittr
 #'
 #' @examples
-#' data <- rnrfa::get_ts(id = 2001, type = 'amax-flow') %>% getAMAX()
+#' data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
 #' plotQMED(data)
 plotQMED <- function(x, ...) {
   if('HydroAMAX' %in% class(x)==FALSE) {

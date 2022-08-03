@@ -90,82 +90,9 @@ the first 2 must be 'DateTime' and 'Value'</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">csvfile</span> <span class="op">&lt;-</span> <span class="st">'C:/Users/jpayne05/Downloads/Wellingborough.csv'</span></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">loadWISKI</span><span class="op">(</span><span class="va">csvfile</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Importing meta data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Importing precipitation data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   OpenMP version (_OPENMP)       201511</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   omp_get_num_procs()            8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   R_DATATABLE_NUM_PROCS_PERCENT  unset (default 50)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   R_DATATABLE_NUM_THREADS        unset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   R_DATATABLE_THROTTLE           unset (default 1024)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   omp_get_thread_limit()         2147483647</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   omp_get_max_threads()          8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   OMP_THREAD_LIMIT               unset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   OMP_NUM_THREADS                unset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   RestoreAfterFork               true</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   data.table is using 4 threads with throttle==1024. See ?setDTthreads.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> freadR.c has been passed a filename: C:/Users/jpayne05/Downloads/Wellingborough.csv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [01] Check arguments</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Using 4 threads (omp_get_max_threads()=8, nth=4)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   NAstrings = [&lt;&lt;---&gt;&gt;, &lt;&lt;NA&gt;&gt;]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   None of the NAstrings look like numbers.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   skip num lines = 15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   show progress = 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0/1 column will be read as integer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [02] Opening the file</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Opening file C:/Users/jpayne05/Downloads/Wellingborough.csv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   File opened, size = 49.15MB (51541360 bytes).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Memory mapped ok</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [03] Detect and skip BOM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [04] Arrange mmap to be \0 terminated</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   \n has been found in the input and different lines can end with different line endings (e.g. mixed \n and \r\n in one file). This is common and ideal.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [05] Skipping initial rows if needed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Skipped to line 16 in the file  Positioned on line 16 starting: &lt;&lt;Time stamp,Value [mm],State of&gt;&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [06] Detect separator, quoting rule, and ncolumns</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Using supplied sep ','</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   sep=','  with 5 fields using quote rule 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Detected 5 columns on line 16. This line is either column names or first data row. Line starts as: &lt;&lt;Time stamp,Value [mm],State of&gt;&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Quote rule picked = 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   fill=true and the most number of columns found is 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [07] Detect column types, good nrow estimate and whether first row is column names</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   'header' changed by user from 'auto' to true</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of sampling jump points = 100 because (51540979 bytes from row 1 to eof) / (2 * 4103 jump0size) == 6280</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type codes (jump 000)    : D8D11  Quote rule 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type codes (jump 100)    : D8D11  Quote rule 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   =====</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Sampled 10048 rows (handled \n inside quoted fields) at 101 jump points</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Bytes from first data row on line 17 to the end of last row: 51540935</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Line length: mean=41.51 sd=0.93 min=40 max=45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Estimated number of rows: 51540935 / 41.51 = 1241715</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Initial alloc = 1365886 rows (1241715 + 9%) using bytes/max(mean-2*sd,min) clamped between [1.1*estn, 2.0*estn]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   =====</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [08] Assign column names</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [09] Apply user overrides on column types</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   After 0 type and 0 drop user overrides : D8D11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] Allocate memory for the datatable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Allocating 5 column slots (5 - 0 dropped) with 1365886 rows</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] Read the data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   jumps=[0..52), chunk_size=991171, total_size=51540935</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Read 1240597 rows x 5 columns from 49.15MB (51541360 bytes) file in 00:01.302 wall clock time</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] Finalizing the datatable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Type counts:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          2 : bool8     '1'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          1 : float64   '8'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          2 : string    'D'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> =============================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.002s (  0%) Memory map 0.048GB file</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.065s (  5%) sep=',' ncol=5 and header detection</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.000s (  0%) Column type detection using 10048 sample rows</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.137s ( 11%) Allocation of 1365886 rows x 5 cols (0.041GB) of which 1240597 ( 91%) rows used</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1.099s ( 84%) Reading 52 chunks (0 swept) of 0.945MB (each chunk 23857 rows) using 4 threads</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    +    0.172s ( 13%) Parse to row-major thread buffers (grown 0 times)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    +    0.852s ( 65%) Transpose</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    +    0.074s (  6%) Waiting</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.000s (  0%) Rereading 0 columns due to out-of-sample type exceptions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1.302s        Total</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Removing blank elements at top</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Converting dates and times</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#csvfile &lt;- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'</span></span>
+<span class="r-in"><span class="co">#a &lt;- loadWISKI(csvfile)</span></span>
+<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>

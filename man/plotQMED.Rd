@@ -19,6 +19,6 @@ Calculates and generates a plot of the QMED estimate relative
 to the AMAX series.
 }
 \examples{
-data <- rnrfa::get_ts(id = 2001, type = 'amax-flow') \%>\% getAMAX()
+data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
 plotQMED(data)
 }

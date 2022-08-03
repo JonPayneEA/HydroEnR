@@ -22,8 +22,8 @@ library(data.table)
 #' @import data.table
 #'
 #' @examples
-#' csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
-#' a <- loadWISKI(csvfile)
+#' #csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
+#' #a <- loadWISKI(csvfile)
 loadWISKI <- function(link,
                       skip = 0,
                       meta_rows = 15,

@@ -34,6 +34,6 @@ are preserved. Loaded data are in the form of a list, called either flowLoad,
 rainLoad, or stageLoad. Data are in two parts MetaData and GaugeData.
 }
 \examples{
-csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
-a <- loadWISKI(csvfile)
+#csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
+#a <- loadWISKI(csvfile)
 }

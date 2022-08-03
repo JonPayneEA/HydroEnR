@@ -6,7 +6,7 @@
 #'
 #' @param d Array of dates of class Date
 #' @param hy_cal Set to 'oct_us_gb' (USA and UK), but can also be 'sep_br'
-#' (Brazil),'apr_cl' (Chille).
+#' (Brazil), 'apr_cl' (Chille).
 #'
 #' @return
 #' @export

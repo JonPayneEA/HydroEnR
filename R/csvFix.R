@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
+#' #csvFix("C:/Users/jpayne05/Downloads/Wellingborough.RE[RainfallEvent].15min.csv.all")
 csvFix <- function(file,
                    new.name = TRUE,
                    sep = '|',
