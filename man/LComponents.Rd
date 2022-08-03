@@ -7,7 +7,6 @@
 \alias{LComponents.HydroAMAX}
 \alias{LComponents.flowLoad}
 \alias{LComponents.zoo}
-\alias{print.LComponents}
 \title{L components}
 \usage{
 LComponents(x, ...)
@@ -21,8 +20,6 @@ LComponents(x, ...)
 \method{LComponents}{flowLoad}(x, ...)
 
 \method{LComponents}{zoo}(x, ...)
-
-\method{print}{LComponents}(x, ...)
 }
 \arguments{
 \item{x}{AMAX or flow time series}

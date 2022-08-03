@@ -7,7 +7,6 @@
 \alias{LSKEW.HydroAMAX}
 \alias{LSKEW.flowLoad}
 \alias{LSKEW.zoo}
-\alias{print.LSkew}
 \title{L-Skew moment}
 \usage{
 LSKEW(x, ...)
@@ -21,8 +20,6 @@ LSKEW(x, ...)
 \method{LSKEW}{flowLoad}(x)
 
 \method{LSKEW}{zoo}(x)
-
-\method{print}{LSkew}(x, ...)
 }
 \arguments{
 \item{x}{AMAX or flow time series}

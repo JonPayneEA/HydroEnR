@@ -102,10 +102,4 @@ LCA.zoo <- function(x, ...){
   class(lca) <- append(class(lca), 'LCA')
   return(lca)
 }
-#' @rdname LCA
-#' @export
-print.LCA <- function(x, ...) {
-  # Fixing the print of LCA class data
-  attr(x, "class") <- NULL
-  print.default(x, ...)
-}
+

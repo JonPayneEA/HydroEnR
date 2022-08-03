@@ -7,7 +7,6 @@
 \alias{L3.HydroAMAX}
 \alias{L3.flowLoad}
 \alias{L3.zoo}
-\alias{print.L3}
 \title{L3 moment}
 \usage{
 L3(x, ...)
@@ -21,8 +20,6 @@ L3(x, ...)
 \method{L3}{flowLoad}(x, ...)
 
 \method{L3}{zoo}(x, ...)
-
-\method{print}{L3}(x, ...)
 }
 \arguments{
 \item{x}{AMAX or flow time series}

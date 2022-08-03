@@ -112,10 +112,4 @@ LKur.zoo <- function(x, ...){
   class(lkur) <- append(class(lkur), 'LKur')
   return(lkur)
 }
-#' @rdname LKur
-#' @export
-print.LKur <- function(x, ...) {
-  # Fixing the print of Lcv class data
-  attr(x, "class") <- NULL
-  print.default(x, ...)
-}
+

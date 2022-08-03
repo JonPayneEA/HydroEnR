@@ -7,7 +7,6 @@
 \alias{LCV.HydroAMAX}
 \alias{LCV.flowLoad}
 \alias{LCV.zoo}
-\alias{print.Lcv}
 \title{LCV moment}
 \usage{
 LCV(x, ...)
@@ -21,8 +20,6 @@ LCV(x, ...)
 \method{LCV}{flowLoad}(x)
 
 \method{LCV}{zoo}(x)
-
-\method{print}{Lcv}(x, ...)
 }
 \arguments{
 \item{x}{AMAX or flow time series}

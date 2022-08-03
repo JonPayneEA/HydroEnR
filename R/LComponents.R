@@ -114,10 +114,4 @@ LComponents.zoo <- function(x, ...){
   class(cs) <- append(class(cs), 'LCs')
   return(cs)
 }
-#' @rdname LComponents
-#' @export
-print.LComponents <- function(x, ...) {
-  # Fixing the print of Lcv class data
-  attr(x, "class") <- NULL
-  print.default(x, ...)
-}
+

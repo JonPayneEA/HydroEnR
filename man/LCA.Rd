@@ -7,7 +7,6 @@
 \alias{LCA.HydroAMAX}
 \alias{LCA.flowLoad}
 \alias{LCA.zoo}
-\alias{print.LCA}
 \title{LCA moment}
 \usage{
 LCA(x, ...)
@@ -21,8 +20,6 @@ LCA(x, ...)
 \method{LCA}{flowLoad}(x, ...)
 
 \method{LCA}{zoo}(x, ...)
-
-\method{print}{LCA}(x, ...)
 }
 \arguments{
 \item{x}{AMAX or flow time series}

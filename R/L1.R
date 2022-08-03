@@ -57,12 +57,6 @@ L1.zoo <- function(x, ...){
   class(x) <- append(class(x), 'L1')
   return(x)
 }
-#' @rdname L1
-#' @export
-# Fixing the print of L1 class data
-print.L1 <- function(x, ...) {
-  attr(x, "class") <- NULL
-  print.default(x, ...)
-}
+
 
 

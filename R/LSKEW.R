@@ -111,10 +111,4 @@ LSKEW.zoo <- function(x){
   class(LSKEW) <- append(class(LSKEW),'LSkew')
   return(LSKEW)
 }
-#' @rdname LSKEW
-#' @export
-print.LSkew <- function(x, ...) {
-  # Fixing the print of LSkew class data
-  attr(x, "class") <- NULL
-  print.default(x, ...)
-}
+

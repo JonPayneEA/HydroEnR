@@ -7,7 +7,6 @@
 \alias{LKur.HydroAMAX}
 \alias{LKur.flowLoad}
 \alias{LKur.zoo}
-\alias{print.LKur}
 \title{LKur moment}
 \usage{
 LKur(x, ...)
@@ -21,8 +20,6 @@ LKur(x, ...)
 \method{LKur}{flowLoad}(x, ...)
 
 \method{LKur}{zoo}(x, ...)
-
-\method{print}{LKur}(x, ...)
 }
 \arguments{
 \item{x}{AMAX or flow time series}

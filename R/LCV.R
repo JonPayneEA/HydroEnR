@@ -106,13 +106,6 @@ LCV.zoo <- function(x){
   class(LCV) <- append(class(LCV), 'Lcv')
   return(LCV)
 }
-#' @rdname LCV
-#' @export
-print.Lcv <- function(x, ...) {
-  # Fixing the print of Lcv class data
-  attr(x, "class") <- NULL
-  print.default(x, ...)
-}
 
 # LCV(Buildwas)
 # LCV(Buildwas_Analysis)
