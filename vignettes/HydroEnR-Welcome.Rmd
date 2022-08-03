@@ -1,0 +1,45 @@
+---
+title: "HydroEnR-Welcome"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HydroEnR-Welcome}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# Welcome to the HydroEnR package
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Currently this is just a test page but more documentation will be added over time.
+
+To load the package use;
+```{r setup}
+library(HydroEnR)
+```
+
+## QMED
+
+Let's import some QMED data from NRFA, the site we'll use is 'St Johns Beck at Thirlmere Reservoir' - ID: 75001
+
+For this we will require the rnrfa package and magrittr
+```{r}
+library(rnrfa)
+library(magrittr)
+data <- rnrfa::get_ts(id = 75001, type = 'amax-flow') %>% getAMAX()
+data
+```
+
+To find the QMED we will use the QMED function;
+```{r}
+qmed <- QMED(data)
+qmed
+```
+
+Now we'll make a pplot of the data
+```{r}
+plotQMED(data)
+```
