@@ -51,6 +51,14 @@ L1.flowLoad <- function(x, ...){
 
 #' @rdname L1
 #' @export
+L1.zoo <- function(x, ...){
+  x <- getAMAX(x)
+  x <- mean(x$AMAX, na.rm = TRUE)
+  class(x) <- append(class(x), 'L1')
+  return(x)
+}
+#' @rdname L1
+#' @export
 # Fixing the print of L1 class data
 print.L1 <- function(x, ...) {
   attr(x, "class") <- NULL

@@ -94,6 +94,25 @@ LSKEW.flowLoad <- function(x){
 
 #' @rdname LSKEW
 #' @export
+LSKEW.zoo <- function(x){
+  x <- getAMAX(x)
+  x <- x$AMAX
+  Sort_x <- sort(x)
+  ln <- length(x)
+  Rank <- seq(1, ln)
+  b0 <- mean(x, na.rm = TRUE)
+  b1 <- mean((Rank - 1)/(ln - 1) * Sort_x, na.rm = TRUE)
+  b2 <- mean(((Rank - 1) * (Rank - 2))/((ln - 1) * (ln - 2)) * Sort_x, na.rm = TRUE)
+  b3 <- mean(((Rank - 1) * (Rank - 2) * (Rank - 3))/((ln - 1) * (ln - 2) * (ln - 3)) * Sort_x, na.rm = TRUE)
+  L1 <- b0
+  L2 <- 2 * b1 - b0
+  L3 <- 6 * b2 - 6 * b1 + b0
+  LSKEW <- L3/L2
+  class(LSKEW) <- append(class(LSKEW),'LSkew')
+  return(LSKEW)
+}
+#' @rdname LSKEW
+#' @export
 print.LSkew <- function(x, ...) {
   # Fixing the print of LSkew class data
   attr(x, "class") <- NULL

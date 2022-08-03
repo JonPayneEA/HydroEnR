@@ -51,6 +51,15 @@ QMED.flowLoad <- function(x, ...){
 }
 
 #' @rdname QMED
+#' @export
+QMED.zoo <- function(x, ...){
+  x <- getAMAX(x)
+  x <- median(x$AMAX, na.rm = TRUE)
+  class(x) <- append(class(x), 'QMED')
+  return(x)
+}
+
+#' @rdname QMED
 #' @description Integrates a fix for the print function
 #' @export
 # Fixing the print of Lcv class data

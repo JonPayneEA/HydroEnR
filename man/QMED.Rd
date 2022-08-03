@@ -6,6 +6,7 @@
 \alias{QMED.HydroAggsmax}
 \alias{QMED.HydroAMAX}
 \alias{QMED.flowLoad}
+\alias{QMED.zoo}
 \alias{print.QMED}
 \title{Generate a QMED estimate}
 \usage{
@@ -18,6 +19,8 @@ QMED(x, ...)
 \method{QMED}{HydroAMAX}(x, ...)
 
 \method{QMED}{flowLoad}(x, ...)
+
+\method{QMED}{zoo}(x, ...)
 
 \method{print}{QMED}(x, ...)
 }

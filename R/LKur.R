@@ -95,6 +95,25 @@ LKur.flowLoad <- function(x, ...){
 
 #' @rdname LKur
 #' @export
+LKur.zoo <- function(x, ...){
+  x <- getAMAX(x)
+  camp <- sort(x$AMAX)
+  n <- length(camp)
+  nn <- rep(n-1,n)
+  pp <- seq(0,n-1)
+  p1 <- pp/nn
+  p2 <- p1 * (pp-1)/(nn-1)
+  p3 <- p2 * (pp-2)/(nn-2)
+  b0 <- sum(camp)/n
+  b1 <- sum(p1*camp)/n
+  b2 <- sum(p2*camp)/n
+  b3 <- sum(p3*camp)/n
+  lkur <- 5*(2*(2*b3-3*b2)+b0)/(2*b1-b0)+6
+  class(lkur) <- append(class(lkur), 'LKur')
+  return(lkur)
+}
+#' @rdname LKur
+#' @export
 print.LKur <- function(x, ...) {
   # Fixing the print of Lcv class data
   attr(x, "class") <- NULL

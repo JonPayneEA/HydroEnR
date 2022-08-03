@@ -23,8 +23,8 @@ Ls <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   LSkew <- LSKEW(x)
   QMED <- QMED(x)
   if(!is.null(URBEXT2000)){
-    LCV <- Urb(LCV, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
-    LSkew <- Urb(LSkew, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
+    LCV <- urbAdj(LCV, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
+    LSkew <- urbAdj(LSkew, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   }
   x <- data.frame(L1, L2, L3, L4, LCV, LCA, LKUR, LSkew, QMED)
   class(x) <- append(class(x), 'Ls')

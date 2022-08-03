@@ -101,74 +101,104 @@
 <h3 id="qmed">QMED<a class="anchor" aria-label="anchor" href="#qmed"></a>
 </h3>
 <p>Let’s import some QMED data from NRFA, the site we’ll use is ‘St Johns Beck at Thirlmere Reservoir’ - ID: 75001</p>
-<p>For this we will require the rnrfa package and magrittr</p>
+<p>For this we will require the rnrfa package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://cvitolo.github.io/rnrfa/" class="external-link">rnrfa</a></span><span class="op">)</span>
 <span class="co">#&gt; Warning: package 'rnrfa' was built under R version 4.0.5</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>
-<span class="co">#&gt; Warning: package 'magrittr' was built under R version 4.0.5</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">75001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">75001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span>
 <span class="va">data</span>
-<span class="co">#&gt;      Year   AMAX</span>
-<span class="co">#&gt;     &lt;num&gt;  &lt;num&gt;</span>
-<span class="co">#&gt;  1:  1974 16.243</span>
-<span class="co">#&gt;  2:  1975 24.027</span>
-<span class="co">#&gt;  3:  1976  0.818</span>
-<span class="co">#&gt;  4:  1977  8.913</span>
-<span class="co">#&gt;  5:  1978 20.196</span>
-<span class="co">#&gt;  6:  1979  1.235</span>
-<span class="co">#&gt;  7:  1980 21.760</span>
-<span class="co">#&gt;  8:  1981 25.240</span>
-<span class="co">#&gt;  9:  1982 17.417</span>
-<span class="co">#&gt; 10:  1983 16.079</span>
-<span class="co">#&gt; 11:  1984  3.632</span>
-<span class="co">#&gt; 12:  1985 10.674</span>
-<span class="co">#&gt; 13:  1986 38.943</span>
-<span class="co">#&gt; 14:  1987 25.794</span>
-<span class="co">#&gt; 15:  1988 16.658</span>
-<span class="co">#&gt; 16:  1989 36.551</span>
-<span class="co">#&gt; 17:  1990 21.651</span>
-<span class="co">#&gt; 18:  1991 21.781</span>
-<span class="co">#&gt; 19:  1992  1.497</span>
-<span class="co">#&gt; 20:  1993 10.572</span>
-<span class="co">#&gt; 21:  1994 14.790</span>
-<span class="co">#&gt; 22:  1995 46.124</span>
-<span class="co">#&gt; 23:  1996  7.035</span>
-<span class="co">#&gt; 24:  1997 11.539</span>
-<span class="co">#&gt; 25:  1998  9.451</span>
-<span class="co">#&gt; 26:  1999 27.152</span>
-<span class="co">#&gt; 27:  2000 22.193</span>
-<span class="co">#&gt; 28:  2001 24.599</span>
-<span class="co">#&gt; 29:  2002 22.977</span>
-<span class="co">#&gt; 30:  2003  0.652</span>
-<span class="co">#&gt; 31:  2004 17.888</span>
-<span class="co">#&gt; 32:  2005 47.746</span>
-<span class="co">#&gt; 33:  2006  6.333</span>
-<span class="co">#&gt; 34:  2007 32.431</span>
-<span class="co">#&gt; 35:  2008 19.742</span>
-<span class="co">#&gt; 36:  2009 31.950</span>
-<span class="co">#&gt; 37:  2010 59.840</span>
-<span class="co">#&gt; 38:  2011  8.695</span>
-<span class="co">#&gt; 39:  2012 10.780</span>
-<span class="co">#&gt; 40:  2013 22.058</span>
-<span class="co">#&gt; 41:  2014 20.196</span>
-<span class="co">#&gt; 42:  2015 23.304</span>
-<span class="co">#&gt; 43:  2016 75.353</span>
-<span class="co">#&gt; 44:  2017  1.710</span>
-<span class="co">#&gt; 45:  2018  2.832</span>
-<span class="co">#&gt; 46:  2019 20.839</span>
-<span class="co">#&gt; 47:  2020 28.101</span>
-<span class="co">#&gt;      Year   AMAX</span></code></pre></div>
+<span class="co">#&gt;            amax-flow</span>
+<span class="co">#&gt; 1974-02-16    16.243</span>
+<span class="co">#&gt; 1975-01-22    24.027</span>
+<span class="co">#&gt; 1976-01-02     0.818</span>
+<span class="co">#&gt; 1977-02-07     8.913</span>
+<span class="co">#&gt; 1977-10-31    20.196</span>
+<span class="co">#&gt; 1978-11-15     1.235</span>
+<span class="co">#&gt; 1979-12-27    21.760</span>
+<span class="co">#&gt; 1980-12-13    25.240</span>
+<span class="co">#&gt; 1982-02-10    17.417</span>
+<span class="co">#&gt; 1982-12-19    16.079</span>
+<span class="co">#&gt; 1984-02-07     3.632</span>
+<span class="co">#&gt; 1985-09-21    10.674</span>
+<span class="co">#&gt; 1985-12-21    38.943</span>
+<span class="co">#&gt; 1986-11-25    25.794</span>
+<span class="co">#&gt; 1988-01-09    16.658</span>
+<span class="co">#&gt; 1989-03-09    36.551</span>
+<span class="co">#&gt; 1990-02-19    21.651</span>
+<span class="co">#&gt; 1991-03-19    21.781</span>
+<span class="co">#&gt; 1991-10-31     1.497</span>
+<span class="co">#&gt; 1993-01-24    10.572</span>
+<span class="co">#&gt; 1994-03-23    14.790</span>
+<span class="co">#&gt; 1995-01-31    46.124</span>
+<span class="co">#&gt; 1996-01-13     7.035</span>
+<span class="co">#&gt; 1997-03-02    11.539</span>
+<span class="co">#&gt; 1998-03-07     9.451</span>
+<span class="co">#&gt; 1999-01-06    27.152</span>
+<span class="co">#&gt; 2000-01-12    22.193</span>
+<span class="co">#&gt; 2000-12-05    24.599</span>
+<span class="co">#&gt; 2002-02-11    22.977</span>
+<span class="co">#&gt; 2002-10-27     0.652</span>
+<span class="co">#&gt; 2004-02-03    17.888</span>
+<span class="co">#&gt; 2005-01-08    47.746</span>
+<span class="co">#&gt; 2005-11-11     6.333</span>
+<span class="co">#&gt; 2006-12-11    32.431</span>
+<span class="co">#&gt; 2008-01-14    19.742</span>
+<span class="co">#&gt; 2008-10-23    31.950</span>
+<span class="co">#&gt; 2009-11-19    59.840</span>
+<span class="co">#&gt; 2011-02-09     8.695</span>
+<span class="co">#&gt; 2012-01-04    10.780</span>
+<span class="co">#&gt; 2012-12-31    22.058</span>
+<span class="co">#&gt; 2014-02-24    20.196</span>
+<span class="co">#&gt; 2015-01-01    23.304</span>
+<span class="co">#&gt; 2015-12-05    75.353</span>
+<span class="co">#&gt; 2017-03-31     1.710</span>
+<span class="co">#&gt; 2017-11-22     2.832</span>
+<span class="co">#&gt; 2019-03-16    20.839</span>
+<span class="co">#&gt; 2020-02-09    28.101</span></code></pre></div>
 <p>To find the QMED we will use the QMED function;</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">qmed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/QMED.html">QMED</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="va">qmed</span>
 <span class="co">#&gt; [1] 20.196</span></code></pre></div>
-<p>Now we’ll make a pplot of the data</p>
+<p>Now we’ll make a plot of the data</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plotQMED.html">plotQMED</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="co">#&gt; [1] Estimated QMED: 20.196 cumecs</span></code></pre></div>
 <p><img src="HydroEnR-Welcome_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="l-moments">L-moments<a class="anchor" aria-label="anchor" href="#l-moments"></a>
+</h3>
+<p>Within HydroEnR we can calculate the L-moments individually or as a grouped function.</p>
+<p>To calculate the L1;</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/L1.html">L1</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="co">#&gt; [1] 20.34023</span></code></pre></div>
+<p>You can also apply an urban adjustment. For this you can nest the function</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/urbAdj.html">urbAdj</a></span><span class="op">(</span><span class="fu"><a href="../reference/LCV.html">LCV</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, URBEXT2000 <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.3326938</span></code></pre></div>
+<p>Alternatively, you can use a piping operator from the magrittr library. In this example we will set the DeUrb parameter to TRUE, normally set to FALSE.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/LCV.html">LCV</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/urbAdj.html">urbAdj</a></span><span class="op">(</span>URBEXT2000 <span class="op">=</span> <span class="fl">0.3</span>, DeUrb <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.4738179</span></code></pre></div>
+<p>Using the Ls() function HydroEnR can bundle up all the L-moment calculations;</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/Ls.html">Ls</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="co">#&gt;         L1       L2       L3      L4       LCV       LCA      LKUR     LSkew</span>
+<span class="co">#&gt; 1 20.34023 8.075772 1.588365 1.73832 0.3970343 0.1966827 0.2152513 0.1966827</span>
+<span class="co">#&gt;     QMED</span>
+<span class="co">#&gt; 1 20.196</span></code></pre></div>
+<p>Urban adjustments can also be added with the URBEXT2000 and DeUrb parameters</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/Ls.html">Ls</a></span><span class="op">(</span><span class="va">data</span>, URBEXT2000 <span class="op">=</span> <span class="fl">0.3</span>, DeUrb <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt;         L1       L2       L3      L4       LCV       LCA      LKUR     LSkew</span>
+<span class="co">#&gt; 1 20.34023 8.075772 1.588365 1.73832 0.3326938 0.1966827 0.2152513 0.2493874</span>
+<span class="co">#&gt;     QMED</span>
+<span class="co">#&gt; 1 20.196</span></code></pre></div>
 </div>
 </div>
   </div>

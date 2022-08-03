@@ -6,6 +6,7 @@
 \alias{LSKEW.HydroAggsmax}
 \alias{LSKEW.HydroAMAX}
 \alias{LSKEW.flowLoad}
+\alias{LSKEW.zoo}
 \alias{print.LSkew}
 \title{L-Skew moment}
 \usage{
@@ -18,6 +19,8 @@ LSKEW(x, ...)
 \method{LSKEW}{HydroAMAX}(x)
 
 \method{LSKEW}{flowLoad}(x)
+
+\method{LSKEW}{zoo}(x)
 
 \method{print}{LSkew}(x, ...)
 }

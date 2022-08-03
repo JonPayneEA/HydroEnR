@@ -90,6 +90,24 @@ LCV.flowLoad <- function(x){
 
 #' @rdname LCV
 #' @export
+LCV.zoo <- function(x){
+  x <- getAMAX(x)
+  x <- x$AMAX
+  Sort_x <- sort(x)
+  ln <- length(x)
+  Rank <- seq(1, ln)
+  b0 <- mean(x, na.rm = TRUE)
+  b1 <- mean((Rank - 1)/(ln - 1) * Sort_x, na.rm = TRUE)
+  b2 <- mean(((Rank - 1) * (Rank - 2))/((ln - 1) * (ln - 2)) * Sort_x, na.rm = TRUE)
+  b3 <- mean(((Rank - 1) * (Rank - 2) * (Rank - 3))/((ln - 1) * (ln - 2) * (ln - 3)) * Sort_x, na.rm = TRUE)
+  L1 <- b0
+  L2 <- 2 * b1 - b0
+  LCV <- L2/L1
+  class(LCV) <- append(class(LCV), 'Lcv')
+  return(LCV)
+}
+#' @rdname LCV
+#' @export
 print.Lcv <- function(x, ...) {
   # Fixing the print of Lcv class data
   attr(x, "class") <- NULL

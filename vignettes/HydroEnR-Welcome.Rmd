@@ -25,12 +25,11 @@ library(HydroEnR)
 
 Let's import some QMED data from NRFA, the site we'll use is 'St Johns Beck at Thirlmere Reservoir' - ID: 75001
 
-For this we will require the rnrfa package and magrittr
+For this we will require the rnrfa package.
 ```{r}
 library(rnrfa)
-library(magrittr)
-data <- rnrfa::get_ts(id = 75001, type = 'amax-flow') %>% 
-  getAMAX()
+
+data <- rnrfa::get_ts(id = 75001, type = 'amax-flow')
 data
 ```
 
@@ -47,7 +46,34 @@ plotQMED(data)
 
 ## L-moments
 
+Within HydroEnR we can calculate the L-moments individually or as a grouped function.
+
+To calculate the L1;
+```{r}
+L1(data)
+```
+
+You can also apply an urban adjustment. For this you can nest the function
+```{r}
+urbAdj(LCV(data), URBEXT2000 = 0.3)
+```
+
+Alternatively, you can use a piping operator from the magrittr library.
+In this example we will set the DeUrb parameter to TRUE, normally set to FALSE.
+
+```{r}
+library(magrittr)
+LCV(data) %>% 
+  urbAdj(URBEXT2000 = 0.3, DeUrb = TRUE)
+```
+
+Using the Ls() function HydroEnR can bundle up all the L-moment calculations;
 ```{r}
 Ls(data)
+```
+
+Urban adjustments can also be added with the URBEXT2000 and DeUrb parameters
+```{r}
+Ls(data, URBEXT2000 = 0.3, DeUrb = FALSE)
 ```
 

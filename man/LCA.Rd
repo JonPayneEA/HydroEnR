@@ -6,6 +6,7 @@
 \alias{LCA.HydroAggsmax}
 \alias{LCA.HydroAMAX}
 \alias{LCA.flowLoad}
+\alias{LCA.zoo}
 \alias{print.LCA}
 \title{LCA moment}
 \usage{
@@ -18,6 +19,8 @@ LCA(x, ...)
 \method{LCA}{HydroAMAX}(x, ...)
 
 \method{LCA}{flowLoad}(x, ...)
+
+\method{LCA}{zoo}(x, ...)
 
 \method{print}{LCA}(x, ...)
 }

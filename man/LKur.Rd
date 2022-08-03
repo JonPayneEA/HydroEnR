@@ -6,6 +6,7 @@
 \alias{LKur.HydroAggsmax}
 \alias{LKur.HydroAMAX}
 \alias{LKur.flowLoad}
+\alias{LKur.zoo}
 \alias{print.LKur}
 \title{LKur moment}
 \usage{
@@ -18,6 +19,8 @@ LKur(x, ...)
 \method{LKur}{HydroAMAX}(x, ...)
 
 \method{LKur}{flowLoad}(x, ...)
+
+\method{LKur}{zoo}(x, ...)
 
 \method{print}{LKur}(x, ...)
 }

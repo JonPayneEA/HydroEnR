@@ -79,6 +79,37 @@ L2.flowLoad <- function(x, ...){
 
 #' @rdname L2
 #' @export
+L2.flowLoad <- function(x, ...){
+  x <- getAMAX(x)
+  camp <- sort(x$AMAX)
+  n <- length(camp)
+  nn <- rep(n-1,n)
+  pp <- seq(0,n-1)
+  p1 <- pp/nn
+  b0 <- sum(camp)/n
+  b1 <- sum(p1*camp)/n
+  l2 <- 2*b1-b0
+  class(l2) <- append(class(l2), 'L2')
+  return(l2)
+}
+
+#' @rdname L2
+#' @export
+L2.zoo <- function(x, ...){
+  x <- getAMAX(x)
+  camp <- sort(x$AMAX)
+  n <- length(camp)
+  nn <- rep(n-1,n)
+  pp <- seq(0,n-1)
+  p1 <- pp/nn
+  b0 <- sum(camp)/n
+  b1 <- sum(p1*camp)/n
+  l2 <- 2*b1-b0
+  class(l2) <- append(class(l2), 'L2')
+  return(l2)
+}
+#' @rdname L2
+#' @export
 # Fixing the print of L2 class data
 print.L2 <- function(x, ...) {
   attr(x, "class") <- NULL
