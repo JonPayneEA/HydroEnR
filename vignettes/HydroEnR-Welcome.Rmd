@@ -29,7 +29,8 @@ For this we will require the rnrfa package and magrittr
 ```{r}
 library(rnrfa)
 library(magrittr)
-data <- rnrfa::get_ts(id = 75001, type = 'amax-flow') %>% getAMAX()
+data <- rnrfa::get_ts(id = 75001, type = 'amax-flow') %>% 
+  getAMAX()
 data
 ```
 
@@ -39,7 +40,14 @@ qmed <- QMED(data)
 qmed
 ```
 
-Now we'll make a pplot of the data
+Now we'll make a plot of the data
 ```{r}
 plotQMED(data)
 ```
+
+## L-moments
+
+```{r}
+Ls(data)
+```
+
