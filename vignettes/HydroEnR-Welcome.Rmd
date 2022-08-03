@@ -23,13 +23,13 @@ library(HydroEnR)
 
 ## QMED
 
-Let's import some QMED data from NRFA, the site we'll use is 'St Johns Beck at Thirlmere Reservoir' - ID: 75001
+Let's import some QMED data from NRFA, the site we'll use is 'Thames at Kingston' - ID: 39001
 
 For this we will require the rnrfa package.
 ```{r}
 library(rnrfa)
 
-data <- rnrfa::get_ts(id = 75001, type = 'amax-flow')
+data <- rnrfa::get_ts(id = 39001, type = 'amax-flow')
 data
 ```
 
