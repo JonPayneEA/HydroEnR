@@ -34,8 +34,6 @@ Calculates the L2 moment from AMAX data. Can also convert time
 series data imported via HydroEnR into L2 moments.
 }
 \examples{
-L2(Buildwas)
-L2(Buildwas_Analysis)
-L2(getAMAX(Buildwas))
-L2(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+L2(data)
 }

@@ -34,8 +34,6 @@ Calculates the components of the L moment calculations from AMAX data. Can also 
 series data imported via HydroEnR into LKur moments.
 }
 \examples{
-LComponents(Buildwas)
-LComponents(Buildwas_Analysis)
-LComponents(getAMAX(Buildwas))
-LComponents(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+LComponents(data)
 }

@@ -34,8 +34,6 @@ Calculates the LKur moment from AMAX data. Can also convert time
 series data imported via HydroEnR into LKur moments.
 }
 \examples{
-LKur(Buildwas)
-LKur(Buildwas_Analysis)
-LKur(getAMAX(Buildwas))
-LKur(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+LKur(data)
 }

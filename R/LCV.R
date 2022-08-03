@@ -10,12 +10,8 @@
 #' @export
 #'
 #' @examples
-#' LCV(Buildwas)
-#' LCV(Buildwas_Analysis)
-#' LCV(Buildwas_Analysis) %>% Urb(0.3)
-#' LCV(Buildwas_Analysis) %>% urb(0.3)
-#' LCV(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-#' LCV(getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow')))
+#' data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+#' LCV(data)
 LCV <- function(x, ...) {
   UseMethod('LCV', x)
 }

@@ -12,6 +12,8 @@
 #' @return
 #' @export
 #'
+#' @import data.table
+#'
 #' @examples
 #' hourlyAgg(Buildwas)
 hourlyAgg <- function(x, method = 'mean', ...) {
@@ -115,6 +117,8 @@ hourlyAgg.rainAll <- function(x, method = 'mean', ...){
 #' @return
 #' @export
 #'
+#' @import data.table
+#'
 #' @examples
 #' dailyAgg(Buildwas)
 dailyAgg <- function(x, method = 'mean', ...) {
@@ -217,6 +221,8 @@ dailyAgg.rainAll <- function(x, method = 'mean', ...){
 #'
 #' @return
 #' @export
+#'
+#' @import data.table
 #'
 #' @examples
 #' monthlyAgg(Buildwas)
@@ -322,6 +328,8 @@ monthlyAgg.rainAll <- function(x, method = 'mean', ...){
 #' @return
 #' @export
 #'
+#' @import data.table
+#'
 #' @examples
 #' annualAgg(Buildwas)
 annualAgg <- function(x, method = 'mean', ...) {
@@ -425,6 +433,8 @@ annualAgg.rainAll <- function(x, method = 'mean', ...){
 #' @return
 #' @export
 #'
+#' @import data.table
+#'
 #' @examples
 #' hydroYearAgg(Buildwas)
 hydroYearAgg <- function(x, method = 'mean', ...) {
@@ -507,6 +517,9 @@ hydroYearAgg.stageLoad <- function(x, method = mean, ...){
 #'
 #' @return
 #' @export
+#'
+#' @import data.table
+#' @import RcppRoll
 #'
 #' @examples
 #' rollingAggs(Buildwas)

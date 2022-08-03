@@ -10,10 +10,8 @@
 #' @export
 #'
 #' @examples
-#' LCA(Buildwas)
-#' LCA(Buildwas_Analysis)
-#' LCA(getAMAX(Buildwas))
-#' LCA(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+#' data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+#' LCA(data)
 LCA <- function(x, ...) {
   UseMethod('LCA', x)
 }

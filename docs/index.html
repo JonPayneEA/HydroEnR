@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What the Package Does (One Line, Title Case) • HydroEnR</title>
+<title>Exploratory Data Analysis for Realtime Flood Forecasting • HydroEnR</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (One Line, Title Case)">
+<script src="pkgdown.js"></script><meta property="og:title" content="Exploratory Data Analysis for Realtime Flood Forecasting">
 <meta property="og:description" content="HydroEnR streamlines a lot of the data input and management for EDA prior to model development.">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">HydroEnR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9001</span>
       </span>
     </div>
 
@@ -70,23 +70,36 @@
 </h2>
 <p>This package is designed for members of Evidence and Risk. It allows you to;</p>
 <ul>
-<li>Easily load data from WISKI<ul><li>Carry out quality checks on these data<br>
-</li></ul>
+<li>Easily load data downloaded from WISKI<ul>
+<li>Carry out quality checks on these data<br>
 </li>
-<li>Aggregate data by different periods and through various functions using rapid C++ elements</li>
+<li>Preserve metadata</li>
+<li>Interactive visualisations</li>
+</ul>
+</li>
+<li>Aggregate data by different periods and through various functions using rapid C++ based processes</li>
 <li>Detect peaks in hydrological data</li>
-<li>Convert flow data to a volumetric measure over a designated time step</li>
-<li>Develop Thiessen polygons for use in our realtime flood forecast models</li>
-<li>Download up-to-date meta data on EA gauges</li>
-<li>Import recent flow, stage and rain gauge data via the EAs API</li>
+<li>Convert flow and precipitation data to a volumetric measure over a designated time step</li>
+<li>Develop Thiessen/Voronoi polygons for use in our realtime flood forecast models</li>
+<li>Download up-to-date meta data on EA gauges published on API</li>
 <li>Detect trends in hydrological data</li>
-<li>Inspect ARMA parameters for stability in a real time forecasting context</li>
-<li>Use basic hydraulic equations such as the Mannings’ equation<ul><li>Import cross sectional data and carry out rudimentry analyses</li></ul>
-</li>
 <li>Carry out single site analyses<ul><li>ESS in the near future</li></ul>
 </li>
-<li>Use a greater selection of objective functions during model calibration</li>
+<li>Review model performance using a greater range of objective functions than what is currently available</li>
 </ul>
+<div class="section level3">
+<h3 id="future-updates">Future Updates<a class="anchor" aria-label="anchor" href="#future-updates"></a>
+</h3>
+<ul>
+<li>Use basic hydraulic equations such as the Mannings’ equation<ul><li>Import cross sectional data and carry out rudimentary analyses</li></ul>
+</li>
+<li>Import recent flow, stage and rain gauge data via the EAs API<ul><li>Limited to 2500 time steps</li></ul>
+</li>
+<li>Inspect ARMA parameters for stability in a real time forecasting context</li>
+<li>Impute missing data into PE series</li>
+<li>Rain gauge weighting</li>
+</ul>
+</div>
 </div>
 </div>
   </div>

@@ -18,7 +18,7 @@ series data imported via HydroEnR into LCV moments."><meta property="og:image" c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">HydroEnR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9001</span>
       </span>
     </div>
 
@@ -83,18 +83,9 @@ series data imported via HydroEnR into LCV moments.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">LCV</span><span class="op">(</span><span class="va">Buildwas</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LCV(Buildwas):</span> object 'Buildwas' not found</span>
-<span class="r-in"><span class="fu">LCV</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LCV(Buildwas_Analysis):</span> object 'Buildwas_Analysis' not found</span>
-<span class="r-in"><span class="fu">LCV</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">Urb</span><span class="op">(</span><span class="fl">0.3</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in Urb(., 0.3):</span> could not find function "Urb"</span>
-<span class="r-in"><span class="fu">LCV</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">urb</span><span class="op">(</span><span class="fl">0.3</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in urb(., 0.3):</span> could not find function "urb"</span>
-<span class="r-in"><span class="fu">LCV</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">$</span><span class="va">Hydro_year</span><span class="op">$</span><span class="va">Hydro_year_Max</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LCV(Buildwas_Analysis$Hydro_year$Hydro_year_Max):</span> object 'Buildwas_Analysis' not found</span>
-<span class="r-in"><span class="fu">LCV</span><span class="op">(</span><span class="fu"><a href="getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dimnames(X) &lt;- list(rownames.value, unlist(collabs, use.names = FALSE)):</span> length of 'dimnames' [2] not equal to array extent</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">LCV</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1227975</span>
 </code></pre></div>
     </div>
   </div>

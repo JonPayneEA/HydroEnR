@@ -10,10 +10,8 @@
 #' @export
 #'
 #' @examples
-#' LKur(Buildwas)
-#' LKur(Buildwas_Analysis)
-#' LKur(getAMAX(Buildwas))
-#' LKur(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+#' data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+#' LKur(data)
 LKur <- function(x, ...) {
   UseMethod('LKur', x)
 }

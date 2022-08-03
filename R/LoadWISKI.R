@@ -19,6 +19,8 @@ library(data.table)
 #' @return
 #' @export
 #'
+#' @import data.table
+#'
 #' @examples
 #' csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
 #' a <- loadWISKI(csvfile)

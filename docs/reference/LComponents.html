@@ -18,7 +18,7 @@ series data imported via HydroEnR into LKur moments."><meta property="og:image" 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">HydroEnR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9001</span>
       </span>
     </div>
 
@@ -83,14 +83,9 @@ series data imported via HydroEnR into LKur moments.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">LComponents</span><span class="op">(</span><span class="va">Buildwas</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LComponents(Buildwas):</span> object 'Buildwas' not found</span>
-<span class="r-in"><span class="fu">LComponents</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LComponents(Buildwas_Analysis):</span> object 'Buildwas_Analysis' not found</span>
-<span class="r-in"><span class="fu">LComponents</span><span class="op">(</span><span class="fu"><a href="getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="va">Buildwas</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in getAMAX(Buildwas):</span> object 'Buildwas' not found</span>
-<span class="r-in"><span class="fu">LComponents</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">$</span><span class="va">Hydro_year</span><span class="op">$</span><span class="va">Hydro_year_Max</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LComponents(Buildwas_Analysis$Hydro_year$Hydro_year_Max):</span> object 'Buildwas_Analysis' not found</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">LComponents</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> $ operator is invalid for atomic vectors</span>
 </code></pre></div>
     </div>
   </div>

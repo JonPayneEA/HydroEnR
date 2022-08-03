@@ -18,7 +18,7 @@ series data imported via HydroEnR into L-Skew moments."><meta property="og:image
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">HydroEnR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9001</span>
       </span>
     </div>
 
@@ -83,16 +83,9 @@ series data imported via HydroEnR into L-Skew moments.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">LSKEW</span><span class="op">(</span><span class="va">Buildwas</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LSKEW(Buildwas):</span> object 'Buildwas' not found</span>
-<span class="r-in"><span class="fu">LSKEW</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in LSKEW(Buildwas_Analysis):</span> object 'Buildwas_Analysis' not found</span>
-<span class="r-in"><span class="fu">Urb</span><span class="op">(</span><span class="fu">LSKEW</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">)</span>, <span class="fl">0.3</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in Urb(LSKEW(Buildwas_Analysis), 0.3):</span> could not find function "Urb"</span>
-<span class="r-in"><span class="fu">LSKEW</span><span class="op">(</span><span class="va">Buildwas_Analysis</span><span class="op">$</span><span class="va">Hydro_year</span><span class="op">$</span><span class="va">HydroYear_Max</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">Urb</span><span class="op">(</span><span class="fl">0.3</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in Urb(., 0.3):</span> could not find function "Urb"</span>
-<span class="r-in"><span class="fu">LSKEW</span><span class="op">(</span><span class="fu">GetAMAX</span><span class="op">(</span><span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in GetAMAX(rnrfa::get_ts(id = 2001, type = "amax-flow")):</span> could not find function "GetAMAX"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">LSKEW</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1139843</span>
 </code></pre></div>
     </div>
   </div>

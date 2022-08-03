@@ -10,6 +10,10 @@ library(ggplot2)
 #' @return
 #' @export
 #'
+#' @import ggplot2
+#' @import beepr
+#' @import magrittr
+#'
 #' @examples
 #' data <- rnrfa::get_ts(id = 2001, type = 'amax-flow') %>% getAMAX()
 #' plotQMED(data)

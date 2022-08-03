@@ -10,10 +10,8 @@
 #' @export
 #'
 #' @examples
-#' L4(Buildwas)
-#' L4(Buildwas_Analysis)
-#' L4(getAMAX(Buildwas))
-#' L4(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+#' data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+#' L4(data)
 L4 <- function(x, ...) {
   UseMethod('L4', x)
 }

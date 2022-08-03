@@ -1,7 +1,7 @@
 Package: HydroEnR
 Type: Package
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Exploratory Data Analysis for Realtime Flood Forecasting
+Version: 0.0.0.9001
 Authors@R: 
     person("Jonathan", "Payne", , "jon.payne@environment-agency.gov.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2551-5353"))
@@ -10,4 +10,4 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Imports: data.table, ggplot2, beepr, UKFE, sf, leaflet, dygraphs
+Imports: data.table, ggplot2, beepr, RcppRoll, UKFE, sf, leaflet, dygraphs

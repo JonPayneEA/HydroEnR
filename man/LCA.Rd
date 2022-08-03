@@ -34,8 +34,6 @@ Calculates the LCA moment from AMAX data. Can also convert time
 series data imported via HydroEnR into LCA moments.
 }
 \examples{
-LCA(Buildwas)
-LCA(Buildwas_Analysis)
-LCA(getAMAX(Buildwas))
-LCA(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
+data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
+LCA(data)
 }
