@@ -24,7 +24,7 @@ mergeData <- function(...){
   }
   # Replace Value as dt name
   for(i in seq_along(dtlst)){
-    colnames(dtlst[[i]]$GaugeData)[colnames(dtlst[[i]]$GaugeData) == 'Value'] <- names[i]
+    setnames(dtlst[[i]]$GaugeData, 2, names[i])
   }
   # Merge initial 2 dt's
   full_dt <- merge(dtlst[[1]]$GaugeData[,1:2],

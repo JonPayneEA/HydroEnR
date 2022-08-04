@@ -10,8 +10,19 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Imports: data.table, ggplot2, beepr, RcppRoll, UKFE, sf, leaflet, dygraphs
+Imports: 
+    data.table,
+    ggplot2,
+    beepr,
+    RcppRoll,
+    UKFE,
+    sf,
+    leaflet,
+    dygraphs,
+    Rcpp
 Suggests: 
     rmarkdown,
     knitr
 VignetteBuilder: knitr
+LinkingTo: 
+    Rcpp

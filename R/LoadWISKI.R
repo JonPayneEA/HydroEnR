@@ -138,13 +138,13 @@ loadWISKI <- function(link,
   data[['Metadata']] <- rdata
   data[['GaugeData']] <- dt
   if(rdata[9,2]=='Precipitation'){
-    class(data) <- append(class(dt), 'rainLoad')
+    class(data) <- append(class(data), 'rainLoad')
   }
   if(rdata[9,2]=='Flow'){
-    class(data) <- append(class(dt), 'flowLoad')
+    class(data) <- append(class(data), 'flowLoad')
   }
   if(rdata[9,2]=='Stage'){
-    class(data) <- append(class(dt), 'stageLoad')
+    class(data) <- append(class(data), 'stageLoad')
   }
   return(data)
 }

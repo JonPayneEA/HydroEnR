@@ -25,6 +25,75 @@
 
 #' @rdname window
 #' @export
+window.rainLoad <- function(x, start = NULL, end = NULL){
+  cls <- tail(class(x), 1)
+  if(is.null(start)) {
+    first <- 1
+  } else {
+    first <- which(x$GaugeData$DateTime == as.POSIXct(start, tz = 'GMT'))[1]
+  }
+  if(is.null(end)) {
+    last <- length(x$GaugeData$DateTime)
+  } else {
+    last <- which(x$GaugeData$DateTime == as.POSIXct(end, tz = 'GMT'))[1]
+  }
+  data <- list()
+  # class(data) <- class(x)
+  # return(x$Metadata)
+  data[['Metadata']] <- x$Metadata
+  data[['GaugeData']] <- x$GaugeData[first:last,]
+  class(data) <- append(class(data), cls)
+  return(data)
+}
+
+#' @rdname window
+#' @export
+window.flowLoad <- function(x, start = NULL, end = NULL){
+  cls <- tail(class(x), 1)
+  if(is.null(start)) {
+    first <- 1
+  } else {
+    first <- which(x$GaugeData$DateTime == as.POSIXct(start, tz = 'GMT'))[1]
+  }
+  if(is.null(end)) {
+    last <- length(x$GaugeData$DateTime)
+  } else {
+    last <- which(x$GaugeData$DateTime == as.POSIXct(end, tz = 'GMT'))[1]
+  }
+  data <- list()
+  # class(data) <- class(x)
+  # return(x$Metadata)
+  data[['Metadata']] <- x$Metadata
+  data[['GaugeData']] <- x$GaugeData[first:last,]
+  class(data) <- append(class(data), cls)
+  return(data)
+}
+
+#' @rdname window
+#' @export
+window.stageLoad <- function(x, start = NULL, end = NULL){
+  cls <- tail(class(x), 1)
+  if(is.null(start)) {
+    first <- 1
+  } else {
+    first <- which(x$GaugeData$DateTime == as.POSIXct(start, tz = 'GMT'))[1]
+  }
+  if(is.null(end)) {
+    last <- length(x$GaugeData$DateTime)
+  } else {
+    last <- which(x$GaugeData$DateTime == as.POSIXct(end, tz = 'GMT'))[1]
+  }
+  data <- list()
+  # class(data) <- class(x)
+  # return(x$Metadata)
+  data[['Metadata']] <- x$Metadata
+  data[['GaugeData']] <- x$GaugeData[first:last,]
+  class(data) <- append(class(data), cls)
+  return(data)
+}
+
+#' @rdname window
+#' @export
 window.rainAll <- function(x, start = NULL, end = NULL){
   if(is.null(start)) {
     first <- 1
