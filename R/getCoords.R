@@ -1,6 +1,3 @@
-library(sf)
-library(s2)
-
 #' @title getCoords
 #'
 #' @description This extracts the site name, Latitude, and Longitude data from the imported
@@ -10,6 +7,9 @@ library(s2)
 #'
 #' @return
 #' @export
+#'
+#' @import sf
+#' @import s2
 #'
 #' @examples
 #' getCoords(oundle, yelden, corby)
