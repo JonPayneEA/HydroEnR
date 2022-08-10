@@ -19,7 +19,8 @@ Imports:
     sf,
     leaflet,
     dygraphs,
-    Rcpp
+    Rcpp,
+    shiny
 Suggests: 
     rmarkdown,
     knitr
