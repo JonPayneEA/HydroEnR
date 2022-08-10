@@ -106,7 +106,7 @@
     <loc>/reference/monthPlot.html</loc>
   </url>
   <url>
-    <loc>/reference/peakdet.html</loc>
+    <loc>/reference/peakDet.html</loc>
   </url>
   <url>
     <loc>/reference/plotNA.html</loc>
@@ -131,6 +131,9 @@
   </url>
   <url>
     <loc>/reference/rollingAggs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/runARMAp.html</loc>
   </url>
   <url>
     <loc>/reference/teeSun.html</loc>
