@@ -22,5 +22,4 @@ Further updates will include flow and stage data.
 }
 \examples{
 plotNA(rain)
-
 }

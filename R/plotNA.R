@@ -1,6 +1,3 @@
-# NA aggregate plots - done by year
-
-
 #' @title plotNA
 #'
 #' @description Shows a proportions of missing data for each year.
@@ -14,7 +11,6 @@
 #'
 #' @examples
 #' plotNA(rain)
-#'
 plotNA <- function(x){
   UseMethod('plotNA', x)
 }
@@ -27,7 +23,7 @@ plotNA.rainAll <- function(x){
   a1$Missing <- rep('OK', dim(a1)[1])
   a2 <- x[ , lapply(.SD, length), by = year(DateTime)]
   a3 <- data.table(year = a1$year,
-                   a2[, 2:7] - a1[, 2:7],
+                   a2[, -1, ] - a1[,2:(length(a1)-1),],
                    Missing = rep('NA', dim(a1)[1]))
   a4 <- rbind(a1, a3)
   NAs_melt <- data.table::melt(a4, id.vars = c('year', 'Missing'))
@@ -36,6 +32,4 @@ plotNA.rainAll <- function(x){
     facet_wrap(~variable, nrow = 2)
   return(p)
 }
-
-# plotNA.rainAll(rain)
 
