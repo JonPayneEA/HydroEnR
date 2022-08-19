@@ -11,6 +11,8 @@ models, applications can be extended into hydrological analyses. It enables;
       - Interactive visualisations
   - Aggregation of data by different periods and through various functions
     using rapid C++ based processes
+  - Rain gauge weighting
+    - Weighted average method
   - Peak detection in hydrological data
     - Various functions available
   - Conversion of flow and precipitation data to a volumetric measure over a 
@@ -19,7 +21,7 @@ models, applications can be extended into hydrological analyses. It enables;
     models
   - Download up-to-date meta data on EA gauges published on API
   - Carry out single site analyses
-      - ESS in the near future
+  - Determine baseflow from 15 minute resolution data
   - Review model performance using a greater range of objective functions than
     what is currently available
   - ARMA parameter inspection for stability in a real time forecasting
@@ -33,5 +35,5 @@ models, applications can be extended into hydrological analyses. It enables;
   - Importing recent flow, stage and rain gauge data via the EAs API
       - Limited to 2500 time steps
   - Impute missing data into PE series
-  - Rain gauge weighting
   - Trend detection in hydrological data
+  - ESS in the near future
