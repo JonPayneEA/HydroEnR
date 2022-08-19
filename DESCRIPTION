@@ -12,16 +12,17 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: 
     data.table,
+    magrittr,
     ggplot2,
     beepr,
     RcppRoll,
-    UKFE,
     sf,
     leaflet,
     htmltools,
     dygraphs,
     Rcpp,
-    shiny
+    shiny,
+    rnrfa
 Suggests: 
     rmarkdown,
     knitr

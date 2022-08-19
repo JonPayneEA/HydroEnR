@@ -21,6 +21,6 @@ gaugeProp <- function(coords, catchment){
   prop <- (area/total) * 100 # Percentage area
   dt <- data.table(Gauge = v_poly$ID, Area = area, Proportion = prop)
   class(dt) <- append(class(dt), 'gaugeProp')
-  print(dt)
+  return(dt)
 }
 

@@ -39,7 +39,7 @@ intersectPoly <- function(voronoi, catchment, coords){
 #' #z %>% addProviderTiles(providers$Esri.NatGeoWorldMap)
 teesunPlot <- function(coords, catchment){
   voronoi <- teeSun(coords, catchment = catchment)
-  v_poly <- intersectpoly(voronoi = voronoi,
+  v_poly <- intersectPoly(voronoi = voronoi,
                       catchment = catchment,
                       coords = coords)
   names(v_poly)[1] <- 'ID'

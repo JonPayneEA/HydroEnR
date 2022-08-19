@@ -1,7 +1,4 @@
 library(HydroEnR)
-library(sf)
-library(leaflet)
-library(htmltools)
 
 # Link to files
 link <- 'C:/Users/jpayne05/Desktop/RG_Analysis/RGs'
@@ -15,13 +12,14 @@ oundle <- loadWISKI(files[4])
 wellingborough <- loadWISKI(files[5])
 yelden <- loadWISKI(files[6])
 
-profvis::profvis({
-  oundle <- loadWISKI(files[4])
-})
+# Optional
+# profvis::profvis({
+#   oundle <- loadWISKI(files[4])
+# })
 
+oundle
 oundle$Metadata
 oundle$GaugeData
-oundle
 
 # Collate the metadata
 meta <- metaCollate(brigstock, corby, kingscliffe, oundle, wellingborough, yelden)
@@ -45,20 +43,22 @@ shape_t <- st_transform(shape, "+init=epsg:4326", coords)
 
 # Get the coordinates for mapping
 coords <- getCoords(brigstock, corby, kingscliffe, oundle, wellingborough, yelden)
+coords
 
 # Generate Voronoi/Thiessen polygons
 voronoi <- teeSun(coords, catchment = shape_t)
+voronoi
 
 # Calculate intersections of voronoi and catchment
-st_area(intersect(voronoi, shape_t, coords))
-
-# teesunPlot
-map <- teesunPlot(coords = coords, catchment = shape_t)
-map
+st_area(intersectPoly(voronoi, shape_t, coords))
 
 # Extract the proportions with
 prop <- gaugeProp(coords, shape_t)
 prop
+
+# teesunPlot
+map <- teesunPlot(coords = coords, catchment = shape_t)
+map
 
 # Plot some QA plots
 # First we need to merge the datasets

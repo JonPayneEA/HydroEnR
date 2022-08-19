@@ -4,7 +4,7 @@ library(data.table)
 
 #' @title loadWISKI
 #'
-#' @description Load data downloaded from WISKI, in the EA csv, format. Metadata
+#' @description Load data downloaded from WISKI, in the EA ascii format. Metadata
 #' are preserved. Loaded data are in the form of a list, called either flowLoad,
 #' rainLoad, or stageLoad. Data are in two parts MetaData and GaugeData.
 #'

@@ -4,12 +4,14 @@
 \alias{rainAvg}
 \title{Merge Rain gauge data}
 \usage{
-rainAvg(gaugeProp, rainAll)
+rainAvg(gaugeProp, rainAll, menu = TRUE)
 }
 \arguments{
 \item{gaugeProp}{Data table calculated with the gaugeProp() function}
 
 \item{rainAll}{Data table of collated rain gauge data created with the mergeData() function}
+
+\item{menu}{Defaults as true, setting to false speeds up process and bypasses the menu}
 }
 \value{
 
