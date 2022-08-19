@@ -19,6 +19,9 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>/reference/annualAgg.html</loc>
   </url>
   <url>
@@ -37,6 +40,9 @@
     <loc>/reference/funs.html</loc>
   </url>
   <url>
+    <loc>/reference/gaugeProp.html</loc>
+  </url>
+  <url>
     <loc>/reference/getAMAX.html</loc>
   </url>
   <url>
@@ -53,6 +59,12 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/intersect.html</loc>
+  </url>
+  <url>
+    <loc>/reference/intersectPoly.html</loc>
   </url>
   <url>
     <loc>/reference/L1.html</loc>
@@ -124,6 +136,9 @@
     <loc>/reference/R2.html</loc>
   </url>
   <url>
+    <loc>/reference/rainAvg.html</loc>
+  </url>
+  <url>
     <loc>/reference/RMSE.html</loc>
   </url>
   <url>
@@ -137,6 +152,9 @@
   </url>
   <url>
     <loc>/reference/teeSun.html</loc>
+  </url>
+  <url>
+    <loc>/reference/teesunPlot.html</loc>
   </url>
   <url>
     <loc>/reference/urbAdj.html</loc>

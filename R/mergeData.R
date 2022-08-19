@@ -40,6 +40,11 @@ mergeData <- function(...){
                        all = T)
     }
   }
+  # Change back to Value
+  # Fixes issue that Loaded data has column 2 ID changed
+  for(i in seq_along(dtlst)){
+    setnames(dtlst[[i]]$GaugeData, 2, 'Value')
+  }
   class(full_dt) <- append(class(full_dt), 'rainAll')
   return(full_dt)
 }

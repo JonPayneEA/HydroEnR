@@ -50,7 +50,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -80,36 +80,38 @@
 <div class="section level2">
 <h2 id="welcome-to-hydroenr">Welcome to HydroEnR!<a class="anchor" aria-label="anchor" href="#welcome-to-hydroenr"></a>
 </h2>
-<p>This package is designed for members of Evidence and Risk. It allows you to;</p>
+<p>This package is designed for members of Evidence and Risk who are developing PDM models, applications can be extended into hydrological analyses. It enables;</p>
 <ul>
-<li>Easily load data downloaded from WISKI<ul>
+<li>Easy loading of data downloaded from WISKI<ul>
 <li>Carry out quality checks on these data<br>
 </li>
 <li>Preserve metadata</li>
 <li>Interactive visualisations</li>
 </ul>
 </li>
-<li>Aggregate data by different periods and through various functions using rapid C++ based processes</li>
-<li>Detect peaks in hydrological data</li>
-<li>Convert flow and precipitation data to a volumetric measure over a designated time step</li>
-<li>Develop Thiessen/Voronoi polygons for use in our realtime flood forecast models</li>
+<li>Aggregation of data by different periods and through various functions using rapid C++ based processes</li>
+<li>Peak detection in hydrological data<ul><li>Various functions available</li></ul>
+</li>
+<li>Conversion of flow and precipitation data to a volumetric measure over a designated time step</li>
+<li>Derivation of Thiessen/Voronoi polygons for use in our realtime flood forecast models</li>
 <li>Download up-to-date meta data on EA gauges published on API</li>
-<li>Detect trends in hydrological data</li>
 <li>Carry out single site analyses<ul><li>ESS in the near future</li></ul>
 </li>
 <li>Review model performance using a greater range of objective functions than what is currently available</li>
+<li>ARMA parameter inspection for stability in a real time forecasting context<ul><li>Loads a local version of the shiny application</li></ul>
+</li>
 </ul>
 <div class="section level3">
 <h3 id="future-updates">Future Updates<a class="anchor" aria-label="anchor" href="#future-updates"></a>
 </h3>
 <ul>
-<li>Use basic hydraulic equations such as the Mannings’ equation<ul><li>Import cross sectional data and carry out rudimentary analyses</li></ul>
+<li>Basic hydraulic equations such as the Mannings’ equation<ul><li>Import cross sectional data and carry out rudimentary analyses</li></ul>
 </li>
-<li>Import recent flow, stage and rain gauge data via the EAs API<ul><li>Limited to 2500 time steps</li></ul>
+<li>Importing recent flow, stage and rain gauge data via the EAs API<ul><li>Limited to 2500 time steps</li></ul>
 </li>
-<li>Inspect ARMA parameters for stability in a real time forecasting context</li>
 <li>Impute missing data into PE series</li>
 <li>Rain gauge weighting</li>
+<li>Trend detection in hydrological data</li>
 </ul>
 </div>
 </div>
@@ -120,9 +122,8 @@
     <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
 

@@ -82,10 +82,7 @@ loadWISKI <- function(link,
     dt <- dt[first_data: length(dt$Value)]
     cat('Converting dates and times\n')
     dt$DateTime <- as.POSIXct(dt$DateTime, format = "%d/%m/%Y %H:%M:%S", tz = "GMT")
-    dt <- dt[, c("Date", "Time") := tstrsplit(DateTime, " ", fixed=TRUE)]
-    dt$Date <- as.Date(dt$DateTime, format = '%d/%m/%Y')
-    dt$Hour <- as.numeric(substr(dt$Time, 1, 2))
-    hydroData <- HydroYearDay(dt$Date, hy_cal = hydro_year)
+    hydroData <- HydroYearDay(as.Date(dt$DateTime), hy_cal = hydro_year)
     dt <- data.table(dt, hydroData)
   }
   if(rdata[9,2]=='Flow'){
@@ -105,10 +102,7 @@ loadWISKI <- function(link,
     dt <- dt[first_data: length(dt$Value)]
     cat('Converting dates and times\n')
     dt$DateTime <- as.POSIXct(dt$DateTime, format = "%d/%m/%Y %H:%M:%S", tz = "GMT")
-    dt <- dt[, c("Date", "Time") := tstrsplit(DateTime, " ", fixed=TRUE)]
-    dt$Date <- as.Date(dt$DateTime, format = '%d/%m/%Y')
-    dt$Hour <- as.numeric(substr(dt$Time, 1, 2))
-    hydroData <- HydroYearDay(dt$Date, hy_cal = hydro_year)
+    hydroData <- HydroYearDay(as.Date(dt$DateTime), hy_cal = hydro_year)
     dt <- data.table(dt, hydroData)
   }
   if(rdata[9,2]=='Stage'){
@@ -128,10 +122,7 @@ loadWISKI <- function(link,
     dt <- dt[first_data: length(dt$Value)]
     cat('Converting dates and times\n')
     dt$DateTime <- as.POSIXct(dt$DateTime, format = "%d/%m/%Y %H:%M:%S", tz = "GMT")
-    dt <- dt[, c("Date", "Time") := tstrsplit(DateTime, " ", fixed=TRUE)]
-    dt$Date <- as.Date(dt$DateTime, format = '%d/%m/%Y')
-    dt$Hour <- as.numeric(substr(dt$Time, 1, 2))
-    hydroData <- HydroYearDay(dt$Date, hy_cal = hydro_year)
+    hydroData <- HydroYearDay(as.Date(dt$DateTime), hy_cal = hydro_year)
     dt <- data.table(dt, hydroData)
   }
   data <- list()

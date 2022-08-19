@@ -4,10 +4,12 @@
 \alias{teeSun}
 \title{teeSun}
 \usage{
-teeSun(x)
+teeSun(x, catchment = NULL)
 }
 \arguments{
 \item{x}{SF file with point data within.}
+
+\item{catchment}{Set as null, optional bounding box polygon derived from catchment polygon}
 }
 \value{
 
