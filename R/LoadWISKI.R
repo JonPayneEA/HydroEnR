@@ -54,7 +54,7 @@ loadWISKI <- function(link,
   if(!is.null(cols)){
     col_names <- cols
     if(length(cols) != length()){
-      stop('The number of column names does not match the columnn number of the data table')
+      stop('The number of column names does not match the column number of the data table')
     }
     if(cols[1] != 'DateTime'){
       cols[1] <- 'DateTime'

@@ -10,7 +10,7 @@
 \usage{
 hourlyAgg(x, method = "mean", ...)
 
-\method{hourlyAgg}{flowLoad}(x, method = mean, ...)
+\method{hourlyAgg}{flowLoad}(x, method = "mean", ...)
 
 \method{hourlyAgg}{stageLoad}(x, method = "mean", ...)
 

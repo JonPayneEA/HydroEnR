@@ -1,8 +1,17 @@
 library(HydroEnR)
+library(leaflet)
+library(sf)
+library(htmltools)
+library(data.table)
+library(dygraphs)
+library(gt)
+library(ggplot2)
+library(RcppRoll)
 
 # Link to files
 link <- 'C:/Users/jpayne05/Desktop/RG_Analysis/RGs'
 files <- list.files(link, full.names = TRUE)
+files
 
 # Import data
 brigstock <- loadWISKI(files[1])
@@ -13,9 +22,9 @@ wellingborough <- loadWISKI(files[5])
 yelden <- loadWISKI(files[6])
 
 # Optional
-# profvis::profvis({
-#   oundle <- loadWISKI(files[4])
-# })
+profvis::profvis({
+  oundle <- loadWISKI(files[4])
+})
 
 oundle
 oundle$Metadata
@@ -71,6 +80,7 @@ rain
 
 # 1st QA plot - show missing data
 plotNA(merged_dt)
+plotNA(rain)
 
 # 2nd QA plot
 # As it's interactive this plot will take a long time to render
@@ -83,8 +93,40 @@ plotQA(merged_daily)
 cumul <- cumsumNA(merged_daily)
 plotQA(cumul)
 
-# As the gauges have started recording at different times we need to partion or
+# As the gauges have started recording at different times we need to partition or
 # window the time series
 merged_2009 <- window(merged_daily, start = '2009-10-01')
 cumul_2009 <- cumsumNA(merged_2009)
 plotQA(cumul_2009)
+
+# Loading PE data
+pe_link <- ('C:/Users/jpayne05/OneDrive - Defra/R/Packages/Test_data/PE/PE.csv')
+dt <- loadPE(pe_link)
+dt
+dt$RemoteData$PE
+
+# Plot of the data with a smoother of type GAM
+ggplot(dt$RemoteData, aes(x = DateTime, y = PE)) +
+  geom_line() +
+  ggtitle('PE data for River Lee at Silver Street') +
+  xlab('Time') +
+  ylab('mm day') +
+  geom_smooth(colour = 'red', size = 1.5)
+
+# Load flow data
+flow_link <- 'C:/Users/jpayne05/Desktop/Buildwas_15min_Flow.csv'
+buildwas <- loadWISKI(flow_link)
+buildwas
+asVol.flowLoad(buildwas)
+
+hourlyAgg(buildwas, method = 'min')
+dailyAgg(buildwas)
+monthlyAgg(buildwas, method = 'sum')
+annualAgg(buildwas)
+hydroYearAgg(buildwas, method = 'max')
+rollingAggs(buildwas, method = 'max')
+
+oundle_vol <- asVol.rainLoad(oundle)
+prop
+oundle_vol <- asVol.rainLoad(oundle, area_km = 219)
+oundle_vol

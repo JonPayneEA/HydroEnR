@@ -159,5 +159,4 @@ baseflow_Eckhardt <- function(Q, BFImax, k){
 # plot(baseflow_RecessionConstant(Buildwas$Value), type = 'l')
 #
 #
-# daily <- dailyAgg.FlowLoad(Buildwas, 'max')
-# UKFE::BFI(daily$Daily_Max)
+

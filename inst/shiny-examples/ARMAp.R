@@ -10,7 +10,6 @@
 # Load packages ----
 library(shiny)
 library(forecast)
-library(UKFE)
 library(ggplot2)
 library(shinythemes)
 library(BLRPM)
@@ -36,7 +35,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                 br(),
                                 img(src = "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/organisation/logo/199/environment-agency-logo-480w.png", height = 90, width = 250),
                                 br(),
-                                "ARMAp is a product of the", 
+                                "ARMAp is a product of the",
                                 span("Environment Agency.", style = "color:darkblue"),
                                 br(),
                                 "Please contact ", a("Jonathan Payne", href = "mailto:jon.payne@environment-agency.gov.uk?
@@ -45,17 +44,17 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                 body=''&subject=ARMAp Query"), " for further details."),
                             mainPanel(
                                 h1("Introducing ARMAp"),
-                                p("ARMAp is a new application developed by the Environment Agency to make it ", 
-                                  em("easy "), 
+                                p("ARMAp is a new application developed by the Environment Agency to make it ",
+                                  em("easy "),
                                   "to test the stability of ARMA parameters prior to them being used in IMFS"),
                                 br(),
                                 p("For an introduction and live examples, please refer to the forecasting ",
-                                  a("sharepoint site.", 
+                                  a("sharepoint site.",
                                     href = "http://ea.sharepoint.com")),
                                 br(),
                                 h2("Current Features"),
                                 p("- View the characteristic decay of AR parameters."),
-                                p("- Assess the performance of ARMA parameters using the characteristic roots up to a level of ", 
+                                p("- Assess the performance of ARMA parameters using the characteristic roots up to a level of ",
                                   strong("ARMA(5,2)")),
                                 p("- Develop rainfall series using a ", strong("Bartlett-Lewis model"),"."),
                                 br(),
@@ -63,11 +62,11 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                 p("- Import your own error series and derive suitable ARMA parameters for it."),
                                 p("- Use catchment descriptors to inform interim ARMA parameters."),
                                 p("- Simulate a rainfall runoff model (PDM) using the stochastic rainfall tool. Outputs include quasi-observed and simulated error series"),
-                                
+
                             )
                         )
                ),
-               
+
                tabPanel("AR Suitability",
                         fluidPage(
                           h1("AR Parameter Testing"),
@@ -116,7 +115,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                    numericInput("Lag4",
                                                 h4("Lag 4"),
                                                 value = 1)
-                                   
+
                             ),
                             column(2,
                                    br(),
@@ -190,12 +189,12 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                #                           choices = c(Head = "head",
                #                                       All = "all"),
                #                           selected = "head")
-               # 
+               #
                #            ),
-               # 
+               #
                #            # Main panel for displaying outputs ----
                #            mainPanel(
-               # 
+               #
                #              # Output: Data file ----
                #              tableOutput("contents")
                #            )
@@ -203,7 +202,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                # ),
                # tabPanel("Catchment Descriptors",
                #          titlePanel("NRFA Catchment Descriptors"),
-               # 
+               #
                #            # Create a new Row in the UI for selectInputs
                #            # fluidRow(
                #            #   column(4,
@@ -226,9 +225,9 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                #            #   )
                #            # ),
                #            # Create a new row for the table.
-               # 
+               #
                #            DT::dataTableOutput("table")
-               # 
+               #
                # ),
                tabPanel("Rainfall generator",
                         sidebarLayout(
@@ -409,7 +408,7 @@ server <- shinyServer(
       } else {
         out3 <- "Magnitude of AR parameters are not exhibiting a gradual decline, this could lead to instabilities in AR decay"
       }
-      
+
       HTML(paste(out1,out2, out3, sep="<br/>"))
     })
     output$AR_roots <- DT::renderDataTable({
@@ -474,20 +473,20 @@ server <- shinyServer(
       }
       df <- data.frame(Real_Unit, Imaginary_Unit, Details, Real_Inverse, Imaginary_Inverse, Inverted_Details)
       DT::datatable(df)
-      
+
     })
     output$rainfall <- renderPlot({
       sim_rain <- BLRPM.sim(input$Lambda,input$Gamma,input$Beta,input$Eta,input$Mux,input$t.sim,t.acc=input$t.sim,input$Interval,input$Offset)
       plot(sim_rain)
     })
     output$contents <- renderTable({
-      
+
       # input$file1 will be NULL initially. After the user selects
       # and uploads a file, head of that data file by default,
       # or all rows if selected, will be shown.
-      
+
       req(input$file1)
-      
+
       # when reading semicolon separated files,
       # having a comma separator causes `read.csv` to error
       tryCatch(
@@ -502,7 +501,7 @@ server <- shinyServer(
           stop(safeError(e))
         }
       )
-      
+
       if(input$disp == "head") {
         return(head(df))
       }
@@ -525,7 +524,7 @@ server <- shinyServer(
     })
     )
     output$Map <- renderPlot({
-      plot(UKOutline, pch = 19, cex = 0.25, xlab = "Easting", 
+      plot(UKOutline, pch = 19, cex = 0.25, xlab = "Easting",
            ylab = "Northing", xlim = c(25272, 650000))
       QMED.Pool <- QMEDData[21:22]
       points(QMED.Pool, pch = 19, col = "red")
@@ -537,5 +536,5 @@ server <- shinyServer(
 
 
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)

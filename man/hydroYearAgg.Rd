@@ -9,11 +9,11 @@
 \usage{
 hydroYearAgg(x, method = "mean", ...)
 
-\method{hydroYearAgg}{flowLoad}(x, method = mean, ...)
+\method{hydroYearAgg}{flowLoad}(x, method = "mean", ...)
 
-\method{hydroYearAgg}{rainLoad}(x, method = mean, ...)
+\method{hydroYearAgg}{rainLoad}(x, method = "mean", ...)
 
-\method{hydroYearAgg}{stageLoad}(x, method = mean, ...)
+\method{hydroYearAgg}{stageLoad}(x, method = "mean", ...)
 }
 \arguments{
 \item{x}{Data generated in the HydroEnR package}

@@ -10,11 +10,11 @@
 \usage{
 annualAgg(x, method = "mean", ...)
 
-\method{annualAgg}{flowLoad}(x, method = mean, ...)
+\method{annualAgg}{flowLoad}(x, method = "mean", ...)
 
-\method{annualAgg}{rainLoad}(x, method = mean, ...)
+\method{annualAgg}{rainLoad}(x, method = "mean", ...)
 
-\method{annualAgg}{stageLoad}(x, method = mean, ...)
+\method{annualAgg}{stageLoad}(x, method = "mean", ...)
 
 \method{annualAgg}{rainAll}(x, method = "mean", ...)
 }

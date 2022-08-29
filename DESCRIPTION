@@ -22,7 +22,8 @@ Imports:
     dygraphs,
     Rcpp,
     shiny,
-    rnrfa
+    rnrfa,
+    forecast
 Suggests: 
     rmarkdown,
     knitr

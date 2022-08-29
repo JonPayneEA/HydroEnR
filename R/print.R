@@ -1,3 +1,4 @@
+#' @title Print
 #' @rdname print
 #' @export
 print.L1 <- function(x, ...) {
