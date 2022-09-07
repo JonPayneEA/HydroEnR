@@ -3,21 +3,16 @@
 
 # Function to find peak within a user defined window (m)
 # Run this code to embed the function
-find_peaks <- function (x, m = 3){
-  shape <- diff(sign(diff(x, na.pad = FALSE)))
-  pks <- sapply(which(shape < 0), FUN = function(i){
-    z <- i - m + 1
-    z <- ifelse(z > 0, z, 1)
-    w <- i + m + 1
-    w <- ifelse(w < length(x), w, length(x))
-    if(all(x[c(z : i, (i + 2) : w)] <= x[i + 1])) return(i + 1) else return(numeric(0))
-  })
-  pks <- unlist(pks)
-  pks
-}
-#
-# # Function can now be applied
-# find_peaks(allington$Value, m = 5000)
+#' @title Find peaks with base R
+#'
+#' @param x Data set
+#' @param m Window of which to identify peaks
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' find_peaks(allington$Value, m = 5000)
 #
 # # This returns the row of where each peak is found
 #
@@ -43,3 +38,19 @@ find_peaks <- function (x, m = 3){
 # }
 #
 # z <- find_peaks(allington$Value, m = 1000)
+find_peaks <- function (x, m = 3){
+  shape <- diff(sign(diff(x, na.pad = FALSE)))
+  pks <- sapply(which(shape < 0), FUN = function(i){
+    z <- i - m + 1
+    z <- ifelse(z > 0, z, 1)
+    w <- i + m + 1
+    w <- ifelse(w < length(x), w, length(x))
+    if(all(x[c(z : i, (i + 2) : w)] <= x[i + 1])) return(i + 1) else return(numeric(0))
+  })
+  pks <- unlist(pks)
+  pks
+}
+## usethis namespace: start
+#' @importFrom Rcpp sourceCpp
+## usethis namespace: end
+NULL

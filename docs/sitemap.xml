@@ -37,6 +37,9 @@
     <loc>/reference/Estimates.html</loc>
   </url>
   <url>
+    <loc>/reference/find_peaks.html</loc>
+  </url>
+  <url>
     <loc>/reference/funs.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>/reference/hourlyAgg.html</loc>
+  </url>
+  <url>
+    <loc>/reference/hydroAggregate.html</loc>
   </url>
   <url>
     <loc>/reference/hydroYearAgg.html</loc>
@@ -91,6 +97,9 @@
     <loc>/reference/LKur.html</loc>
   </url>
   <url>
+    <loc>/reference/loadPE.html</loc>
+  </url>
+  <url>
     <loc>/reference/loadWISKI.html</loc>
   </url>
   <url>
@@ -128,6 +137,9 @@
   </url>
   <url>
     <loc>/reference/plotQMED.html</loc>
+  </url>
+  <url>
+    <loc>/reference/print.html</loc>
   </url>
   <url>
     <loc>/reference/QMED.html</loc>

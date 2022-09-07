@@ -98,10 +98,9 @@
 <p>Let’s import some QMED data from NRFA, the site we’ll use is ‘Thames at Kingston’ - ID: 39001</p>
 <p>For this we will require the rnrfa package.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://cvitolo.github.io/rnrfa/" class="external-link">rnrfa</a></span><span class="op">)</span>
-<span class="co">#&gt; Warning: package 'rnrfa' was built under R version 4.0.5</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ilapros.github.io/rnrfa/" class="external-link">rnrfa</a></span><span class="op">)</span>
 
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="http://cvitolo.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">39001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rnrfa</span><span class="fu">::</span><span class="fu"><a href="https://ilapros.github.io/rnrfa/reference/get_ts.html" class="external-link">get_ts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">39001</span>, type <span class="op">=</span> <span class="st">'amax-flow'</span><span class="op">)</span>
 <span class="va">data</span>
 <span class="co">#&gt;            amax-flow</span>
 <span class="co">#&gt; 1883-02-16   510.570</span>
@@ -241,16 +240,17 @@
 <span class="co">#&gt; 2017-02-02   197.000</span>
 <span class="co">#&gt; 2018-04-04   320.000</span>
 <span class="co">#&gt; 2019-02-10   214.000</span>
-<span class="co">#&gt; 2019-12-23   445.000</span></code></pre></div>
+<span class="co">#&gt; 2019-12-23   445.000</span>
+<span class="co">#&gt; 2021-02-05   423.300</span></code></pre></div>
 <p>To find the QMED we will use the QMED function;</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">qmed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/QMED.html">QMED</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="va">qmed</span>
-<span class="co">#&gt; [1] 314.875</span></code></pre></div>
+<span class="co">#&gt; [1] 315.61</span></code></pre></div>
 <p>Now we’ll make a plot of the data</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plotQMED.html">plotQMED</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt; [1] Estimated QMED: 314.875 cumecs</span></code></pre></div>
+<span class="co">#&gt; [1] Estimated QMED: 315.61 cumecs</span></code></pre></div>
 <p><img src="HydroEnR-Welcome_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -260,31 +260,31 @@
 <p>To calculate the L1;</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/L1.html">L1</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt; [1] 325.9777</span></code></pre></div>
+<span class="co">#&gt; [1] 326.6779</span></code></pre></div>
 <p>You can also apply an urban adjustment. For this you can nest the function</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/urbAdj.html">urbAdj</a></span><span class="op">(</span><span class="fu"><a href="../reference/LCV.html">LCV</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>, URBEXT2000 <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.1627344</span></code></pre></div>
+<span class="co">#&gt; [1] 0.1624335</span></code></pre></div>
 <p>Alternatively, you can use a piping operator from the magrittr library. In this example we will set the DeUrb parameter to TRUE, normally set to FALSE.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/LCV.html">LCV</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/urbAdj.html">urbAdj</a></span><span class="op">(</span>URBEXT2000 <span class="op">=</span> <span class="fl">0.3</span>, DeUrb <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] 0.2317641</span></code></pre></div>
+<span class="co">#&gt; [1] 0.2313356</span></code></pre></div>
 <p>Using the Ls() function HydroEnR can bundle up all the L-moment calculations;</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/Ls.html">Ls</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="co">#&gt;         L1       L2       L3       L4       LCV       LCA      LKUR     LSkew</span>
-<span class="co">#&gt; 1 325.9777 63.30685 8.623283 10.11154 0.1942061 0.1362141 0.1597227 0.1362141</span>
-<span class="co">#&gt;      QMED</span>
-<span class="co">#&gt; 1 314.875</span></code></pre></div>
+<span class="co">#&gt;         L1       L2       L3       L4      LCV       LCA      LKUR     LSkew</span>
+<span class="co">#&gt; 1 326.6779 63.32553 8.402622 9.957671 0.193847 0.1326893 0.1572458 0.1326893</span>
+<span class="co">#&gt;     QMED</span>
+<span class="co">#&gt; 1 315.61</span></code></pre></div>
 <p>Urban adjustments can also be added with the URBEXT2000 and DeUrb parameters</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/Ls.html">Ls</a></span><span class="op">(</span><span class="va">data</span>, URBEXT2000 <span class="op">=</span> <span class="fl">0.3</span>, DeUrb <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt;         L1       L2       L3       L4       LCV       LCA      LKUR     LSkew</span>
-<span class="co">#&gt; 1 325.9777 63.30685 8.623283 10.11154 0.1627344 0.1362141 0.1597227 0.1862556</span>
-<span class="co">#&gt;      QMED</span>
-<span class="co">#&gt; 1 314.875</span></code></pre></div>
+<span class="co">#&gt; 1 326.6779 63.32553 8.402622 9.957671 0.1624335 0.1326893 0.1572458 0.1825756</span>
+<span class="co">#&gt;     QMED</span>
+<span class="co">#&gt; 1 315.61</span></code></pre></div>
 </div>
 </div>
   </div>
