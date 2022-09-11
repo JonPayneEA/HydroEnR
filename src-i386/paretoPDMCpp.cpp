@@ -1,5 +1,11 @@
 #include <Rcpp.h>
 using namespace Rcpp;
+
+//' @title Basic pareto based PDM in R
+//' @param fc Rainfac, adjust to apply multiplier against rainfall
+//' @param Cmin Minimum soil storage
+//' @param Cmax Maximum soil storage
+//' @export
 // [[Rcpp::export]]
 List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, NumericVector PE, double s, double be,
          double kg, double St, double bg, double k1, double k2, double kb, double area){

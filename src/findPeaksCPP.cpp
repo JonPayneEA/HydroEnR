@@ -9,10 +9,14 @@ double signDblCPP (double x){
   return(ret);
 }
 
-//Tested to be 6x faster(37 us vs 207 us). This operation is done from 200x per layer
-//Original R function by Stas_G
+
 #include <Rcpp.h>
 using namespace Rcpp;
+//' @title Find peaks in hydrological data
+//' @description Tested to be 6x faster, 37 us vs 207 us. This operation is done from 200x per layer. Original R function by Stas_G
+//' @param vY Numeric vector of hydrological data
+//' @param m Window over which to determine peaks
+//' @export
 // [[Rcpp::export]]
 NumericVector findPeaksCPP(NumericVector vY, int m = 3) {
   int sze = vY.size();

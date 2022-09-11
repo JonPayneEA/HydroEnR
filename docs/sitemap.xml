@@ -37,6 +37,9 @@
     <loc>/reference/Estimates.html</loc>
   </url>
   <url>
+    <loc>/reference/findPeaksCPP.html</loc>
+  </url>
+  <url>
     <loc>/reference/find_peaks.html</loc>
   </url>
   <url>
@@ -125,6 +128,9 @@
   </url>
   <url>
     <loc>/reference/monthPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/PDM.html</loc>
   </url>
   <url>
     <loc>/reference/peakDet.html</loc>
