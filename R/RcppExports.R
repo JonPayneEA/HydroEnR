@@ -14,16 +14,6 @@ findPeaksCPP <- function(vY, m = 3L) {
     .Call('_HydroEnR_findPeaksCPP', PACKAGE = 'HydroEnR', vY, m)
 }
 
-#' @title Ffind peaks using C++
-#' @param vY Numeric vector or timeseries
-#' @param m Defaults as 3, set this to define window over which to determine peaks
-#' [[Rcpp::export]]
-NULL
-
-gibbs_cpp <- function(N, thin) {
-    .Call('_HydroEnR_gibbs_cpp', PACKAGE = 'HydroEnR', N, thin)
-}
-
 #' @title Basic pareto based PDM in R
 #' @param fc Rainfac, adjust to apply multiplier against rainfall
 #' @param Cmin Minimum soil storage

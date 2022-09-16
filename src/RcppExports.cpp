@@ -33,18 +33,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// gibbs_cpp
-NumericMatrix gibbs_cpp(int N, int thin);
-RcppExport SEXP _HydroEnR_gibbs_cpp(SEXP NSEXP, SEXP thinSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< int >::type thin(thinSEXP);
-    rcpp_result_gen = Rcpp::wrap(gibbs_cpp(N, thin));
-    return rcpp_result_gen;
-END_RCPP
-}
 // PDM
 List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, NumericVector PE, double s, double be, double kg, double St, double bg, double k1, double k2, double kb, double area);
 RcppExport SEXP _HydroEnR_PDM(SEXP fcSEXP, SEXP CminSEXP, SEXP CmaxSEXP, SEXP bSEXP, SEXP PSEXP, SEXP PESEXP, SEXP sSEXP, SEXP beSEXP, SEXP kgSEXP, SEXP StSEXP, SEXP bgSEXP, SEXP k1SEXP, SEXP k2SEXP, SEXP kbSEXP, SEXP areaSEXP) {
@@ -74,7 +62,6 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_HydroEnR_signDblCPP", (DL_FUNC) &_HydroEnR_signDblCPP, 1},
     {"_HydroEnR_findPeaksCPP", (DL_FUNC) &_HydroEnR_findPeaksCPP, 2},
-    {"_HydroEnR_gibbs_cpp", (DL_FUNC) &_HydroEnR_gibbs_cpp, 2},
     {"_HydroEnR_PDM", (DL_FUNC) &_HydroEnR_PDM, 15},
     {NULL, NULL, 0}
 };

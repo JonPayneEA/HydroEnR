@@ -23,7 +23,8 @@ Imports:
     Rcpp,
     shiny,
     rnrfa,
-    forecast
+    forecast,
+    XML
 Suggests: 
     rmarkdown,
     knitr
