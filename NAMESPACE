@@ -173,3 +173,7 @@ import(rnrfa)
 import(s2)
 import(sf)
 importFrom(Rcpp,sourceCpp)
+useDynLib(HdroEnR)
+exportPattern("ˆ[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+
