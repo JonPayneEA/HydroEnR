@@ -29,8 +29,3 @@ a robust STL decomposition is first computed. Then a linear interpolation is
 applied to the seasonally adjusted data, and the seasonal component is added
 back.
 }
-\examples{
-#link <- ('C:/Users/jpayne05/OneDrive - Defra/R/Packages/Test_data/PE/PE.csv')
-#dt <- loadPE(link)
-#dt$RemoteData$PE
-}

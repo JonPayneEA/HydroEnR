@@ -15,10 +15,6 @@
 #' @return
 #' @export
 #'
-#' @examples
-#' #link <- ('C:/Users/jpayne05/OneDrive - Defra/R/Packages/Test_data/PE/PE.csv')
-#' #dt <- loadPE(link)
-#' #dt$RemoteData$PE
 loadPE <- function(link,
                    skip = 0,
                    meta_rows = 10,
