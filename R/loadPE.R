@@ -60,7 +60,3 @@ loadPE <- function(link,
       stop('PE data is not supported in this function when of the type; ', type[2,2])
   }
 }
-
-link <- ('C:/Users/jpayne05/OneDrive - Defra/R/Packages/Test_data/PE/PE.csv')
-dt <- loadPE(link)
-dt$RemoteData$PE
