@@ -64,7 +64,13 @@
     <loc>/reference/GenLogGF.html</loc>
   </url>
   <url>
+    <loc>/reference/GenLogParams.html</loc>
+  </url>
+  <url>
     <loc>/reference/GenParetoGF.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GenParetoParams.html</loc>
   </url>
   <url>
     <loc>/reference/getAMAX.html</loc>
@@ -76,10 +82,19 @@
     <loc>/reference/GEVGF.html</loc>
   </url>
   <url>
+    <loc>/reference/GEVParams.html</loc>
+  </url>
+  <url>
     <loc>/reference/growthBactors.html</loc>
   </url>
   <url>
+    <loc>/reference/growthFactors.html</loc>
+  </url>
+  <url>
     <loc>/reference/GumbelGF.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GumbelParams.html</loc>
   </url>
   <url>
     <loc>/reference/hourlyAgg.html</loc>
@@ -158,6 +173,9 @@
   </url>
   <url>
     <loc>/reference/monthPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Params.html</loc>
   </url>
   <url>
     <loc>/reference/PDM.html</loc>

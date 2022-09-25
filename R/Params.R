@@ -1,5 +1,16 @@
-# Parametrs
-# Works with different classes
+#' @title Determine parameters of Generalised Extreme Value fit
+#'
+#' @param x Dataset of HydroEnR classes or L-moments
+#' @param RP Vector of required return periods
+#' @param URBEXT2000 If you wish to add urban adjustment the L-moments
+#' @param DeUrb Set to FALSE, set to TRUE should you want to deurbanise
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' #GEVParams(buildwas)
 GEVParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
     Ls <- x
@@ -10,13 +21,25 @@ GEVParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   Shape <- 7.859*C+2.95548*C^2
   Scale <- (Ls$L2*Shape)/((1-2^-Shape)*gamma(1+Shape))
   Loc <- Ls$L1-Scale*((1-gamma(1+Shape))/Shape)
-  df <- data.frame(Loc, Scale, Shape)
-  class(df) <- append(class(df), 'GEVPar')
-  return(df)
+  dt <- t(data.frame(Loc, Scale, Shape))
+  colnames(dt) <- 'GEV'
+  class(dt) <- append(class(dt), 'GEVPar')
+  return(dt)
 }
 
-
-
+#' @title Determine parameters of Gumbel fit
+#'
+#' @param x Dataset of HydroEnR classes or L-moments
+#' @param RP Vector of required return periods
+#' @param URBEXT2000 If you wish to add urban adjustment the L-moments
+#' @param DeUrb Set to FALSE, set to TRUE should you want to deurbanise
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' #GumbelParams(buildwas)
 GumbelParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
     Ls <- x
@@ -26,12 +49,25 @@ GumbelParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   Scale <- (Ls$L1*Ls$LCV)/log(2)
   Loc <- Ls$L1 - 0.5772*Scale
   Shape <- NA
-  df <- data.frame(Loc, Scale, Shape)
-  class(df) <- append(class(df), 'GumbelPar')
-  return(df)
+  dt <- t(data.frame(Loc, Scale, Shape))
+  colnames(dt) <- 'Gumbel'
+  class(dt) <- append(class(dt), 'GumbelPar')
+  return(dt)
 }
 
-
+#' @title Determine parameters of Generalised Logistic fit
+#'
+#' @param x Dataset of HydroEnR classes or L-moments
+#' @param RP Vector of required return periods
+#' @param URBEXT2000 If you wish to add urban adjustment the L-moments
+#' @param DeUrb Set to FALSE, set to TRUE should you want to deurbanise
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' #GenLogParams(buildwas)
 GenLogParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
     Ls <- x
@@ -41,11 +77,25 @@ GenLogParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   Shape <- -Ls$LSkew
   Scale <- (Ls$L2 * sin(Shape * pi))/(Shape * pi)
   Loc <- Ls$L1 - Scale * ((1/Shape) - (pi/sin(Shape * pi)))
-  df <- data.frame(Loc, Scale, Shape)
-  class(df) <- append(class(df), 'GenLogPar')
-  return(df)
+  dt <- t(data.frame(Loc, Scale, Shape))
+  colnames(dt) <- 'GenLog'
+  class(dt) <- append(class(dt), 'GenLogPar')
+  return(dt)
 }
 
+#' @title Determine parameters of Generalised Pareto fit
+#'
+#' @param x Dataset of HydroEnR classes or L-moments
+#' @param RP Vector of required return periods
+#' @param URBEXT2000 If you wish to add urban adjustment the L-moments
+#' @param DeUrb Set to FALSE, set to TRUE should you want to deurbanise
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' #GenParetoParams(buildwas)
 GenParetoParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   if(is(x, 'Ls')){
     Ls <- x
@@ -55,37 +105,35 @@ GenParetoParams <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   Shape <- (1 - 3 * Ls$LSkew)/(1 + Ls$LSkew)
   Scale <- (1 + Shape) * (2 + Shape) * Ls$L2
   Loc <- Ls$L1 - (2 + Shape) * Ls$L2
-  df <- data.frame(Loc, Scale, Shape)
-  class(df) <- append(class(df), 'GenParetorPar')
-  return(df)
+  dt <- t(data.frame(Loc, Scale, Shape))
+  colnames(dt) <- 'GenPareto'
+  class(dt) <- append(class(dt), 'GenParetoPar')
+  return(dt)
 }
 
-# GEVParams(Ls(Buildwas))
-# GEVParams(Buildwas)
-# GEVParams(Buildwas_Analysis)
-# GEVParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-# GumbelParams(Ls(Buildwas))
-# GumbelParams(Buildwas)
-# GumbelParams(Buildwas_Analysis)
-# GumbelParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-# GenLogParams(Ls(Buildwas))
-# GenLogParams(Buildwas)
-# GenLogParams(Buildwas_Analysis)
-# GenLogParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-# GenParetoParams(Ls(Buildwas))
-# GenParetoParams(Buildwas)
-# GenParetoParams(Buildwas_Analysis)
-# GenParetoParams(Buildwas_Analysis$Hydro_year$Hydro_year_Max)
-
+#' @title Determine parameters of all available model fits
+#'
+#' @param x Dataset of HydroEnR classes or L-moments
+#' @param RP Vector of required return periods
+#' @param URBEXT2000 If you wish to add urban adjustment the L-moments
+#' @param DeUrb Set to FALSE, set to TRUE should you want to deurbanise
+#' @param ... Additional parameters as required
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' #Params(buildwas)
 Params <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...){
   GEV <- GEVParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   Gumbel <- GumbelParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   GenLog <- GenLogParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
   GenPareto <- GenParetoParams(x, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)
-  df <- rbind(GEV, Gumbel, GenLog, GenPareto)
-  rownames(df) <- c('GEV', 'Gumbel', 'GenLog', 'GenPareto')
-  class(df) <- append(class(df)[1], 'Params')
-  return(t(df))
+  dt <- data.table(Parameter = rownames(GEV),
+                   GEV,
+                   Gumbel,
+                   GenLog,
+                   GenPareto)
+  class(dt) <- append(class(dt)[1], 'Params')
+  return(dt)
 }
-
-# Params(Ls(Buildwas, URBEXT2000 = 0.3))

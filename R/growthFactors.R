@@ -40,7 +40,7 @@ GEVGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUr
 #' @export
 #'
 #' @examples
-#' # GumbelGF(Buildwas, URBEXT2000 = 0.3)
+#' # GumbelGF(buildwas, URBEXT2000 = 0.3)
 GumbelGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
@@ -121,19 +121,18 @@ GenParetoGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT20
 #' @export
 #'
 #' @examples
-#' # GrowthFactors(Buildwas_Analysis)
-#' # GrowthFactors(Ls(Buildwas, URBEXT2000 = 0.3))
-growthBactors <- function(x, RP = c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
-  GEV <- GEVGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[2]
-  Gumbel <- GumbelGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[2]
-  GenLog <- GenLogGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[2]
-  GenPareto <- GenParetoGF(x, RP = RP, ppy = ppy, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[2]
-  dt <- cbind(GEV, Gumbel, GenLog, GenPareto)
-  # rownames(dt) <- RP
-  # colnames(dt) <- c('GEV', 'Gumbel', 'GenLog', 'GenPareto')
-  class(dt) <- append(class(df)[1], 'GFactors')
+#' # growthFactors(buildwas_analysis)
+#' # growthFactors(Ls(buildwas))
+growthFactors <- function(x, RP = c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
+  GEV <- GEVGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  Gumbel <- GumbelGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  GenLog <- GenLogGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  GenPareto <- GenParetoGF(x, RP = RP, ppy = ppy, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  dt <- data.table(Return = RP,
+                   GEV = GEV$Growth_Factor,
+                   Gumbel = Gumbel$Growth_Factor,
+                   GenLog = GenLog$Growth_Factor,
+                   GenPareto = GenPareto$Growth_Factor)
+  class(dt) <- append(class(dt)[1], 'GFactors')
   return(dt)
 }
-# growthBactors(buildwas)
-# GrowthFactors(Buildwas_Analysis)
-# GrowthFactors(Ls(Buildwas, URBEXT2000 = 0.3))

@@ -66,7 +66,41 @@ print.LCA <- function(x, ...) {
 #' @rdname print
 #' @export
 print.LComponents <- function(x, ...) {
-  # Fixing the print of Lcv class data
+  # Fixing the print of LComponents class data
   attr(x, "class") <- NULL
   print.default(x, ...)
 }
+
+#' @rdname print
+#' @export
+print.GEVPar <- function(x, ...) {
+  # Fixing the print of GEVPar class data
+  attr(x, "class") <- NULL
+  print.default(x, ...)
+}
+
+#' @rdname print
+#' @export
+print.GumbelPar <- function(x, ...) {
+  # Fixing the print of GumbelPar class data
+  attr(x, "class") <- NULL
+  print.default(x, ...)
+}
+
+#' @rdname print
+#' @export
+print.GenLogPar <- function(x, ...) {
+  # Fixing the print of GenLogPar class data
+  attr(x, "class") <- NULL
+  print.default(x, ...)
+}
+
+#' @rdname print
+#' @export
+print.GenParetoPar <- function(x, ...) {
+  # Fixing the print of GenParetoPar class data
+  attr(x, "class") <- NULL
+  print.default(x, ...)
+}
+
+

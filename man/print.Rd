@@ -10,6 +10,10 @@
 \alias{print.Lcv}
 \alias{print.LCA}
 \alias{print.LComponents}
+\alias{print.GEVPar}
+\alias{print.GumbelPar}
+\alias{print.GenLogPar}
+\alias{print.GenParetoPar}
 \title{Print}
 \usage{
 \method{print}{L1}(x, ...)
@@ -29,6 +33,14 @@
 \method{print}{LCA}(x, ...)
 
 \method{print}{LComponents}(x, ...)
+
+\method{print}{GEVPar}(x, ...)
+
+\method{print}{GumbelPar}(x, ...)
+
+\method{print}{GenLogPar}(x, ...)
+
+\method{print}{GenParetoPar}(x, ...)
 }
 \description{
 Print
