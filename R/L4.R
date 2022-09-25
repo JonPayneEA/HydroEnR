@@ -75,7 +75,7 @@ L4.HydroAMAX <- function(x, ...){
 
 #' @rdname L4
 #' @export
-L4.fowLoad <- function(x, ...){
+L4.flowLoad <- function(x, ...){
   x <- getAMAX(x)
   camp <- sort(x$AMAX)
   n <- length(camp)

@@ -14,11 +14,6 @@
 #' @examples
 #' R2(x, y)
 R2 <- function(x, y, na.rm=FALSE) {
-
-  # INPUT
-  # x = observed values
-  # y = estimated values
-
   if (na.rm==TRUE) {
     y <- y[!is.na(x)]
     x <- x[!is.na(x)]
@@ -49,11 +44,6 @@ R2 <- function(x, y, na.rm=FALSE) {
 #' @examples
 #' RMSE(x, y)
 RMSE <- function(x, y, na.rm=FALSE) {
-
-  # INPUT
-  # x = observed values
-  # y = estimated values
-
   if (na.rm==TRUE) {
     y <- y[!is.na(x)]
     x <- x[!is.na(x)]
@@ -83,12 +73,6 @@ RMSE <- function(x, y, na.rm=FALSE) {
 #' @examples
 #' MAE(x, y)
 MAE <- function(x, y, na.rm=FALSE) {
-
-  # INPUT
-  # INPUT
-  # x = observed values
-  # y = estimated values
-
   if (na.rm==TRUE) {
     y <- y[!is.na(x)]
     x <- x[!is.na(x)]
@@ -118,11 +102,6 @@ MAE <- function(x, y, na.rm=FALSE) {
 #' @examples
 #' RMSEP(x, y)
 RMSEP <- function(x, y, na.rm=FALSE) {
-
-  # INPUT
-  # x = observed values
-  # y = estimated values
-
   if (na.rm==TRUE) {
     y <- y[!is.na(x)]
     x <- x[!is.na(x)]
@@ -152,12 +131,6 @@ RMSEP <- function(x, y, na.rm=FALSE) {
 #' @examples
 #' MAEP(x, y)
 MAEP <- function(x, y, na.rm=FALSE) {
-
-  # INPUT
-  # INPUT
-  # x = observed values
-  # y = estimated values
-
   if (na.rm==TRUE) {
     y <- y[!is.na(x)]
     x <- x[!is.na(x)]

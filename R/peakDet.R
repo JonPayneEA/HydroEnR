@@ -1,26 +1,3 @@
-# peakdet
-#
-# A peak detection algorithm for R; finds local maxima and minima. Based on an
-# algorithm for MATLAB by Eli Billauer (http://www.billauer.co.il/peakdet.html).
-#
-# This function is released to the public domain; any use is allowed.
-#
-# Parameters:
-# v:     a numeric vector where to search peaks.
-# delta: numeric of length one; defining the local threshold for peak detection.
-# x:     a numeric vector the same length as v containing corresponding x-values
-#        for v.
-#
-# Value:
-# A list containing two data frames maxtab and mintab containing maxima and
-# minima. Data frames contain two columns with indices in v (or corresponding
-# values in x if provided) and values in v.
-#
-# Example:
-# x <- seq(0, 20, .05)
-# vals <- sin(x)
-# peakdet(vals, .5, x)
-
 #' @title peakDet
 #'
 #' @description  A peak detection algorithm for R; finds local maxima and minima.
@@ -40,7 +17,7 @@
 #' @examples
 #' x <- seq(0, 20, .05)
 #' vals <- sin(x)
-#' det <- peakdet(vals, .5, x)
+#' det <- peakDet(vals, .5, x)
 #' det
 #' plot(x = x, y = vals, frame = FALSE, xlab = 'Time', ylab = 'Stage', type = 'l');
 #' points(det$maxtab$val~det$maxtab$pos, bg = 'red', pch = 21, col = 'black',

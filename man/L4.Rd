@@ -5,7 +5,7 @@
 \alias{L4.numeric}
 \alias{L4.HydroAggsmax}
 \alias{L4.HydroAMAX}
-\alias{L4.fowLoad}
+\alias{L4.flowLoad}
 \alias{L4.zoo}
 \title{L4 moment}
 \usage{
@@ -17,7 +17,7 @@ L4(x, ...)
 
 \method{L4}{HydroAMAX}(x, ...)
 
-\method{L4}{fowLoad}(x, ...)
+\method{L4}{flowLoad}(x, ...)
 
 \method{L4}{zoo}(x, ...)
 }

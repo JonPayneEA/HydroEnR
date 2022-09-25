@@ -90,24 +90,26 @@ values in x if provided) and values in v.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">.05</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Trig.html" class="external-link">sin</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">det</span> <span class="op">&lt;-</span> <span class="fu">peakdet</span><span class="op">(</span><span class="va">vals</span>, <span class="fl">.5</span>, <span class="va">x</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in peakdet(vals, 0.5, x):</span> could not find function "peakdet"</span>
+<span class="r-in"><span class="va">det</span> <span class="op">&lt;-</span> <span class="fu">peakDet</span><span class="op">(</span><span class="va">vals</span>, <span class="fl">.5</span>, <span class="va">x</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">det</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function (x, ...) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     z &lt;- determinant(x, logarithm = TRUE, ...)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     c(z$sign * exp(z$modulus))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x000000002c8dd3b0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:base&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $maxtab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     pos       val</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.55 0.9997838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  7.85 0.9999921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 14.15 0.9999177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $mintab</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    pos        val</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  4.7 -0.9999233</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 11.0 -0.9999902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 17.3 -0.9997744</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">vals</span>, frame <span class="op">=</span> <span class="cn">FALSE</span>, xlab <span class="op">=</span> <span class="st">'Time'</span>, ylab <span class="op">=</span> <span class="st">'Stage'</span>, type <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span>;</span>
-<span class="r-plt img"><img src="peakDet-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">det</span><span class="op">$</span><span class="va">maxtab</span><span class="op">$</span><span class="va">val</span><span class="op">~</span><span class="va">det</span><span class="op">$</span><span class="va">maxtab</span><span class="op">$</span><span class="va">pos</span>, bg <span class="op">=</span> <span class="st">'red'</span>, pch <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="st">'black'</span>,</span>
 <span class="r-in">lwd <span class="op">=</span> <span class="fl">0.9</span>, cex <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>;</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in det$maxtab:</span> object of type 'closure' is not subsettable</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">det</span><span class="op">$</span><span class="va">mintab</span><span class="op">$</span><span class="va">val</span><span class="op">~</span><span class="va">det</span><span class="op">$</span><span class="va">mintab</span><span class="op">$</span><span class="va">pos</span>, bg <span class="op">=</span> <span class="st">'blue'</span>, pch <span class="op">=</span> <span class="fl">21</span>, col <span class="op">=</span> <span class="st">'black'</span>,</span>
 <span class="r-in">lwd <span class="op">=</span> <span class="fl">0.9</span>, cex <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in det$mintab:</span> object of type 'closure' is not subsettable</span>
+<span class="r-plt img"><img src="peakDet-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

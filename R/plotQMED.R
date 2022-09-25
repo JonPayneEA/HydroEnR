@@ -13,7 +13,6 @@ library(ggplot2)
 #' @import magrittr
 #' @import rnrfa
 #' @import ggplot2
-#' @import beepr
 #'
 #' @examples
 #' data <- getAMAX(rnrfa::get_ts(id = 2001, type = 'amax-flow'))
@@ -33,7 +32,6 @@ plotQMED <- function(x, ...) {
     ggtitle('AMAX flow by hydrological year') +
     geom_hline(yintercept = QMED_flow, colour = '#00A33B', size = 2) +
     theme_light()
-  beepr::beep(sound = sample(1:11, 1), expr = "WOW")
   print(QMED)
   p
 }

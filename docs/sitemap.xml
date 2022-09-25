@@ -25,6 +25,12 @@
     <loc>/reference/annualAgg.html</loc>
   </url>
   <url>
+    <loc>/reference/asVol.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CD-class.html</loc>
+  </url>
+  <url>
     <loc>/reference/csvFix.html</loc>
   </url>
   <url>
@@ -35,6 +41,12 @@
   </url>
   <url>
     <loc>/reference/Estimates.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fetchCDs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/findPeaks.html</loc>
   </url>
   <url>
     <loc>/reference/findPeaksCPP.html</loc>
@@ -49,10 +61,25 @@
     <loc>/reference/gaugeProp.html</loc>
   </url>
   <url>
+    <loc>/reference/GenLogGF.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GenParetoGF.html</loc>
+  </url>
+  <url>
     <loc>/reference/getAMAX.html</loc>
   </url>
   <url>
     <loc>/reference/getCoords.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GEVGF.html</loc>
+  </url>
+  <url>
+    <loc>/reference/growthBactors.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GumbelGF.html</loc>
   </url>
   <url>
     <loc>/reference/hourlyAgg.html</loc>
@@ -101,6 +128,9 @@
   </url>
   <url>
     <loc>/reference/loadPE.html</loc>
+  </url>
+  <url>
+    <loc>/reference/loadPeakCDs.html</loc>
   </url>
   <url>
     <loc>/reference/loadWISKI.html</loc>
@@ -173,6 +203,9 @@
   </url>
   <url>
     <loc>/reference/teesunPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/uploadPeakFlow.html</loc>
   </url>
   <url>
     <loc>/reference/urbAdj.html</loc>

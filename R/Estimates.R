@@ -5,9 +5,9 @@
 #' Alternatively add an observed flow to provide an estimate of return period.
 #'
 #' @param x Parameters defined from various other functions
-#' @param q An observed flow value, seyt to NULL but use to find return period
+#' @param q An observed flow value, set to NULL but use to find return period
 #' @param RP Set to 100, return period that you wish to generate a flow estimate for
-#' @param ppy Peaks per yearr, rset as one forr Gen Pareto only
+#' @param ppy Peaks per year, set as one for Gen Pareto only
 #' @param ... Additional parameters as required
 #'
 #' @return

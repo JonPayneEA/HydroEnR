@@ -21,11 +21,11 @@ Estimates(x, q, RP, ppy, ...)
 \arguments{
 \item{x}{Parameters defined from various other functions}
 
-\item{q}{An observed flow value, seyt to NULL but use to find return period}
+\item{q}{An observed flow value, set to NULL but use to find return period}
 
 \item{RP}{Set to 100, return period that you wish to generate a flow estimate for}
 
-\item{ppy}{Peaks per yearr, rset as one forr Gen Pareto only}
+\item{ppy}{Peaks per year, set as one for Gen Pareto only}
 
 \item{...}{Additional parameters as required}
 }

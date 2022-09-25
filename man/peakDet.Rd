@@ -27,7 +27,7 @@ values in x if provided) and values in v.
 \examples{
 x <- seq(0, 20, .05)
 vals <- sin(x)
-det <- peakdet(vals, .5, x)
+det <- peakDet(vals, .5, x)
 det
 plot(x = x, y = vals, frame = FALSE, xlab = 'Time', ylab = 'Stage', type = 'l');
 points(det$maxtab$val~det$maxtab$pos, bg = 'red', pch = 21, col = 'black',

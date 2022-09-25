@@ -12,11 +12,11 @@
 #' @export
 #'
 #' @examples
-#' find_peaks(allington$Value, m = 5000)
+#' findPeaks(allington$Value, m = 5000)
 #
 # # This returns the row of where each peak is found
 #
-# peaks <- find_peaks(allington$Value, m = 5000)
+# peaks <- findPeaks(allington$Value, m = 5000)
 # allington[peaks,] # Returns the rows where the peaks are found
 #
 # # Basic plot
@@ -38,7 +38,7 @@
 # }
 #
 # z <- find_peaks(allington$Value, m = 1000)
-find_peaks <- function (x, m = 3){
+findPeaks <- function (x, m = 3){
   shape <- diff(sign(diff(x, na.pad = FALSE)))
   pks <- sapply(which(shape < 0), FUN = function(i){
     z <- i - m + 1
