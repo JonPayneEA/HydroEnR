@@ -4,7 +4,7 @@
 \alias{HydroYearDay}
 \title{HydroYearDay}
 \usage{
-HydroYearDay(d, hy_cal)
+HydroYearDay(d, hy_cal = "oct_us_gb")
 }
 \arguments{
 \item{d}{Array of dates of class Date}

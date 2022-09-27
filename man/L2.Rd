@@ -5,6 +5,7 @@
 \alias{L2.numeric}
 \alias{L2.HydroAggsmax}
 \alias{L2.HydroAMAX}
+\alias{L2.HydroVAMAX}
 \alias{L2.flowLoad}
 \alias{L2.zoo}
 \title{L2 moment}
@@ -16,6 +17,8 @@ L2(x, ...)
 \method{L2}{HydroAggsmax}(x, ...)
 
 \method{L2}{HydroAMAX}(x, ...)
+
+\method{L2}{HydroVAMAX}(x, ...)
 
 \method{L2}{flowLoad}(x, ...)
 

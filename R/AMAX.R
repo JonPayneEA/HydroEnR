@@ -35,7 +35,7 @@ getAMAX.numeric <- function(x = flow, Date = date, ...){
 
 #' @rdname getAMAX
 #' @export
-getAMAX.HydroAggsmax <- function(x){
+getAMAX.HydroAggsmax <- function(x, ...){
   AMAX <- data.table(Year = x$Hydro_year$HydrologicalYear, AMAX = x$Hydro_year$Hydro_year_Max)
   class(AMAX) <- append(class(AMAX), 'HydroAMAX')
   #colnames(AMAX) <- c('Year', 'AMAX')

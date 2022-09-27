@@ -69,6 +69,15 @@ L3.HydroAMAX <- function(x, ...){
 
 #' @rdname L3
 #' @export
+L3.HydroVAMAX <- function(x, ...){
+  x <- x[,-1,]
+  l3 <- x[, lapply(.SD, L3, na.rm = TRUE), ]
+  class(l3) <- append(class(l3), 'L3')
+  return(l3)
+}
+
+#' @rdname L3
+#' @export
 L3.flowLoad <- function(x, ...){
   x <- getAMAX(x)
   camp <- sort(x$AMAX)

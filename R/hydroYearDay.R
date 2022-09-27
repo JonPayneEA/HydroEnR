@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' HydroYearrDay(Buildwas$GaugeData$DateTime, hy_cal = 'oct_us_gb')
-HydroYearDay<-function(d,hy_cal){
+HydroYearDay<-function(d,hy_cal = 'oct_us_gb'){
 
   # note: this function includes get_hydro_year and should be used instead
 

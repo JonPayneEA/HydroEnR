@@ -74,6 +74,15 @@ LSKEW.HydroAMAX <- function(x){
 
 #' @rdname LSKEW
 #' @export
+LSKEW.HydroVAMAX <- function(x){
+  x <- x[,-1,]
+  LSKEW <- x[, lapply(.SD, LSKEW), ]
+  class(LSKEW) <- append(class(LSKEW),'LSkew')
+  return(LSKEW)
+}
+
+#' @rdname LSKEW
+#' @export
 LSKEW.flowLoad <- function(x){
   x <- getAMAX(x)
   x <- x$AMAX

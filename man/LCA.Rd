@@ -5,6 +5,7 @@
 \alias{LCA.numeric}
 \alias{LCA.HydroAggsmax}
 \alias{LCA.HydroAMAX}
+\alias{LCA.HydroVAMAX}
 \alias{LCA.flowLoad}
 \alias{LCA.zoo}
 \title{LCA moment}
@@ -16,6 +17,8 @@ LCA(x, ...)
 \method{LCA}{HydroAggsmax}(x, ...)
 
 \method{LCA}{HydroAMAX}(x, ...)
+
+\method{LCA}{HydroVAMAX}(x, ...)
 
 \method{LCA}{flowLoad}(x, ...)
 

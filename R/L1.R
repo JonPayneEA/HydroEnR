@@ -42,6 +42,15 @@ L1.HydroAMAX <- function(x, ...){
 
 #' @rdname L1
 #' @export
+L1.HydroVAMAX <- function(x, ...){
+  x <- x[,-1,]
+  x <- x[, lapply(.SD, mean, na.rm = TRUE), ]
+  class(x) <- append(class(x), 'L1')
+  return(x)
+}
+
+#' @rdname L1
+#' @export
 L1.flowLoad <- function(x, ...){
   x <- getAMAX(x)
   x <- mean(x$AMAX, na.rm = TRUE)

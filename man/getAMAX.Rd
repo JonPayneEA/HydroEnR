@@ -12,7 +12,7 @@ getAMAX(x, ...)
 
 \method{getAMAX}{numeric}(x = flow, Date = date, ...)
 
-\method{getAMAX}{HydroAggsmax}(x)
+\method{getAMAX}{HydroAggsmax}(x, ...)
 
 \method{getAMAX}{flowLoad}(x, ...)
 

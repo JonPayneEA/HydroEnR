@@ -27,7 +27,7 @@ hydroAggregate(
 Hydro Aggregate
 }
 \details{
-Wrapper function for the varrious aggrregation methods employed in
+Wrapper function for the various aggregation methods employed in
 HydroEnR
 }
 \examples{

@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' # GEVGF(Buildwas, URBEXT2000 = 0.3)
-GEVGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
+growthGEV <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
   } else {
@@ -41,7 +41,7 @@ GEVGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUr
 #'
 #' @examples
 #' # GumbelGF(buildwas, URBEXT2000 = 0.3)
-GumbelGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
+growthGumbel <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
   } else {
@@ -66,7 +66,7 @@ GumbelGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, D
 #'
 #' @examples
 #' # GenLogGF(Buildwas, URBEXT2000 = 0.3)
-GenLogGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
+growthGenLog <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
   } else {
@@ -93,7 +93,7 @@ GenLogGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, D
 #'
 #' @examples
 #' # GenParetoGF(Ls(buildwas))
-GenParetoGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
+growthGenPareto <- function(x, RP =  c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
   } else {
@@ -124,15 +124,15 @@ GenParetoGF <- function(x, RP =  c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT20
 #' # growthFactors(buildwas_analysis)
 #' # growthFactors(Ls(buildwas))
 growthFactors <- function(x, RP = c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
-  GEV <- GEVGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
-  Gumbel <- GumbelGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
-  GenLog <- GenLogGF(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
-  GenPareto <- GenParetoGF(x, RP = RP, ppy = ppy, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  GEV <- growthGEV(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  Gumbel <- growthGumbel(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  GenLog <- growthGenLog(x, RP = RP, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
+  GenPareto <- growthGenPareto(x, RP = RP, ppy = ppy, URBEXT2000 = URBEXT2000, DeUrb = DeUrb)[,2]
   dt <- data.table(Return = RP,
                    GEV = GEV$Growth_Factor,
                    Gumbel = Gumbel$Growth_Factor,
                    GenLog = GenLog$Growth_Factor,
                    GenPareto = GenPareto$Growth_Factor)
-  class(dt) <- append(class(dt)[1], 'GFactors')
+  class(dt) <- append(class(dt), 'GFactors')
   return(dt)
 }

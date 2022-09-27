@@ -71,6 +71,15 @@ LCV.HydroAMAX <- function(x){
 
 #' @rdname LCV
 #' @export
+LCV.HydroVAMAX <- function(x){
+  x <- x[,-1,]
+  LCV <- x[, lapply(.SD, LCV), ]
+  class(LCV) <- append(class(LCV), 'Lcv')
+  return(LCV)
+}
+
+#' @rdname LCV
+#' @export
 LCV.flowLoad <- function(x){
   x <- getAMAX(x)
   x <- x$AMAX

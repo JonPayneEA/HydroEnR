@@ -75,6 +75,15 @@ LKur.HydroAMAX <- function(x, ...){
 
 #' @rdname LKur
 #' @export
+LKur.HydroVAMAX <- function(x, ...){
+  x <- x[,-1,]
+  lkur <- x[, lapply(.SD, LKur, na.rm = TRUE), ]
+  class(lkur) <- append(class(lkur), 'LKur')
+  return(lkur)
+}
+
+#' @rdname LKur
+#' @export
 LKur.flowLoad <- function(x, ...){
   x <- getAMAX(x)
   camp <- sort(x$AMAX)

@@ -531,9 +531,9 @@ rollingAggs.flowLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24,
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
   if(method == 'sum'){
-    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, Raw = dt$GaugeData$Volume)
+    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, HydroYear = dt$GaugeData$HydrologicalYear, HydroDay = dt$GaugeData$day_of_hy, Raw = dt$GaugeData$Volume)
   } else {
-    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, Raw = dt$GaugeData$Value)
+    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, HydroYear = dt$GaugeData$HydrologicalYear, HydroDay = dt$GaugeData$day_of_hy, Raw = dt$GaugeData$Value)
   }
   for(i in seq_along(rolling_aggregations)){
     window <- rolling_aggregations[i]/interval
@@ -557,9 +557,9 @@ rollingAggs.rainLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24,
   roller <- get(paste0("roll_", method))
   agg <- length(rolling_aggregations)
   if(method == 'sum'){
-    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, Raw = dt$GaugeData$Volume)
+    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, HydroYear = dt$GaugeData$HydrologicalYear, HydroDay = dt$GaugeData$day_of_hy, Raw = dt$GaugeData$Volume)
   } else {
-    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, Raw = dt$GaugeData$Value)
+    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, HydroYear = dt$GaugeData$HydrologicalYear, HydroDay = dt$GaugeData$day_of_hy, Raw = dt$GaugeData$Value)
   }
   for(i in seq_along(rolling_aggregations)){
     window <- rolling_aggregations[i]/interval
@@ -585,7 +585,7 @@ rollingAggs.stageLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24
   if(method == 'sum'){
     stop('Stage data are not suitable for sumation')
   } else {
-    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, Raw = dt$GaugeData$Value)
+    Rolling_Aggregations <- data.table(DateTime = dt$GaugeData$DateTime, HydroYear = dt$GaugeData$HydrologicalYear, HydroDay = dt$GaugeData$day_of_hy, Raw = dt$GaugeData$Value)
   }
   for(i in seq_along(rolling_aggregations)){
     window <- rolling_aggregations[i]/interval
@@ -607,7 +607,7 @@ rollingAggs.stageLoad <- function(dt, rolling_aggregations = c(1, 2, 3, 4, 8, 24
 
 #' @title Hydro Aggregate
 #'
-#' @details Wrapper function for the varrious aggrregation methods employed in
+#' @details Wrapper function for the various aggregation methods employed in
 #' HydroEnR
 #'
 #' @param dt flowLoad, rainLoad, or stageLoad data

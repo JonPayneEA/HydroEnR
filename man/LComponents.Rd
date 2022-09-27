@@ -5,6 +5,7 @@
 \alias{LComponents.numeric}
 \alias{LComponents.HydroAggsmax}
 \alias{LComponents.HydroAMAX}
+\alias{LComponents.HydroVAMAX}
 \alias{LComponents.flowLoad}
 \alias{LComponents.zoo}
 \title{L components}
@@ -16,6 +17,8 @@ LComponents(x, ...)
 \method{LComponents}{HydroAggsmax}(x, ...)
 
 \method{LComponents}{HydroAMAX}(x, ...)
+
+\method{LComponents}{HydroVAMAX}(x, ...)
 
 \method{LComponents}{flowLoad}(x, ...)
 

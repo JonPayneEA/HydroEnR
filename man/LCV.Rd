@@ -5,6 +5,7 @@
 \alias{LCV.numeric}
 \alias{LCV.HydroAggsmax}
 \alias{LCV.HydroAMAX}
+\alias{LCV.HydroVAMAX}
 \alias{LCV.flowLoad}
 \alias{LCV.zoo}
 \title{LCV moment}
@@ -16,6 +17,8 @@ LCV(x, ...)
 \method{LCV}{HydroAggsmax}(x)
 
 \method{LCV}{HydroAMAX}(x)
+
+\method{LCV}{HydroVAMAX}(x)
 
 \method{LCV}{flowLoad}(x)
 

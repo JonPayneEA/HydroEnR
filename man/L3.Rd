@@ -5,6 +5,7 @@
 \alias{L3.numeric}
 \alias{L3.HydroAggsmax}
 \alias{L3.HydroAMAX}
+\alias{L3.HydroVAMAX}
 \alias{L3.flowLoad}
 \alias{L3.zoo}
 \title{L3 moment}
@@ -16,6 +17,8 @@ L3(x, ...)
 \method{L3}{HydroAggsmax}(x, ...)
 
 \method{L3}{HydroAMAX}(x, ...)
+
+\method{L3}{HydroVAMAX}(x, ...)
 
 \method{L3}{flowLoad}(x, ...)
 
