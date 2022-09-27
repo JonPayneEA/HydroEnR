@@ -30,5 +30,5 @@ growthGumbel(
 Gumbel Growth Factors
 }
 \examples{
-# GumbelGF(buildwas, URBEXT2000 = 0.3)
+# growthGumbel(buildwas, URBEXT2000 = 0.3)
 }

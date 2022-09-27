@@ -14,6 +14,7 @@
 \alias{print.GumbelPar}
 \alias{print.GenLogPar}
 \alias{print.GenParetoPar}
+\alias{print.LCs}
 \title{Print}
 \usage{
 \method{print}{L1}(x, ...)
@@ -41,6 +42,8 @@
 \method{print}{GenLogPar}(x, ...)
 
 \method{print}{GenParetoPar}(x, ...)
+
+\method{print}{LCs}(x, ...)
 }
 \description{
 Print

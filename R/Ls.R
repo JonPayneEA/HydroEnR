@@ -65,6 +65,6 @@ vLs <- function(x, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
                   t(LKur(x)), t(LSKEW(x)), t(VMED(x)))
   colnames(dt) <- c('L1', 'L2', 'L3', 'L4', 'LCV', 'LCA', 'LKUR', 'LSkew', 'VMED')
   dt_m <- data.table(Data = colnames(x[,-1]), dt)
-  class(dt_m) <- append(class(x), 'vLs')
+  class(dt_m) <- append(class(x)[-3], 'vLs')
   return(dt_m)
 }

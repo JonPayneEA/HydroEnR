@@ -14,10 +14,10 @@
 #' @export
 #'
 #' @examples
-#' Estimates(GEVParams(Buildwas))
-#' Estimates(GumbelParams(Buildwas))
-#' Estimates(GenLogParams(Buildwas))
-#' Estimates(GenParetoParams(Buildwas))
+#' Estimates(GEVParams(buildwas), RP = c(100,200))
+#' Estimates(GumbelParams(buildwas))
+#' Estimates(GenLogParams(buildwas_max), q = 650)
+#' Estimates(GenParetoParams(buildwas), ppy =2)
 Estimates <- function(x, q, RP, ppy, ...){
   UseMethod('Estimates', x)
 }
@@ -27,10 +27,10 @@ Estimates <- function(x, q, RP, ppy, ...){
 Estimates.GEVPar <- function (x, q = NULL, RP = 100)
 {
   if (is.null(q) == TRUE) {
-    res <- x$Loc + x$Scale/x$Shape * (1 - (-log(1 - 1/RP))^x$Shape)
+    res <- x[1] + x[2]/x[3] * (1 - (-log(1 - 1/RP))^x[3])
   }
   else {
-    y <- -x$Shape^(-1) * log(1 - x$Shape * (q - x$Loc)/x$Scale)
+    y <- -x[3]^(-1) * log(1 - x[3] * (q - x[1])/x[2])
     P <- 1 - (exp(-exp(-y)))
     res <- 1/P
   }
@@ -40,9 +40,9 @@ Estimates.GEVPar <- function (x, q = NULL, RP = 100)
 #' @rdname Estimates
 #' @export
 Estimates.GumbelPar <- function(x, q = NULL, RP = 100){
-  if(is.null(q) == TRUE) {res <- x$Loc+x$Scale*(-log(-log(1-(1/RP))))}
+  if(is.null(q) == TRUE) {res <- x[1]+x[2]*(-log(-log(1-(1/RP))))}
   else {
-    Prob <- 1- exp(-exp(-(q - x$Loc)/scale))
+    Prob <- 1- exp(-exp(-(q - x[1])/x[2]))
     res <- 1/Prob}
   return(res)
 }
@@ -51,10 +51,10 @@ Estimates.GumbelPar <- function(x, q = NULL, RP = 100){
 #' @export
 Estimates.GenLogPar <- function(x, q = NULL, RP = 100){
   if(is.null(q) == TRUE) {
-    res <- x$Loc + x$Scale/x$Shape * (1 - (RP - 1)^-x$Shape)
+    res <- x[1] + x[2]/x[3] * (1 - (RP - 1)^-x[3])
   }
   else {
-    y <- -x$Shape^(-1) * log(1 - shape * (q - x$Loc)/x$Scale)
+    y <- -x[3]^(-1) * log(1 - x[3] * (q - x[1])/x[2])
     P <- 1 - (1/(1 + exp(-y)))
     res <- 1/P
   }
@@ -65,10 +65,10 @@ Estimates.GenLogPar <- function(x, q = NULL, RP = 100){
 #' @export
 Estimates.GenParetoPar <- function(x, q = NULL, RP = 100, ppy = 1){
   if (is.null(q) == TRUE) {
-    res <- x$Loc + x$Scale * (1 - (1 - (1 - (1/RP)/ppy))^x$Shape)/x$Shape
+    res <- x[1] + x[2] * (1 - (1 - (1 - (1/RP)/ppy))^x[3])/x[3]
   }
   else {
-    y <- -x$Shape^-1 * log(1 - x$Shape * (q - loc)/x$Scale)
+    y <- -x[3]^-1 * log(1 - x[3] * (q - loc)/x[2])
     P <- 1 - (1 - exp(-y))
     RPPOT <- 1/P
     res <- RPPOT/ppy

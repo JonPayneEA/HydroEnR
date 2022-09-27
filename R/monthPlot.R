@@ -65,7 +65,7 @@ monthPlot.flowLoad <- function(x, name = 'Gauge', polar = FALSE, snip = NULL, me
     scale_color_gradient(low = '#D2DE26', high = '#00A33B') +
     scale_x_continuous(breaks = sort(unique(month(dt1$Year_Month))), labels = month.abb) +
     theme_light()
-  if('HydroAggssum' %in% class(Buildwas_Analysis)){
+  if('HydroAggssum' %in% class(dt)){
     p <- p + ylab(expression(Flow ~ m^3))
   } else {
     p <- p + ylab(expression(Flow ~ m^3 ~ s^-1))

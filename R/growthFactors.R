@@ -1,5 +1,3 @@
-# Growth Factors
-
 #' @title Generalised Extreme Value Growth Factors
 #'
 #' @param x Dataset of HydroEnR classes or L-moments
@@ -12,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' # GEVGF(Buildwas, URBEXT2000 = 0.3)
+#' # growthGEV(Buildwas, URBEXT2000 = 0.3)
 growthGEV <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
@@ -40,7 +38,7 @@ growthGEV <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, 
 #' @export
 #'
 #' @examples
-#' # GumbelGF(buildwas, URBEXT2000 = 0.3)
+#' # growthGumbel(buildwas, URBEXT2000 = 0.3)
 growthGumbel <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
@@ -65,7 +63,7 @@ growthGumbel <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NUL
 #' @export
 #'
 #' @examples
-#' # GenLogGF(Buildwas, URBEXT2000 = 0.3)
+#' # growthGenLog(Buildwas, URBEXT2000 = 0.3)
 growthGenLog <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x
@@ -92,7 +90,7 @@ growthGenLog <- function(x, RP =  c(2,4,10,25,50,100,200,1000), URBEXT2000 = NUL
 #' @export
 #'
 #' @examples
-#' # GenParetoGF(Ls(buildwas))
+#' # growthGenPareto(Ls(buildwas))
 growthGenPareto <- function(x, RP =  c(2,4,10,25,50,100,200,1000), ppy = 1, URBEXT2000 = NULL, DeUrb = FALSE, ...) {
   if(is(x, 'Ls')){
     Ls <- x

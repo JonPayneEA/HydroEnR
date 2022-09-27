@@ -33,5 +33,5 @@ growthGenPareto(
 Generalised Pareto Growth Factors
 }
 \examples{
-# GenParetoGF(Ls(buildwas))
+# growthGenPareto(Ls(buildwas))
 }

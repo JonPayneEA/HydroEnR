@@ -48,7 +48,7 @@ getVAMAX.HydroAggssum <- function(x){
   # Rolling Aggs
   dt_clean <- x$Rolling_Aggregations[, c(-1, -3, -4),]
   VAMAX_Rolls <- dt_clean[, lapply(.SD, max, na.rm = TRUE), HydroYear]
-  colnames(dt_clean) <- gsub('Roll', 'VAMAX', colnames(dt_clean))
+  colnames(VAMAX_Rolls) <- gsub('Roll', 'VAMAX', colnames(dt_clean))
 
   # Compile
   dt <- data.table(VAMAX_Hourly, VAMAX_Daily[,-1], VAMAX_Monthly[,-1],

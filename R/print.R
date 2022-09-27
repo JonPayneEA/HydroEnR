@@ -103,4 +103,11 @@ print.GenParetoPar <- function(x, ...) {
   print.default(x, ...)
 }
 
+#' @rdname print
+#' @export
+print.LCs <- function(x, ...) {
+  # Fixing the print of L4 class data
+  attr(x, "class") <- NULL
+  print.default(x, ...)
+}
 

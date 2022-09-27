@@ -31,6 +31,7 @@ LComponents.numeric <- function(x, ...) {
   b2 <- sum(p2*camp)/n
   b3 <- sum(p3*camp)/n
   cs <- rbind(n, b0, b1, b2, b3)
+  colnames(cs) <- 'Components'
   class(cs) <- append(class(cs), 'LCs')
   return(cs)
 }
@@ -51,6 +52,7 @@ LComponents.HydroAggsmax <- function(x, ...){
   b2 <- sum(p2*camp)/n
   b3 <- sum(p3*camp)/n
   cs <- rbind(n, b0, b1, b2, b3)
+  colnames(cs) <- 'Components'
   class(cs) <- append(class(cs), 'LCs')
   return(cs)
 }
@@ -71,6 +73,7 @@ LComponents.HydroAMAX <- function(x, ...){
   b2 <- sum(p2*camp)/n
   b3 <- sum(p3*camp)/n
   cs <- rbind(n, b0, b1, b2, b3)
+  colnames(cs) <- 'Components'
   class(cs) <- append(class(cs), 'LCs')
   return(cs)
 }
@@ -101,6 +104,7 @@ LComponents.flowLoad <- function(x, ...){
   b2 <- sum(p2*camp)/n
   b3 <- sum(p3*camp)/n
   cs <- rbind(n, b0, b1, b2, b3)
+  colnames(cs) <- 'Components'
   class(cs) <- append(class(cs), 'LCs')
   return(cs)
 }
@@ -121,6 +125,7 @@ LComponents.zoo <- function(x, ...){
   b2 <- sum(p2*camp)/n
   b3 <- sum(p3*camp)/n
   cs <- rbind(n, b0, b1, b2, b3)
+  colnames(cs) <- 'Components'
   class(cs) <- append(class(cs), 'LCs')
   return(cs)
 }

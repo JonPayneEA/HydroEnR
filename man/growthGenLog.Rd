@@ -30,5 +30,5 @@ growthGenLog(
 Generalised Logistic Growth Factors
 }
 \examples{
-# GenLogGF(Buildwas, URBEXT2000 = 0.3)
+# growthGenLog(Buildwas, URBEXT2000 = 0.3)
 }

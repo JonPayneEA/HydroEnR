@@ -37,8 +37,8 @@ Generate a flow estimate based on a user defined return period.
 Alternatively add an observed flow to provide an estimate of return period.
 }
 \examples{
-Estimates(GEVParams(Buildwas))
-Estimates(GumbelParams(Buildwas))
-Estimates(GenLogParams(Buildwas))
-Estimates(GenParetoParams(Buildwas))
+Estimates(GEVParams(buildwas), RP = c(100,200))
+Estimates(GumbelParams(buildwas))
+Estimates(GenLogParams(buildwas_max), q = 650)
+Estimates(GenParetoParams(buildwas), ppy =2)
 }
