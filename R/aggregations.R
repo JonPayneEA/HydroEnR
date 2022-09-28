@@ -659,6 +659,6 @@ hydroAggregate <- function(dt, interval = 0.25, rolling_aggregations = c(1, 2, 3
     Rolling_Aggregations <- rollingAggs(dt, interval = interval, rolling_aggregations = rolling_aggregations, method = method)
   }
   data_list[['Rolling_Aggregations']] <- Rolling_Aggregations
-  class(data_list) <- append(class(data_list)[1:2], c(paste('HydroAggs', method, sep = ''), 'HydroAggs'))
+  class(data_list) <- append(class(data_list), c(paste('HydroAggs', method, sep = ''), 'HydroAggs'))
   return(data_list)
 }

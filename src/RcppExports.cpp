@@ -34,8 +34,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // PDM
-List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, NumericVector PE, double s, double be, double kg, double St, double bg, double k1, double k2, double kb, double area);
-RcppExport SEXP _HydroEnR_PDM(SEXP fcSEXP, SEXP CminSEXP, SEXP CmaxSEXP, SEXP bSEXP, SEXP PSEXP, SEXP PESEXP, SEXP sSEXP, SEXP beSEXP, SEXP kgSEXP, SEXP StSEXP, SEXP bgSEXP, SEXP k1SEXP, SEXP k2SEXP, SEXP kbSEXP, SEXP areaSEXP) {
+List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, NumericVector PE, double s, double be, double kg, double St, double bg, double k1, double k2, double kb, double qconst, double area);
+RcppExport SEXP _HydroEnR_PDM(SEXP fcSEXP, SEXP CminSEXP, SEXP CmaxSEXP, SEXP bSEXP, SEXP PSEXP, SEXP PESEXP, SEXP sSEXP, SEXP beSEXP, SEXP kgSEXP, SEXP StSEXP, SEXP bgSEXP, SEXP k1SEXP, SEXP k2SEXP, SEXP kbSEXP, SEXP qconstSEXP, SEXP areaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -53,8 +53,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type k1(k1SEXP);
     Rcpp::traits::input_parameter< double >::type k2(k2SEXP);
     Rcpp::traits::input_parameter< double >::type kb(kbSEXP);
+    Rcpp::traits::input_parameter< double >::type qconst(qconstSEXP);
     Rcpp::traits::input_parameter< double >::type area(areaSEXP);
-    rcpp_result_gen = Rcpp::wrap(PDM(fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, area));
+    rcpp_result_gen = Rcpp::wrap(PDM(fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, qconst, area));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -62,7 +63,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_HydroEnR_signDblCPP", (DL_FUNC) &_HydroEnR_signDblCPP, 1},
     {"_HydroEnR_findPeaksCPP", (DL_FUNC) &_HydroEnR_findPeaksCPP, 2},
-    {"_HydroEnR_PDM", (DL_FUNC) &_HydroEnR_PDM, 15},
+    {"_HydroEnR_PDM", (DL_FUNC) &_HydroEnR_PDM, 16},
     {NULL, NULL, 0}
 };
 

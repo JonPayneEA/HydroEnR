@@ -3,6 +3,7 @@
 \name{Estimates}
 \alias{Estimates}
 \alias{Estimates.GEVPar}
+\alias{Estimates.volGEVPar}
 \alias{Estimates.GumbelPar}
 \alias{Estimates.GenLogPar}
 \alias{Estimates.GenParetoPar}
@@ -11,6 +12,8 @@
 Estimates(x, q, RP, ppy, ...)
 
 \method{Estimates}{GEVPar}(x, q = NULL, RP = 100)
+
+\method{Estimates}{volGEVPar}(x, q = NULL, RP = 100)
 
 \method{Estimates}{GumbelPar}(x, q = NULL, RP = 100)
 

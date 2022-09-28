@@ -24,8 +24,7 @@ Estimates <- function(x, q, RP, ppy, ...){
 
 #' @rdname Estimates
 #' @export
-Estimates.GEVPar <- function (x, q = NULL, RP = 100)
-{
+Estimates.GEVPar <- function (x, q = NULL, RP = 100){
   if (is.null(q) == TRUE) {
     res <- x[1] + x[2]/x[3] * (1 - (-log(1 - 1/RP))^x[3])
   }
@@ -36,6 +35,35 @@ Estimates.GEVPar <- function (x, q = NULL, RP = 100)
   }
   return(res)
 }
+
+#' @rdname Estimates
+#' @export
+Estimates.volGEVPar <- function (x, q = NULL, RP = 100){
+  lst <- list()
+  for(i in seq_along(x$Data)){
+    if (is.null(q) == TRUE){
+      res <- x$Loc[1] + x$Scale[i]/x$Shape[i] * (1 - (-log(1 - 1/RP))^x$Shape[i])
+      type <- 'RP'
+      vals <- RP
+      len <- length(RP)
+      lst[[i]] <- data.table(res)
+    }else{
+      y <- -x$Scale[i]^(-1) * log(1 - x$Scale[i] * (q - x$Loc[i])/x$Scale[i])
+      P <- 1 - (exp(-exp(-y)))
+      res <- 1/P
+      type <- 'q'
+      vals <- q
+      len <- length(q)
+      lst[[i]] <- data.table(res)
+    }
+  }
+
+  IDs <- rep(paste(type, RP, sep = '_'), each = len)
+  dt <- data.table(x$Data, IDs, rbindlist(lst))
+  colnames(dt) <- c('Data', 'ID', 'type')
+  return(dt)
+}
+
 
 #' @rdname Estimates
 #' @export

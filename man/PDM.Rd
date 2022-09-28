@@ -4,7 +4,7 @@
 \alias{PDM}
 \title{Basic pareto based PDM in R}
 \usage{
-PDM(fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, area)
+PDM(fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, qconst, area)
 }
 \arguments{
 \item{fc}{Rainfac, adjust to apply multiplier against rainfall}

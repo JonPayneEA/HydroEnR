@@ -19,7 +19,7 @@ findPeaksCPP <- function(vY, m = 3L) {
 #' @param Cmin Minimum soil storage
 #' @param Cmax Maximum soil storage
 #' @export
-PDM <- function(fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, area) {
-    .Call('_HydroEnR_PDM', PACKAGE = 'HydroEnR', fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, area)
+PDM <- function(fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, qconst, area) {
+    .Call('_HydroEnR_PDM', PACKAGE = 'HydroEnR', fc, Cmin, Cmax, b, P, PE, s, be, kg, St, bg, k1, k2, kb, qconst, area)
 }
 

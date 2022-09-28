@@ -8,11 +8,10 @@ using namespace Rcpp;
 //' @export
 // [[Rcpp::export]]
 List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, NumericVector PE, double s, double be,
-         double kg, double St, double bg, double k1, double k2, double kb, double area){
+         double kg, double St, double bg, double k1, double k2, double kb, double qconst, double area){
   double k = 1/kg;
   double Smax = (b * Cmin + Cmax) / (b + 1);
   int n = P.size();
-  NumericVector total(n);
   NumericVector storage(n);
   NumericVector store_fullness(n);
   NumericVector AE_PE(n);
@@ -58,37 +57,45 @@ List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, Numeric
     } else {
       prop_runoff[i] = 0;
     }
-    runoff[i] =  P[i] * prop_runoff[i];
+    runoff[i] =  P[i] * prop_runoff[i-1];
   }
-  int dt = 0.25;
-  int s1_alpha = -(exp((-dt/k1)));
-  int s1_beta = 1 + s1_alpha;
-  int s2_alpha = -(exp((-dt/k2)));
-  int s2_beta = 1 + s2_alpha;
-  int b0 = s1_beta * s2_beta;
-  int a1 = s1_alpha + s2_alpha;
-  int a2 = s1_alpha * s2_alpha;
-  NumericVector rain(n + 2);
-  NumericVector flow(n + 2);
+  double dt = 0.25;
+  double s1_alpha = -(exp(-dt/k1));
+  double s1_beta = 1 + s1_alpha;
+  double s2_alpha = -(exp(-dt/k2));
+  double s2_beta = 1 + s2_alpha;
+  double b0 = s1_beta * s2_beta;
+  double a1 = s1_alpha + s2_alpha;
+  double a2 = s1_alpha * s2_alpha;
+  NumericVector flow(n);
   for(int i = 2; i < n; ++i) {
-    flow[i] = -a1*flow[i-1] - a2 * flow [i-2] + b0 * rain[i-1]; // Loop to calculate rapid run off
+    flow[i] = -a1*flow[i-1] - a2 * flow[i-2] + b0 * runoff[i-1]; // Loop to calculate rapid run off
   }
   flow = flow * area;
   // Cubic store
-  // cubic_k = 1/pow(kb, 3) # k value for cubic store
-  // NumericVector drainage_to_cubic(drainage_to_cubic) // Drainage data
-  // int initial_store = 10 # Arbitrary number, initial storage value
-  // baseflow = cubic_k*pow(initial_store[0],3) // Initial baseflow
-  // baseflow =c(baseflow, rep(0, length(drainage_to_cubic))) // Dummmy baseflow series, rows 2 onwards will be over written
-  // cubic_store = c(initial_store, rep(0, output)) // Dummy baseflow series, rows 2 onwards will be overwritten
-  // for(i in seq_along(drainage_to_cubic)){
-  //   cubic_store[i+1] = cubic_store[i]-(1/(3*cubic_k*(cubic_store[i]^2)))*(exp(-3*cubic_k*(cubic_store[i]^2)*dt)-1)*(drainage_to_cubic[i+1] - cubic_k*(cubic_store[i] ^3))
-  //   cubic_store[i+1] = ifelse(cubic_store[i+1] < 0, 0, cubic_store[i+1]) # Minimises cubic store to zero, prevents negative baseflow
-  //   baseflow[i+1] = cubic_k*(cubic_store[i+1]^3) + Qconst # Addition of Qconst to baseflow
-  //     }
+  double cubic_k = 1/pow(kb, 3);  // k value for cubic store
+  NumericVector baseflow(n);
+  NumericVector cubic_store(n);
+  int initial_store = 10; //Arbitrary number, initial storage value
+  baseflow[0] = cubic_k*pow(initial_store,3); // Initial baseflow
+  cubic_store[0] = initial_store;
+  for(int i = 1; i < n; ++i){
+    cubic_store[i] = cubic_store[i-1]-(1/(3*cubic_k*(pow(cubic_store[i-1],2))))*(exp(-3*cubic_k*(pow(cubic_store[i-1], 2))*dt)-1)*(drainage[i] - cubic_k*(pow(cubic_store[i-1], 3)));
+    if(cubic_store[i] < 0){
+      cubic_store[i] = 0;
+    } // Minimises cubic store to zero, prevents negative baseflow
+    baseflow[i] = cubic_k*pow(cubic_store[i],3) * area + qconst; // Addition of Qconst to baseflow
+  }
+  NumericVector q(flow + baseflow);
   List ret;
-  ret["total"] = total;
   ret["Smax"] = Smax;
+  ret["s1_alpha"] = s1_alpha;
+  ret["s1_beta"] = s1_beta;
+  ret["s2_alpha"] = s2_alpha;
+  ret["s2_beta"] = s2_beta;
+  ret["b0"] = b0;
+  ret["a1"] = a1;
+  ret["a2"] = a2;
   ret["storage"] = storage;
   ret["AE_PE"] = AE_PE;
   ret["evaporation"] = evaporation;
@@ -97,7 +104,9 @@ List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, Numeric
   ret["runoff"] = runoff;
   ret["drainage"] = drainage;
   ret["flow"] = flow;
-
+  ret["cubic_store"] = cubic_store;
+  ret["baseflow"] = baseflow;
+  ret["q"] = q;
   return ret;
 }
 
@@ -112,27 +121,32 @@ List PDM(double fc, double Cmin, double Cmax, double b, NumericVector P, Numeric
 # library(microbenchmark)
 # library(tidyverse)
 #
-# alf_flow <- readr::read_csv("O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/PDM_in_R/Alfoldean/Flow.csv", col_names = FALSE)  # Flow
-# alf_PE <- readr::read_csv("O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/PDM_in_R/Alfoldean/PE_r.csv", col_names = FALSE) # Amended PE
-# alf_rain <- readr::read_csv("O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/PDM_in_R/Alfoldean/Rain.csv", col_names = FALSE) # Rain (single source)
+# flow <- readr::read_csv("O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/PDM_in_R/Alfoldean/Flow.csv", col_names = FALSE)  # Flow
+# PE <- readr::read_csv("O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/PDM_in_R/Alfoldean/PE_r.csv", col_names = FALSE) # Amended PE
+# rain <- readr::read_csv("O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/PDM_in_R/Alfoldean/Rain.csv", col_names = FALSE) # Rain (single source)
 #
-# flow <- alf_flow$X7
-# rain <- alf_rain$X7
+# flow <- flow$X7
+# rain <- rain$X7
 #
-# alf_PE <- alf_PE %>%
+# PE <- PE %>%
 #   dplyr::slice(rep(1:n(), each = 96)) # Convert the daily PE data to 15 minute
 #
-# PE <- alf_PE$X7/96
-
+# PE <- PE$X7/96
+#
 # system.time({
 #   a<-PDM(fc = 1, Cmin =  0, Cmax =  200, b = 1, P = rain, PE = PE, s = 20, be = 2, kg = 70000, St = 2, bg = 4.6,
 #          k1 =8, k2 = 10, area = 154)
 # })
 
 # microbenchmark::microbenchmark(
-#   a<-PDM(fc = 1, Cmin =  0, Cmax =  200, b = 1, P = rain, PE = PE, s = 20, be = 2, kg = 70000, St = 2, bg = 4.6,
-#          k1 =8, k2 = 10, kb = 60, area = 154)
+#   a <- PDM(fc = 1, Cmin =  0, Cmax =  200, b = 1, P = rain, PE = PE, s = 20, be = 2, kg = 70000, St = 2, bg = 4.6,
+#            k1 =8, k2 = 10, kb = 60, area = 154, qconst = 0)
 # )
+#
+# a <- PDM(fc = 1, Cmin =  19, Cmax =  40, b = 0.9, P = rain, PE = PE, s = 30, be = 2.2, kg = 19000, St = 1, bg = 1.7,
+#          k1 = 7, k2 = 8, kb = 60, area = 154, qconst = 0)
+# plot(a$q, type = "l")
+# lines(alf_flow$X7, col = "red")
 
 # microbenchmark::microbenchmark(a<-PDM(fc = 1, Cmin =  0, Cmax =  200, b = 1, P = rain, PE = PE, s = 20, be = 2, kg = 70000, St = 2, bg = 4.6),
 #                                Alfodean_RMSE <- PDM_basic_pareto(fc = 1.0, # Rainfall factor
