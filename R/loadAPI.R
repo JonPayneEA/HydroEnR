@@ -6,10 +6,12 @@ library(ggplot2)
 #'
 #' @param WISKI WISKI ID for gauge
 #' @param Parameter User dfined; 'flow', 'level', 'rain'
-#' @param Period Userdefined 900 == 15min, 86400 == daily
+#' @param Period User defined 900 == 15min, 86400 == daily
 #' @param Type Data type set as 'instantaneous', some sites will have different agregators applied
 #' @param datapoints Set to standard that pulls up to 100,000 rows. If 'all' will pull up to 2,000,000 rows. 'earliest' returns first datapoint
 #' @param UAT Set to FALSE, if TRUE will pull data from UAT environment
+#'
+#' @import jsonlite
 #'
 #' @return
 #' @export

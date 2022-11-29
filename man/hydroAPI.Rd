@@ -18,7 +18,7 @@ hydroAPI(
 
 \item{Parameter}{User dfined; 'flow', 'level', 'rain'}
 
-\item{Period}{Userdefined 900 == 15min, 86400 == daily}
+\item{Period}{User defined 900 == 15min, 86400 == daily}
 
 \item{Type}{Data type set as 'instantaneous', some sites will have different agregators applied}
 
