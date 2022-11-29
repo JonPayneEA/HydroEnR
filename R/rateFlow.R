@@ -55,20 +55,4 @@ rateFlow <- function(data, rating, start = 0){
   return(df_all)
 }
 
-test <- rateFlow(data = obs$Stage, rating = ratings)
-plot(test$flow~test$stage,
-     type = 'l',
-     xlab = 'Stage (mAOD)',
-     ylab = 'Rated flow (m3 s-1)',
-     main = 'Adapted rating methodology from QH3',
-     lwd = 2)
-for(i in seq_along(ratings$max)){
-  abline(v = ratings$max[i],
-  lty = 2,
-  col = 'red')
-}
-
-
-# cut(obs$Stage, breaks = c(0, ratings$max), labels = 1:4)
-
 

@@ -133,6 +133,9 @@
     <loc>/reference/hydroAggregate.html</loc>
   </url>
   <url>
+    <loc>/reference/hydroAPI.html</loc>
+  </url>
+  <url>
     <loc>/reference/hydroYearAgg.html</loc>
   </url>
   <url>
@@ -239,6 +242,9 @@
   </url>
   <url>
     <loc>/reference/rainAvg.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rateFlow.html</loc>
   </url>
   <url>
     <loc>/reference/RMSE.html</loc>
