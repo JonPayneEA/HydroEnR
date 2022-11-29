@@ -7,7 +7,11 @@
 rateFlow(data, rating, start = 0)
 }
 \arguments{
-\item{start}{}
+\item{data}{Stage data of interest}
+
+\item{rating}{dataframe of rating equations}
+
+\item{start}{Sets an offset point from which ratings begfgin, set to 0}
 }
 \value{
 

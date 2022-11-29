@@ -2,9 +2,9 @@
 #'
 #' @description The rateFlow function uses Q = A *(h-B)^C to convert stage data to flow
 #'
-#' @param data
-#' @param rating
-#' @param start
+#' @param data Stage data of interest
+#' @param rating dataframe of rating equations
+#' @param start Sets an offset point from which ratings begfgin, set to 0
 #'
 #' @return
 #' @export
