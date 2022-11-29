@@ -1,7 +1,7 @@
 Package: HydroEnR
 Type: Package
 Title: Exploratory Data Analysis for Realtime Flood Forecasting
-Version: 0.0.0.9001
+Version: 1.0.0
 Authors@R: 
     person("Jonathan", "Payne", , "jon.payne@environment-agency.gov.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2551-5353"))
