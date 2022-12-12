@@ -25,7 +25,8 @@ loadPE <- function(link,
                 nrows = 2,
                 skip = skip,
                 sep = ',',
-                header = FALSE
+                header = FALSE,
+                fill = TRUE
   )[,1:2]
   if(type[2,2] == "Single per row"){
     cat('Importing meta data\n')

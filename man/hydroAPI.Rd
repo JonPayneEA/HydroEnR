@@ -20,7 +20,7 @@ hydroAPI(
 
 \item{Period}{User defined 900 == 15min, 86400 == daily}
 
-\item{Type}{Data type set as 'instantaneous', some sites will have different agregators applied}
+\item{Type}{Data type set as 'instantaneous', some sites will have different aggrogators applied}
 
 \item{datapoints}{Set to standard that pulls up to 100,000 rows. If 'all' will pull up to 2,000,000 rows. 'earliest' returns first datapoint}
 
