@@ -35,7 +35,8 @@ loadPE <- function(link,
                   skip = 3,
                   sep = ',',
                   header = FALSE,
-                  na.strings = c('#N/A', 'NA')
+                  na.strings = c('#N/A', 'NA'),
+                  fill = TRUE
     )[,1:3]
     colnames(meta) <- c('Parameter', 'Details', 'Details2')
     main <- fread(link,
