@@ -79,7 +79,7 @@
 
 
 <dt>Type</dt>
-<dd><p>Data type set as 'instantaneous', some sites will have different agregators applied</p></dd>
+<dd><p>Data type set as 'instantaneous', some sites will have different aggrogators applied</p></dd>
 
 
 <dt>datapoints</dt>
@@ -102,28 +102,34 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">hydroAPI</span><span class="op">(</span>WISKI <span class="op">=</span> <span class="st">'SX87U053'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Period          Type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt;  &lt;int&gt;        &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      flow    900 instantaneous</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      flow  86400          mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     level  86400           max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      flow    900 instantaneous</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     level    900 instantaneous</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:      flow  86400          mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     level  86400           min</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:      flow  86400           min</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7:      flow  86400           max</span>
 <span class="r-in"><span class="fu">hydroAPI</span><span class="op">(</span>WISKI <span class="op">=</span> <span class="st">'SX87U053'</span>, UAT <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Period          Type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt;  &lt;int&gt;        &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     level    900 instantaneous</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      flow  86400          mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     level  86400       maximum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      flow  86400       maximum</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:     level  86400       minimum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:      flow  86400       maximum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     level  86400       maximum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:      flow    900 instantaneous</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7:      flow  86400       minimum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:      flow  86400       minimum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:      flow    900 instantaneous</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:      flow  86400          mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7:     level    900 instantaneous</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">hydroAPI</span><span class="op">(</span>WISKI <span class="op">=</span> <span class="st">'188753'</span>, UAT <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> lexical error: invalid char in json text.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>                                        NULL</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>                      (right here) ------^</span>
-<span class="r-in"><span class="fu">hydroAPI</span><span class="op">(</span>WISKI <span class="op">=</span> <span class="st">'188753'</span>, UAT <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Period   Type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:  rainfall  86400  total</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:  rainfall    900  total</span>
+<span class="r-in"><span class="fu">hydroAPI</span><span class="op">(</span>WISKI <span class="op">=</span> <span class="st">'188753'</span>, UAT <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Period   Type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt;  &lt;int&gt; &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:  rainfall    900  total</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:  rainfall  86400  total</span>
 <span class="r-in"><span class="co"># Pull data</span></span>
 <span class="r-in"><span class="fu">hydroAPI</span><span class="op">(</span>WISKI <span class="op">=</span> <span class="st">'SX87U053'</span>,</span>
 <span class="r-in">         Parameter <span class="op">=</span> <span class="st">'flow'</span>,</span>
@@ -132,17 +138,17 @@
 <span class="r-in">         datapoints <span class="op">=</span> <span class="st">'standard'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  dateTime value   quality</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;POSc&gt; &lt;num&gt;    &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 2022-10-17 00:00:00  1.07 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 2022-10-17 00:15:00  1.06 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 2022-10-17 00:30:00  1.05 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 2022-10-17 00:45:00  1.04 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 2022-10-17 01:00:00  1.02 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    1: 2023-02-15 05:15:00  1.62 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    2: 2023-02-15 05:30:00  1.62 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    3: 2023-02-15 05:45:00  1.62 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    4: 2023-02-15 06:00:00  1.62 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    5: 2023-02-15 06:15:00  1.62 Unchecked</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4118: 2022-11-29 06:15:00  7.19 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4119: 2022-11-29 06:30:00  7.20 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4120: 2022-11-29 06:45:00  7.14 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4121: 2022-11-29 07:00:00  7.15 Unchecked</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4122: 2022-11-29 07:15:00  7.13 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5836: 2023-04-17 12:00:00  3.73 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5837: 2023-04-17 12:15:00  3.69 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5838: 2023-04-17 12:30:00  3.70 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5839: 2023-04-17 12:45:00  3.69 Unchecked</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5840: 2023-04-17 13:00:00  3.71 Unchecked</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">hydroAPI</span><span class="op">(</span>WISKI <span class="op">=</span> <span class="st">'SX87U053'</span>,</span>
 <span class="r-in">         Parameter <span class="op">=</span> <span class="st">'level'</span>,</span>
@@ -178,11 +184,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     4: 1991-08-04 09:00:00   0.0      0       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     5: 1991-08-05 09:00:00   0.6      0       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11077: 2021-11-27 09:00:00   6.4    100       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11078: 2021-11-28 09:00:00   0.0    100       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11079: 2021-11-29 09:00:00   0.2    100       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11080: 2021-11-30 09:00:00   0.0    100       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11081: 2021-12-01 09:00:00   2.0    100       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11569: 2023-04-10 09:00:00   4.6    100       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11570: 2023-04-11 09:00:00   3.2    100       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11571: 2023-04-12 09:00:00   1.0    100       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11572: 2023-04-13 09:00:00   0.0    100       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11573: 2023-04-14 09:00:00  13.6     97       0</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

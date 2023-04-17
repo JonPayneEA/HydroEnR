@@ -111,3 +111,11 @@ print.LCs <- function(x, ...) {
   print.default(x, ...)
 }
 
+#' @rdname print
+#' @export
+print.OptRating <- function(x, ...) {
+  # Fixing the print of OptRating class data
+  attr(x, "class") <- NULL
+  print.default(x, ...)
+}
+

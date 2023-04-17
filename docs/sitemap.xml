@@ -217,6 +217,9 @@
     <loc>/reference/peakDet.html</loc>
   </url>
   <url>
+    <loc>/reference/plot.rating.html</loc>
+  </url>
+  <url>
     <loc>/reference/plotExtVal.html</loc>
   </url>
   <url>
@@ -245,6 +248,12 @@
   </url>
   <url>
     <loc>/reference/rateFlow.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rateOptimise.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ratingPlot.html</loc>
   </url>
   <url>
     <loc>/reference/RMSE.html</loc>

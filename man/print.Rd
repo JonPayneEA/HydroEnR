@@ -15,6 +15,7 @@
 \alias{print.GenLogPar}
 \alias{print.GenParetoPar}
 \alias{print.LCs}
+\alias{print.OptRating}
 \title{Print}
 \usage{
 \method{print}{L1}(x, ...)
@@ -44,6 +45,8 @@
 \method{print}{GenParetoPar}(x, ...)
 
 \method{print}{LCs}(x, ...)
+
+\method{print}{OptRating}(x, ...)
 }
 \description{
 Print
