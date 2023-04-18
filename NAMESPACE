@@ -234,7 +234,6 @@ import(magrittr)
 import(rnrfa)
 import(s2)
 import(sf)
-import(minpack.lm)
 importFrom(Rcpp,sourceCpp)
 useDynLib(HydroEnR); exportPattern("ˆ[[:alpha:]]+"); importFrom(Rcpp, evalCpp)
 
