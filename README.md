@@ -79,7 +79,7 @@ plot(Discharge ~ Stage)
 <img src="man/figures/README-rawplot-1.png" width="100%" />
 
 ``` r
-# Optimise rating with a control point at 1.6m
+# Optimise rating with a control points at 1.6m and 2.3m
 rateOptim <- rateOptimise(Discharge, Stage, control = c(1.6, 2.3))
 rateOptim
 #> $Meta
