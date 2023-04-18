@@ -9,7 +9,8 @@ loadWISKI(
   skip = 0,
   meta_rows = 15,
   hydro_year = "oct_us_gb",
-  cols = NULL
+  cols = NULL,
+  ...
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ loadWISKI(
 
 \item{cols}{Set to NULL, but can be set as a vector of column names. Note
 the first 2 must be 'DateTime' and 'Value'}
+
+\item{...}{Extra parameters to add to the fread command}
 }
 \value{
 
@@ -35,5 +38,5 @@ rainLoad, or stageLoad. Data are in two parts MetaData and GaugeData.
 }
 \examples{
 #csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
-#a <- loadWISKI(csvfile)
+#a <- loadWISKI(csvfile, showProgress = TRUE, verbose = TRUE)
 }

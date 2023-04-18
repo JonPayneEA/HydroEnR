@@ -15,6 +15,7 @@ library(data.table)
 #' (Brazil),'apr_cl' (Chille).
 #' @param cols Set to NULL, but can be set as a vector of column names. Note
 #' the first 2 must be 'DateTime' and 'Value'
+#' @param ... Extra parameters to add to the fread command
 #'
 #' @return
 #' @export
@@ -23,12 +24,13 @@ library(data.table)
 #'
 #' @examples
 #' #csvfile <- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'
-#' #a <- loadWISKI(csvfile)
+#' #a <- loadWISKI(csvfile, showProgress = TRUE, verbose = TRUE)
 loadWISKI <- function(link,
                       skip = 0,
                       meta_rows = 15,
                       hydro_year = 'oct_us_gb',
-                      cols = NULL
+                      cols = NULL,
+                      ...
                       ){
   cat('Importing meta data\n')
   rdata<- fread(link,
@@ -74,8 +76,7 @@ loadWISKI <- function(link,
                 na.strings= c('---', 'NA'),
                 col.names = col_names,
                 fill = TRUE,
-                showProgress = TRUE,
-                verbose = TRUE
+                ...
                 )
     cat('Removing blank elements at top\n')
     first_data <- min(which(dt$Value != "NA")) # Locates the first non NA value in the Values field

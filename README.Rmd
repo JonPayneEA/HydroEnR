@@ -68,13 +68,22 @@ You can install the development version of HydroEnR from [GitHub](https://github
 devtools::install_github("JonPayne88/HydroEnR")
 ```
 
-## Example
+## Example 1 - fitting rating curves
 
 This is a basic example which shows you how to fit a rating curve to observed data.
 
 ```{r example}
 library(HydroEnR)
 ## basic example code
+```
+
+
+```{r libs}
+library(data.table)
+library(sf)
+library(leaflet)
+library(htmltools)
+library(dygraphs)
 ```
 
 ```{r data, echo = FALSE}
@@ -98,6 +107,93 @@ rateOptim
 ```{r fittedplot}
 # Plot the fittings
 ratingPlot(rateOptim, colours = c(2, 3, 4))
+```
+
+# Example 2 - Peak detection
+
+```{r data1, echo = FALSE}
+
+link <- ('O:/National Modelling and Forecasting/21_Strategic Delivery/Flood Forecast Modelling/03 Training/Peak Detection/Allington.csv')
+allington <- read.csv(link, header = T)
+allington$Time_stamp <- as.POSIXct(allington$Time_stamp,
+                                   format = '%d/%m/%Y %H:%M',
+                                   tz = 'GMT') # Change to a time format
+```
+
+```{r peaks}
+peakscpp <- findPeaksCPP(allington$mAoD, m = 4500) # C++
+results <- data.table(Position = peakscpp, allington[peakscpp,])  # Returns the rows where the peaks are found
+results
+```
+
+```{r peak plot}
+# Plot all points
+plot(allington$Time_stamp, allington$mAoD, 
+     type = 'l', 
+     main = paste0('Peak detection where m = 4500'), 
+     xlab = 'Time',
+     ylab = 'mAOD')
+points(results$Time_stamp, results$mAoD, col = 'red', pch = 19)
+```
+
+```{r peakloop}
+# Integrate into loops
+# Decide window over which to detect peaks
+m <- c(1500, 4000, 6500, 8000)
+# Include a threshold to filter results
+threshold <- 33.75
+# Change plot window too enable 4 plots 2x2
+par(mfrow = c(2, 2))
+# Loop through the m values
+for(i in seq_along(m)){
+  p <- HydroEnR:::findPeaksCPP(allington$mAoD, m = m[i])
+  results <- data.frame(Position = p, allington[p,])
+  results_filter <- dplyr::filter(results, mAoD >= threshold)
+  plot(allington$Time_stamp,
+       allington$mAoD,
+       type = 'l',
+       main = paste0('m = ', m[i]),
+       xlab = 'Time',
+       ylab = 'mAOD')
+  points(results_filter$Time_stamp, results_filter$mAoD, col = 'red', pch = 19)
+  abline(h = threshold, col = 'red', lty = 2)
+}
+
+```
+
+
+# Example 3 - Single site analysis
+
+```{r buildwas, echo = FALSE}
+link <- 'C:/Users/jpayne05/Desktop/Test_Data/buildwas.csv'
+buildwas <- loadWISKI(link)
+```
+
+```{r monthplot}
+# Monthplot of the Buildwas flow data
+monthPlot(buildwas, name = 'Buildwas', polar = FALSE)
+```
+
+```{r amax}
+# Retrieve the AMAX series
+getAMAX(buildwas)
+```
+
+```{r QMED}
+# QMED plots
+# Can be stored in the environment
+# Greater adaptability for users
+plotQMED(buildwas)
+```
+
+```{r lmoments}
+# Retrieve the l-moments
+Ls(buildwas)
+```
+
+```{r extreme}
+# Extreme value plot for buildwas
+plotExtVal(buildwas)
 ```
 
 <!-- What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so: -->
