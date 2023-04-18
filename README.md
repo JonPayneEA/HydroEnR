@@ -46,7 +46,6 @@ analyses. It enables;
   - Basic hydraulic equations such as the Mannings’ equation
       - Import cross sectional data and carry out rudimentary analyses
   - Importing recent flow, stage and rain gauge data via the EAs API
-      - Limited to 2500 time steps
   - Impute missing data into PE series
   - Trend detection in hydrological data
   - ESS in the near future
@@ -63,12 +62,89 @@ devtools::install_github("JonPayne88/HydroEnR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to fit a rating curve to
+observed data.
 
 ``` r
 library(HydroEnR)
 ## basic example code
 ```
+
+``` r
+# Plot raw rating data
+
+plot(Discharge ~ Stage)
+```
+
+<img src="man/figures/README-rawplot-1.png" width="100%" />
+
+``` r
+# Optimise rating with a control point at 1.6m
+rateOptim <- rateOptimise(Discharge, Stage, control = c(1.6, 2.3))
+rateOptim
+#> $Meta
+#>      Limb lowerRange upperRange minStage maxStage minDischarge maxDischarge
+#>    <fctr>      <num>      <num>    <num>    <num>        <num>        <num>
+#> 1:      1       1.08       1.60    1.085    1.600        0.547         10.2
+#> 2:      2       1.60       2.30    1.601    2.296        8.390         37.3
+#> 3:      3       2.30       2.69    2.307    2.689       35.300         53.2
+#> 
+#> $Data
+#>        Discharge Stage   Limb      Range lowerRange upperRange
+#>            <num> <num> <fctr>     <fctr>      <num>      <num>
+#>     1:     0.547 1.103      1 [1.08,1.6]       1.08       1.60
+#>     2:     0.579 1.085      1 [1.08,1.6]       1.08       1.60
+#>     3:     0.589 1.088      1 [1.08,1.6]       1.08       1.60
+#>     4:     0.589 1.089      1 [1.08,1.6]       1.08       1.60
+#>     5:     0.593 1.089      1 [1.08,1.6]       1.08       1.60
+#>    ---                                                        
+#> 18826:    49.300 2.629      3 (2.3,2.69]       2.30       2.69
+#> 18827:    50.800 2.655      3 (2.3,2.69]       2.30       2.69
+#> 18828:    51.400 2.685      3 (2.3,2.69]       2.30       2.69
+#> 18829:    52.000 2.685      3 (2.3,2.69]       2.30       2.69
+#> 18830:    53.200 2.689      3 (2.3,2.69]       2.30       2.69
+#> 
+#> $`NLS Limb 1`
+#> Nonlinear regression model
+#>   model: Discharge ~ C * (Stage + a)^n
+#>    data: dtl
+#>       C       a       n 
+#> 20.2738 -0.8566  2.5019 
+#>  residual sum-of-squares: 873.9
+#> 
+#> Number of iterations to convergence: 27 
+#> Achieved convergence tolerance: 1.49e-08
+#> 
+#> $`NLS Limb 2`
+#> Nonlinear regression model
+#>   model: Discharge ~ C * (Stage + a)^n
+#>    data: dtl
+#>      C      a      n 
+#> 34.597 -1.224  1.332 
+#>  residual sum-of-squares: 1705
+#> 
+#> Number of iterations to convergence: 38 
+#> Achieved convergence tolerance: 1.49e-08
+#> 
+#> $`NLS Limb 3`
+#> Nonlinear regression model
+#>   model: Discharge ~ C * (Stage + a)^n
+#>    data: dtl
+#>       C       a       n 
+#>  8.6308 -0.2623  2.0195 
+#>  residual sum-of-squares: 85.17
+#> 
+#> Number of iterations till stop: 93 
+#> Achieved convergence tolerance: 1.49e-08
+#> Reason stopped: Number of calls to `fcn' has reached or exceeded `maxfev' == 400.
+```
+
+``` r
+# Plot the fittings
+ratingPlot(rateOptim, colours = c(2, 3, 4))
+```
+
+<img src="man/figures/README-fittedplot-1.png" width="100%" />
 
 <!-- What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so: -->
 

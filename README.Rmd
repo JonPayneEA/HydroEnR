@@ -55,7 +55,6 @@ models, applications can be extended into hydrological analyses. It enables;
   - Basic hydraulic equations such as the Mannings’ equation
       - Import cross sectional data and carry out rudimentary analyses
   - Importing recent flow, stage and rain gauge data via the EAs API
-      - Limited to 2500 time steps
   - Impute missing data into PE series
   - Trend detection in hydrological data
   - ESS in the near future
@@ -71,11 +70,34 @@ devtools::install_github("JonPayne88/HydroEnR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example which shows you how to fit a rating curve to observed data.
 
 ```{r example}
 library(HydroEnR)
 ## basic example code
+```
+
+```{r data, echo = FALSE}
+rating <- read.csv("C:/Users/jpayne05/OneDrive - Defra/Rating.csv")
+attach(rating)
+```
+
+```{r rawplot}
+# Plot raw rating data
+
+plot(Discharge ~ Stage)
+
+```
+
+```{r rateOptimise}
+# Optimise rating with a control point at 1.6m
+rateOptim <- rateOptimise(Discharge, Stage, control = c(1.6, 2.3))
+rateOptim
+```
+
+```{r fittedplot}
+# Plot the fittings
+ratingPlot(rateOptim, colours = c(2, 3, 4))
 ```
 
 <!-- What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so: -->
