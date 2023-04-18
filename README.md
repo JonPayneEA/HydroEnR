@@ -163,7 +163,8 @@ ratingPlot(rateOptim, colours = c(2, 3, 4))
 
 ``` r
 peakscpp <- findPeaksCPP(allington$mAoD, m = 4500) # C++
-results <- data.table(Position = peakscpp, allington[peakscpp,])  # Returns the rows where the peaks are found
+results <- data.table(Position = peakscpp, allington[peakscpp,])  
+# Returns the rows where the peaks are found
 results
 #>     Position          Time_stamp Value   mAoD
 #>        <num>              <POSc> <num>  <num>
@@ -221,7 +222,7 @@ plot(allington$Time_stamp, allington$mAoD,
 points(results$Time_stamp, results$mAoD, col = 'red', pch = 19)
 ```
 
-<img src="man/figures/README-peak plot-1.png" width="100%" />
+<img src="man/figures/README-peak_plot-1.png" width="100%" />
 
 ``` r
 # Integrate into loops
@@ -253,77 +254,6 @@ for(i in seq_along(m)){
 
     #> Importing meta data
     #> Importing precipitation data
-    #>   OpenMP version (_OPENMP)       201511
-    #>   omp_get_num_procs()            8
-    #>   R_DATATABLE_NUM_PROCS_PERCENT  unset (default 50)
-    #>   R_DATATABLE_NUM_THREADS        unset
-    #>   R_DATATABLE_THROTTLE           unset (default 1024)
-    #>   omp_get_thread_limit()         2147483647
-    #>   omp_get_max_threads()          8
-    #>   OMP_THREAD_LIMIT               unset
-    #>   OMP_NUM_THREADS                unset
-    #>   RestoreAfterFork               true
-    #>   data.table is using 4 threads with throttle==1024. See ?setDTthreads.
-    #> freadR.c has been passed a filename: C:/Users/jpayne05/Desktop/Test_Data/buildwas.csv
-    #> [01] Check arguments
-    #>   Using 4 threads (omp_get_max_threads()=8, nth=4)
-    #>   NAstrings = [<<--->>, <<NA>>]
-    #>   None of the NAstrings look like numbers.
-    #>   skip num lines = 15
-    #>   show progress = 1
-    #>   0/1 column will be read as integer
-    #> [02] Opening the file
-    #>   Opening file C:/Users/jpayne05/Desktop/Test_Data/buildwas.csv
-    #>   File opened, size = 68.4MB (71732502 bytes).
-    #>   Memory mapped ok
-    #> [03] Detect and skip BOM
-    #> [04] Arrange mmap to be \0 terminated
-    #>   \n has been found in the input and different lines can end with different line endings (e.g. mixed \n and \r\n in one file). This is common and ideal.
-    #> [05] Skipping initial rows if needed
-    #>   Skipped to line 16 in the file  Positioned on line 16 starting: <<Time stamp,Value [m³/s],State >>
-    #> [06] Detect separator, quoting rule, and ncolumns
-    #>   Using supplied sep ','
-    #>   sep=','  with 5 fields using quote rule 0
-    #>   Detected 5 columns on line 16. This line is either column names or first data row. Line starts as: <<Time stamp,Value [m³/s],State >>
-    #>   Quote rule picked = 0
-    #>   fill=true and the most number of columns found is 5
-    #> [07] Detect column types, good nrow estimate and whether first row is column names
-    #>   'header' changed by user from 'auto' to true
-    #>   Number of sampling jump points = 100 because (71732148 bytes from row 1 to eof) / (2 * 4216 jump0size) == 8507
-    #>   Type codes (jump 000)    : D1D11  Quote rule 0
-    #>   Type codes (jump 032)    : D8D81  Quote rule 0
-    #>   Type codes (jump 100)    : D8D81  Quote rule 0
-    #>   =====
-    #>   Sampled 10052 rows (handled \n inside quoted fields) at 101 jump points
-    #>   Bytes from first data row on line 17 to the end of last row: 71732090
-    #>   Line length: mean=39.87 sd=1.50 min=38 max=42
-    #>   Estimated number of rows: 71732090 / 39.87 = 1798985
-    #>   Initial alloc = 1978883 rows (1798985 + 9%) using bytes/max(mean-2*sd,min) clamped between [1.1*estn, 2.0*estn]
-    #>   =====
-    #> [08] Assign column names
-    #> [09] Apply user overrides on column types
-    #>   After 0 type and 0 drop user overrides : D8D81
-    #> [10] Allocate memory for the datatable
-    #>   Allocating 5 column slots (5 - 0 dropped) with 1978883 rows
-    #> [11] Read the data
-    #>   jumps=[0..68), chunk_size=1054883, total_size=71732090
-    #> Read 1802880 rows x 5 columns from 68.4MB (71732502 bytes) file in 00:01.839 wall clock time
-    #> [12] Finalizing the datatable
-    #>   Type counts:
-    #>          1 : bool8     '1'
-    #>          2 : float64   '8'
-    #>          2 : string    'D'
-    #> =============================
-    #>    0.002s (  0%) Memory map 0.067GB file
-    #>    0.002s (  0%) sep=',' ncol=5 and header detection
-    #>    0.000s (  0%) Column type detection using 10052 sample rows
-    #>    0.150s (  8%) Allocation of 1978883 rows x 5 cols (0.066GB) of which 1802880 ( 91%) rows used
-    #>    1.685s ( 92%) Reading 68 chunks (0 swept) of 1.006MB (each chunk 26512 rows) using 4 threads
-    #>    +    0.051s (  3%) Parse to row-major thread buffers (grown 0 times)
-    #>    +    1.600s ( 87%) Transpose
-    #>    +    0.034s (  2%) Waiting
-    #>    0.000s (  0%) Rereading 0 columns due to out-of-sample type exceptions
-    #>    1.839s        Total
     #> Removing blank elements at top
     #> Converting dates and times
 

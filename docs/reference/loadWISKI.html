@@ -63,7 +63,8 @@ rainLoad, or stageLoad. Data are in two parts MetaData and GaugeData.</p>
   skip <span class="op">=</span> <span class="fl">0</span>,
   meta_rows <span class="op">=</span> <span class="fl">15</span>,
   hydro_year <span class="op">=</span> <span class="st">"oct_us_gb"</span>,
-  cols <span class="op">=</span> <span class="cn">NULL</span>
+  cols <span class="op">=</span> <span class="cn">NULL</span>,
+  <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -90,6 +91,10 @@ rainLoad, or stageLoad. Data are in two parts MetaData and GaugeData.</p>
 <dd><p>Set to NULL, but can be set as a vector of column names. Note
 the first 2 must be 'DateTime' and 'Value'</p></dd>
 
+
+<dt>...</dt>
+<dd><p>Extra parameters to add to the fread command</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -101,7 +106,7 @@ the first 2 must be 'DateTime' and 'Value'</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#csvfile &lt;- 'C:/Users/jpayne05/Downloads/Wellingborough.csv'</span></span>
-<span class="r-in"><span class="co">#a &lt;- loadWISKI(csvfile)</span></span>
+<span class="r-in"><span class="co">#a &lt;- loadWISKI(csvfile, showProgress = TRUE, verbose = TRUE)</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

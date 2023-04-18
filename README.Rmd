@@ -122,11 +122,12 @@ allington$Time_stamp <- as.POSIXct(allington$Time_stamp,
 
 ```{r peaks}
 peakscpp <- findPeaksCPP(allington$mAoD, m = 4500) # C++
-results <- data.table(Position = peakscpp, allington[peakscpp,])  # Returns the rows where the peaks are found
+results <- data.table(Position = peakscpp, allington[peakscpp,])  
+# Returns the rows where the peaks are found
 results
 ```
 
-```{r peak plot}
+```{r peak_plot}
 # Plot all points
 plot(allington$Time_stamp, allington$mAoD, 
      type = 'l', 

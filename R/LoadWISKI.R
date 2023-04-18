@@ -95,8 +95,7 @@ loadWISKI <- function(link,
                 na.strings= c('---', 'NA'),
                 col.names = col_names,
                 fill = TRUE,
-                showProgress = TRUE,
-                verbose = TRUE
+                ...
     )
     cat('Removing blank elements at top\n')
     first_data <- min(which(dt$Value != "NA")) # Locates the first non NA value in the Values field
@@ -115,8 +114,7 @@ loadWISKI <- function(link,
                 na.strings= c('---', 'NA'),
                 col.names = col_names,
                 fill = TRUE,
-                showProgress = TRUE,
-                verbose = TRUE
+                ...
     )
     cat('Removing blank elements at top\n')
     first_data <- min(which(dt$Value != "NA")) # Locates the first non NA value in the Values field

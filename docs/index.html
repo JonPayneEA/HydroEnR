@@ -74,12 +74,15 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
 <div class="section level1">
 <div class="page-header"><h1 id="hydroenr-">HydroEnR <img src="logo.png" align="right" width="120"><a class="anchor" aria-label="anchor" href="#hydroenr-"></a>
 </h1></div>
-<div class="section level2">
-<h2 id="welcome-to-hydroenr">Welcome to HydroEnR!<a class="anchor" aria-label="anchor" href="#welcome-to-hydroenr"></a>
-</h2>
+<!-- badges: start -->
+</div>
+<div class="section level1">
+<h1 id="welcome-to-hydroenr">Welcome to HydroEnR!<a class="anchor" aria-label="anchor" href="#welcome-to-hydroenr"></a>
+</h1>
 <p>This package is designed for members of Evidence and Risk who are developing PDM models, applications can be extended into hydrological analyses. It enables;</p>
 <ul>
 <li>Easy loading of data downloaded from WISKI<ul>
@@ -103,21 +106,274 @@
 <li>ARMA parameter inspection for stability in a real time forecasting context<ul><li>Loads a local version of the shiny application</li></ul>
 </li>
 </ul>
-<div class="section level3">
-<h3 id="future-updates">Future Updates<a class="anchor" aria-label="anchor" href="#future-updates"></a>
-</h3>
+</div>
+<div class="section level1">
+<h1 id="future-updates">Future Updates<a class="anchor" aria-label="anchor" href="#future-updates"></a>
+</h1>
 <ul>
 <li>Basic hydraulic equations such as the Mannings’ equation<ul><li>Import cross sectional data and carry out rudimentary analyses</li></ul>
 </li>
-<li>Importing recent flow, stage and rain gauge data via the EAs API<ul><li>Limited to 2500 time steps</li></ul>
-</li>
+<li>Importing recent flow, stage and rain gauge data via the EAs API</li>
 <li>Impute missing data into PE series</li>
 <li>Trend detection in hydrological data</li>
 <li>ESS in the near future</li>
 </ul>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of HydroEnR from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"JonPayne88/HydroEnR"</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example-1---fitting-rating-curves">Example 1 - fitting rating curves<a class="anchor" aria-label="anchor" href="#example-1---fitting-rating-curves"></a>
+</h2>
+<p>This is a basic example which shows you how to fit a rating curve to observed data.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">HydroEnR</span><span class="op">)</span>
+<span class="co">## basic example code</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'data.table' was built under R version 4.0.5</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'sf' was built under R version 4.0.5</span>
+<span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1; sf_use_s2() is TRUE</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'leaflet' was built under R version 4.0.5</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/htmltools" class="external-link">htmltools</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rstudio/dygraphs" class="external-link">dygraphs</a></span><span class="op">)</span>
+<span class="co">#&gt; Warning: package 'dygraphs' was built under R version 4.0.5</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Plot raw rating data</span>
+
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">Discharge</span> <span class="op">~</span> <span class="va">Stage</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-rawplot-1.png" width="100%"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Optimise rating with a control points at 1.6m and 2.3m</span>
+<span class="va">rateOptim</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rateOptimise.html">rateOptimise</a></span><span class="op">(</span><span class="va">Discharge</span>, <span class="va">Stage</span>, control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.6</span>, <span class="fl">2.3</span><span class="op">)</span><span class="op">)</span>
+<span class="va">rateOptim</span>
+<span class="co">#&gt; $Meta</span>
+<span class="co">#&gt;      Limb lowerRange upperRange minStage maxStage minDischarge maxDischarge</span>
+<span class="co">#&gt;    &lt;fctr&gt;      &lt;num&gt;      &lt;num&gt;    &lt;num&gt;    &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span>
+<span class="co">#&gt; 1:      1       1.08       1.60    1.085    1.600        0.547         10.2</span>
+<span class="co">#&gt; 2:      2       1.60       2.30    1.601    2.296        8.390         37.3</span>
+<span class="co">#&gt; 3:      3       2.30       2.69    2.307    2.689       35.300         53.2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $Data</span>
+<span class="co">#&gt;        Discharge Stage   Limb      Range lowerRange upperRange</span>
+<span class="co">#&gt;            &lt;num&gt; &lt;num&gt; &lt;fctr&gt;     &lt;fctr&gt;      &lt;num&gt;      &lt;num&gt;</span>
+<span class="co">#&gt;     1:     0.547 1.103      1 [1.08,1.6]       1.08       1.60</span>
+<span class="co">#&gt;     2:     0.579 1.085      1 [1.08,1.6]       1.08       1.60</span>
+<span class="co">#&gt;     3:     0.589 1.088      1 [1.08,1.6]       1.08       1.60</span>
+<span class="co">#&gt;     4:     0.589 1.089      1 [1.08,1.6]       1.08       1.60</span>
+<span class="co">#&gt;     5:     0.593 1.089      1 [1.08,1.6]       1.08       1.60</span>
+<span class="co">#&gt;    ---                                                        </span>
+<span class="co">#&gt; 18826:    49.300 2.629      3 (2.3,2.69]       2.30       2.69</span>
+<span class="co">#&gt; 18827:    50.800 2.655      3 (2.3,2.69]       2.30       2.69</span>
+<span class="co">#&gt; 18828:    51.400 2.685      3 (2.3,2.69]       2.30       2.69</span>
+<span class="co">#&gt; 18829:    52.000 2.685      3 (2.3,2.69]       2.30       2.69</span>
+<span class="co">#&gt; 18830:    53.200 2.689      3 (2.3,2.69]       2.30       2.69</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $`NLS Limb 1`</span>
+<span class="co">#&gt; Nonlinear regression model</span>
+<span class="co">#&gt;   model: Discharge ~ C * (Stage + a)^n</span>
+<span class="co">#&gt;    data: dtl</span>
+<span class="co">#&gt;       C       a       n </span>
+<span class="co">#&gt; 20.2738 -0.8566  2.5019 </span>
+<span class="co">#&gt;  residual sum-of-squares: 873.9</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of iterations to convergence: 27 </span>
+<span class="co">#&gt; Achieved convergence tolerance: 1.49e-08</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $`NLS Limb 2`</span>
+<span class="co">#&gt; Nonlinear regression model</span>
+<span class="co">#&gt;   model: Discharge ~ C * (Stage + a)^n</span>
+<span class="co">#&gt;    data: dtl</span>
+<span class="co">#&gt;      C      a      n </span>
+<span class="co">#&gt; 34.597 -1.224  1.332 </span>
+<span class="co">#&gt;  residual sum-of-squares: 1705</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of iterations to convergence: 38 </span>
+<span class="co">#&gt; Achieved convergence tolerance: 1.49e-08</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $`NLS Limb 3`</span>
+<span class="co">#&gt; Nonlinear regression model</span>
+<span class="co">#&gt;   model: Discharge ~ C * (Stage + a)^n</span>
+<span class="co">#&gt;    data: dtl</span>
+<span class="co">#&gt;       C       a       n </span>
+<span class="co">#&gt;  8.6308 -0.2623  2.0195 </span>
+<span class="co">#&gt;  residual sum-of-squares: 85.17</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of iterations till stop: 93 </span>
+<span class="co">#&gt; Achieved convergence tolerance: 1.49e-08</span>
+<span class="co">#&gt; Reason stopped: Number of calls to `fcn' has reached or exceeded `maxfev' == 400.</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Plot the fittings</span>
+<span class="fu"><a href="reference/ratingPlot.html">ratingPlot</a></span><span class="op">(</span><span class="va">rateOptim</span>, colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-fittedplot-1.png" width="100%"></p>
 </div>
 </div>
+<div class="section level1">
+<h1 id="example-2---peak-detection">Example 2 - Peak detection<a class="anchor" aria-label="anchor" href="#example-2---peak-detection"></a>
+</h1>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">peakscpp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/findPeaksCPP.html">findPeaksCPP</a></span><span class="op">(</span><span class="va">allington</span><span class="op">$</span><span class="va">mAoD</span>, m <span class="op">=</span> <span class="fl">4500</span><span class="op">)</span> <span class="co"># C++</span>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>Position <span class="op">=</span> <span class="va">peakscpp</span>, <span class="va">allington</span><span class="op">[</span><span class="va">peakscpp</span>,<span class="op">]</span><span class="op">)</span>  
+<span class="co"># Returns the rows where the peaks are found</span>
+<span class="va">results</span>
+<span class="co">#&gt;     Position          Time_stamp Value   mAoD</span>
+<span class="co">#&gt;        &lt;num&gt;              &lt;POSc&gt; &lt;num&gt;  &lt;num&gt;</span>
+<span class="co">#&gt;  1:   266986 2018-03-13 02:15:00 0.626 33.776</span>
+<span class="co">#&gt;  2:   254644 2017-11-04 12:45:00 0.143 33.293</span>
+<span class="co">#&gt;  3:   246204 2017-08-08 14:45:00 0.168 33.318</span>
+<span class="co">#&gt;  4:   246200 2017-08-08 13:45:00 0.168 33.318</span>
+<span class="co">#&gt;  5:   238258 2017-05-17 20:15:00 0.214 33.364</span>
+<span class="co">#&gt;  6:   229531 2017-02-15 22:30:00 0.644 33.794</span>
+<span class="co">#&gt;  7:   221262 2016-11-21 19:15:00 0.650 33.800</span>
+<span class="co">#&gt;  8:   213018 2016-08-27 22:15:00 0.144 33.294</span>
+<span class="co">#&gt;  9:   213016 2016-08-27 21:45:00 0.144 33.294</span>
+<span class="co">#&gt; 10:   205914 2016-06-14 22:15:00 0.605 33.755</span>
+<span class="co">#&gt; 11:   196564 2016-03-09 12:45:00 1.062 34.212</span>
+<span class="co">#&gt; 12:   190623 2016-01-07 15:30:00 0.540 33.690</span>
+<span class="co">#&gt; 13:   177591 2015-08-24 21:30:00 0.227 33.377</span>
+<span class="co">#&gt; 14:   170610 2015-06-13 04:15:00 0.173 33.323</span>
+<span class="co">#&gt; 15:   160023 2015-02-22 21:30:00 0.344 33.494</span>
+<span class="co">#&gt; 16:   160019 2015-02-22 20:30:00 0.344 33.494</span>
+<span class="co">#&gt; 17:   153056 2014-12-12 07:45:00 0.470 33.620</span>
+<span class="co">#&gt; 18:   153054 2014-12-12 07:15:00 0.470 33.620</span>
+<span class="co">#&gt; 19:   141192 2014-08-10 17:45:00 0.206 33.356</span>
+<span class="co">#&gt; 20:   134072 2014-05-28 13:45:00 0.430 33.580</span>
+<span class="co">#&gt; 21:   134071 2014-05-28 13:30:00 0.430 33.580</span>
+<span class="co">#&gt; 22:   120403 2014-01-06 04:30:00 0.665 33.815</span>
+<span class="co">#&gt; 23:   113712 2013-10-28 11:45:00 0.501 33.651</span>
+<span class="co">#&gt; 24:   104444 2013-07-23 22:45:00 0.360 33.510</span>
+<span class="co">#&gt; 25:    87369 2013-01-27 02:00:00 0.946 34.096</span>
+<span class="co">#&gt; 26:    81345 2012-11-25 08:00:00 0.874 34.024</span>
+<span class="co">#&gt; 27:    67739 2012-07-06 14:30:00 1.476 34.626</span>
+<span class="co">#&gt; 28:    67738 2012-07-06 14:15:00 1.476 34.626</span>
+<span class="co">#&gt; 29:    61218 2012-04-29 16:15:00 1.013 34.163</span>
+<span class="co">#&gt; 30:    53961 2012-02-14 02:00:00 0.137 33.287</span>
+<span class="co">#&gt; 31:    53953 2012-02-14 00:00:00 0.137 33.287</span>
+<span class="co">#&gt; 32:    53951 2012-02-13 23:30:00 0.137 33.287</span>
+<span class="co">#&gt; 33:    37525 2011-08-26 21:00:00 0.139 33.289</span>
+<span class="co">#&gt; 34:    37523 2011-08-26 20:30:00 0.139 33.289</span>
+<span class="co">#&gt; 35:    37521 2011-08-26 20:00:00 0.139 33.289</span>
+<span class="co">#&gt; 36:    26910 2011-05-08 07:15:00 0.149 33.299</span>
+<span class="co">#&gt; 37:    20100 2011-02-26 08:45:00 0.475 33.625</span>
+<span class="co">#&gt; 38:    20098 2011-02-26 08:15:00 0.475 33.625</span>
+<span class="co">#&gt; 39:    20097 2011-02-26 08:00:00 0.475 33.625</span>
+<span class="co">#&gt; 40:     9598 2010-11-08 23:15:00 0.385 33.535</span>
+<span class="co">#&gt; 41:     9596 2010-11-08 22:45:00 0.385 33.535</span>
+<span class="co">#&gt;     Position          Time_stamp Value   mAoD</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Plot all points</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">allington</span><span class="op">$</span><span class="va">Time_stamp</span>, <span class="va">allington</span><span class="op">$</span><span class="va">mAoD</span>, 
+     type <span class="op">=</span> <span class="st">'l'</span>, 
+     main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'Peak detection where m = 4500'</span><span class="op">)</span>, 
+     xlab <span class="op">=</span> <span class="st">'Time'</span>,
+     ylab <span class="op">=</span> <span class="st">'mAOD'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">Time_stamp</span>, <span class="va">results</span><span class="op">$</span><span class="va">mAoD</span>, col <span class="op">=</span> <span class="st">'red'</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-peak_plot-1.png" width="100%"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Integrate into loops</span>
+<span class="co"># Decide window over which to detect peaks</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1500</span>, <span class="fl">4000</span>, <span class="fl">6500</span>, <span class="fl">8000</span><span class="op">)</span>
+<span class="co"># Include a threshold to filter results</span>
+<span class="va">threshold</span> <span class="op">&lt;-</span> <span class="fl">33.75</span>
+<span class="co"># Change plot window too enable 4 plots 2x2</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="co"># Loop through the m values</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">HydroEnR</span><span class="fu">:::</span><span class="fu"><a href="reference/findPeaksCPP.html">findPeaksCPP</a></span><span class="op">(</span><span class="va">allington</span><span class="op">$</span><span class="va">mAoD</span>, m <span class="op">=</span> <span class="va">m</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+  <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Position <span class="op">=</span> <span class="va">p</span>, <span class="va">allington</span><span class="op">[</span><span class="va">p</span>,<span class="op">]</span><span class="op">)</span>
+  <span class="va">results_filter</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">mAoD</span> <span class="op">&gt;=</span> <span class="va">threshold</span><span class="op">)</span>
+  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">allington</span><span class="op">$</span><span class="va">Time_stamp</span>,
+       <span class="va">allington</span><span class="op">$</span><span class="va">mAoD</span>,
+       type <span class="op">=</span> <span class="st">'l'</span>,
+       main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'m = '</span>, <span class="va">m</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>,
+       xlab <span class="op">=</span> <span class="st">'Time'</span>,
+       ylab <span class="op">=</span> <span class="st">'mAOD'</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">results_filter</span><span class="op">$</span><span class="va">Time_stamp</span>, <span class="va">results_filter</span><span class="op">$</span><span class="va">mAoD</span>, col <span class="op">=</span> <span class="st">'red'</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">threshold</span>, col <span class="op">=</span> <span class="st">'red'</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p><img src="reference/figures/README-peakloop-1.png" width="100%"></p>
 </div>
+<div class="section level1">
+<h1 id="example-3---single-site-analysis">Example 3 - Single site analysis<a class="anchor" aria-label="anchor" href="#example-3---single-site-analysis"></a>
+</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&gt; Importing meta data</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; Importing precipitation data</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; Removing blank elements at top</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; Converting dates and times</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Monthplot of the Buildwas flow data</span>
+<span class="fu"><a href="reference/monthPlot.html">monthPlot</a></span><span class="op">(</span><span class="va">buildwas</span>, name <span class="op">=</span> <span class="st">'Buildwas'</span>, polar <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-monthplot-1.png" width="100%"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve the AMAX series</span>
+<span class="fu"><a href="reference/getAMAX.html">getAMAX</a></span><span class="op">(</span><span class="va">buildwas</span><span class="op">)</span>
+<span class="co">#&gt;      Year  AMAX</span>
+<span class="co">#&gt;     &lt;num&gt; &lt;num&gt;</span>
+<span class="co">#&gt;  1:  1985   169</span>
+<span class="co">#&gt;  2:  1986   319</span>
+<span class="co">#&gt;  3:  1987   353</span>
+<span class="co">#&gt;  4:  1988   378</span>
+<span class="co">#&gt;  5:  1989   230</span>
+<span class="co">#&gt;  6:  1990   396</span>
+<span class="co">#&gt;  7:  1991   362</span>
+<span class="co">#&gt;  8:  1992   291</span>
+<span class="co">#&gt;  9:  1993   329</span>
+<span class="co">#&gt; 10:  1994   461</span>
+<span class="co">#&gt; 11:  1995   391</span>
+<span class="co">#&gt; 12:  1996   251</span>
+<span class="co">#&gt; 13:  1997   214</span>
+<span class="co">#&gt; 14:  1998   390</span>
+<span class="co">#&gt; 15:  1999   450</span>
+<span class="co">#&gt; 16:  2000   333</span>
+<span class="co">#&gt; 17:  2001   639</span>
+<span class="co">#&gt; 18:  2002   454</span>
+<span class="co">#&gt; 19:  2003   266</span>
+<span class="co">#&gt; 20:  2004   491</span>
+<span class="co">#&gt; 21:  2005   235</span>
+<span class="co">#&gt; 22:  2006   387</span>
+<span class="co">#&gt; 23:  2007   529</span>
+<span class="co">#&gt; 24:  2008   461</span>
+<span class="co">#&gt; 25:  2009   274</span>
+<span class="co">#&gt; 26:  2010   394</span>
+<span class="co">#&gt; 27:  2011   371</span>
+<span class="co">#&gt; 28:  2012   259</span>
+<span class="co">#&gt; 29:  2013   368</span>
+<span class="co">#&gt; 30:  2014   415</span>
+<span class="co">#&gt; 31:  2015   261</span>
+<span class="co">#&gt; 32:  2016   404</span>
+<span class="co">#&gt; 33:  2017   207</span>
+<span class="co">#&gt; 34:  2018   282</span>
+<span class="co">#&gt; 35:  2019   381</span>
+<span class="co">#&gt; 36:  2020   653</span>
+<span class="co">#&gt; 37:  2021   512</span>
+<span class="co">#&gt;      Year  AMAX</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># QMED plots</span>
+<span class="co"># Can be stored in the environment</span>
+<span class="co"># Greater adaptability for users</span>
+<span class="fu"><a href="reference/plotQMED.html">plotQMED</a></span><span class="op">(</span><span class="va">buildwas</span><span class="op">)</span>
+<span class="co">#&gt; [1] Estimated QMED: 371 cumecs</span></code></pre></div>
+<p><img src="reference/figures/README-QMED-1.png" width="100%"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve the l-moments</span>
+<span class="fu"><a href="reference/Ls.html">Ls</a></span><span class="op">(</span><span class="va">buildwas</span><span class="op">)</span>
+<span class="co">#&gt;         L1       L2       L3      L4       LCV        LCA      LKUR      LSkew</span>
+<span class="co">#&gt; 1 366.4865 63.28078 5.862162 9.22462 0.1726688 0.09263732 0.1457728 0.09263732</span>
+<span class="co">#&gt;   QMED</span>
+<span class="co">#&gt; 1  371</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Extreme value plot for buildwas</span>
+<span class="fu"><a href="reference/plotExtVal.html">plotExtVal</a></span><span class="op">(</span><span class="va">buildwas</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-extreme-1.png" width="100%"></p>
+<!-- What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so: --><!-- ```{r cars} --><!-- summary(cars) --><!-- ``` --><!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>. --><!-- You can also embed plots, for example: --><!-- ```{r pressure, echo = FALSE} --><!-- plot(pressure) --><!-- ``` --><!-- In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN. -->
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -144,7 +400,15 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg"></a></li>
+<li><a href="https://github.com/JonPayneEA/HydroEnR/commits/main" class="external-link"><img src="https://img.shields.io/github/last-commit/JonPayneEA/HydroEnR.svg"></a></li>
+<li><a href="https://cran.r-project.org/web/licenses/GNU%20General%20Public%20License" class="external-link"><img src="https://img.shields.io/badge/license-GNU%20General%20Public%20License-blue.svg" alt="License: GNU General Public License"></a></li>
+<li><a href="https://github.com/JonPayneEA/HydroEnR" class="external-link"><img src="https://img.shields.io/github/languages/code-size/JonPayneEA/HydroEnR.svg"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
