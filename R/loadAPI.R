@@ -1,3 +1,4 @@
+library(ggplot2)
 #' @title Pull data from the Environment Agency's API
 #'
 #' @description The loadAPI function is used to interogate the EAs API. Data for
@@ -52,11 +53,10 @@
 #' type = 'instantaneous',
 #' datapoints = 'all')
 #'
-#' ggplot2::ggplot(dt, aes(x = dateTime, y = value, colour = factor(quality), group = 1))+
-#' geom_line() +
-#'   xlab('Time') +
-#'     ylab('Stage (mAoD)')
-#'
+#' with(dt, plot(value ~ dateTime,
+#'type = 'l',
+#'xlab = 'Time',
+#'ylab = 'Stage (mAoD)'))
 loadAPI <- function(ID = NULL, measure = NULL, period = NULL,
                     type = NULL, datapoints = 'standard',
                     from = NULL, to = NULL, lat = NULL, long = NULL,

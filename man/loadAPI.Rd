@@ -82,9 +82,8 @@ period = 900,
 type = 'instantaneous',
 datapoints = 'all')
 
-ggplot2::ggplot(dt, aes(x = dateTime, y = value, colour = factor(quality), group = 1))+
-geom_line() +
-  xlab('Time') +
-    ylab('Stage (mAoD)')
-
+with(dt, plot(value ~ dateTime,
+type = 'l',
+xlab = 'Time',
+ylab = 'Stage (mAoD)'))
 }
