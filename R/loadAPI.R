@@ -73,6 +73,7 @@ loadAPI <- function(ID = NULL, measure = NULL, period = NULL,
 
   # Start up of main function ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   dataType <- type # Fixes data.table filter issue
+  timestep <- period # Fixes data.table filter issue
   # Base link for the EAs API
   baselink <- 'http://environment.data.gov.uk/hydrology/id/stations.json'
 
@@ -176,7 +177,7 @@ loadAPI <- function(ID = NULL, measure = NULL, period = NULL,
   }
 
   # Return options for available data at specified ID site ~~~~~~~~~~~~~~~~~~
-  if (!is.null(ID)&is.null(measure)&is.null(period)){
+  if (!is.null(ID)&is.null(measure)&is.null(timestep)){
     link <- paste0(baselink, '?wiskiID=', ID)
     data <- jsonlite::fromJSON(link)
     data_level <- jsonlite::fromJSON(as.character(data$items[1]))
@@ -198,7 +199,7 @@ loadAPI <- function(ID = NULL, measure = NULL, period = NULL,
     ## Insert criteria on what data to extract ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Merges into URL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     datalink <- params[parameter == measure &
-                         period == period &
+                         period == timestep &
                          type == dataType,
                        note,]
     measImp <- paste0('http://environment.data.gov.uk/hydrology/id/measures/',
@@ -225,12 +226,12 @@ loadAPI <- function(ID = NULL, measure = NULL, period = NULL,
     series <- data.table(jsonlite::fromJSON(datalinkAppend)[[2]])
     ## For clarity all dates are coerced to POSIXct ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## Currently split between 2 timesteps to future proof ~~~~~~~~~~~~~~~~~~~~~
-    if (period == 900){
+    if (timestep == 900){
       series$dateTime <- as.POSIXct(series$dateTime,
                                     format = '%Y-%m-%dT%H:%M',
                                     tz = 'GMT')
     }
-    if (period == 86400){
+    if (timestep == 86400){
       series$dateTime <- as.POSIXct(series$dateTime,
                                     format = '%Y-%m-%dT%H:%M',
                                     tz = 'GMT')
