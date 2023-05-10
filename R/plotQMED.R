@@ -10,7 +10,6 @@ library(ggplot2)
 #' @return
 #' @export
 #'
-#' @import magrittr
 #' @import rnrfa
 #' @import ggplot2
 #'
