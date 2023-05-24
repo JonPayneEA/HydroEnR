@@ -147,42 +147,30 @@ Available metrics;
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">loadAPI</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        wiskiID                             label      riverName</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 037048U                   Ulting Sarasota  River Chelmer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:  510810                    Beggearn Huish Washford River</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:  510810                    Beggearn Huish Washford River</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   F0803                            Adwick   River Dearne</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   F0803                            Adwick   River Dearne</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16327:    &lt;NA&gt; SEGGIMOOR BECK_US CAENBY_E_202304 SEGGIMOOR BECK</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16328:    &lt;NA&gt; SEGGIMOOR BECK_US CAENBY_E_202304 SEGGIMOOR BECK</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16329:    &lt;NA&gt; SEGGIMOOR BECK_US CAENBY_E_202304 SEGGIMOOR BECK</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16330:    &lt;NA&gt; SEGGIMOOR BECK_US CAENBY_E_202304 SEGGIMOOR BECK</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16331:    &lt;NA&gt; SEGGIMOOR BECK_US CAENBY_E_202304 SEGGIMOOR BECK</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        observedProperty easting northing      lat      long dateOpened</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:        waterFlow  581271   208591 51.74668  0.624437 2008-10-31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:       waterLevel  304007   139460 51.14632 -3.373695 1967-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:        waterFlow  304007   139460 51.14632 -3.373695 1967-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:       waterLevel  447677   402022 53.51271 -1.282505 1956-10-29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:        waterFlow  447677   402022 53.51271 -1.282505 1956-10-29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16327: dissolved-oxygen  499334   389439 53.39244 -0.507715 2023-05-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16328:     conductivity  499334   389439 53.39244 -0.507715 2023-05-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16329:               ph  499334   389439 53.39244 -0.507715 2023-05-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16330:      temperature  499334   389439 53.39244 -0.507715 2023-05-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16331:        turbidity  499334   389439 53.39244 -0.507715 2023-05-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        catchmentArea nrfaStationID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:            NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:          36.3         51003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:          36.3         51003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:         311.0         27030</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:         311.0         27030</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16327:            NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16328:            NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16329:            NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16330:            NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16331:            NA          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        wiskiID                 label      riverName observedProperty easting</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 037048U       Ulting Sarasota  River Chelmer        waterFlow  581271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:  510810        Beggearn Huish Washford River       waterLevel  304007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:  510810        Beggearn Huish Washford River        waterFlow  304007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   F0803                Adwick   River Dearne       waterLevel  447677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   F0803                Adwick   River Dearne        waterFlow  447677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16353:    &lt;NA&gt; RADLEY LAKES_E_202305   RADLEY LAKES     conductivity  452013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16354:    &lt;NA&gt; RADLEY LAKES_E_202305   RADLEY LAKES      chlorophyll  452013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16355:    &lt;NA&gt; RADLEY LAKES_E_202305   RADLEY LAKES               ph  452013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16356:    &lt;NA&gt; RADLEY LAKES_E_202305   RADLEY LAKES      temperature  452013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16357:    &lt;NA&gt; RADLEY LAKES_E_202305   RADLEY LAKES        turbidity  452013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        northing      lat      long dateOpened catchmentArea nrfaStationID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   208591 51.74668  0.624437 2008-10-31            NA          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   139460 51.14632 -3.373695 1967-01-01          36.3         51003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   139460 51.14632 -3.373695 1967-01-01          36.3         51003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   402022 53.51271 -1.282505 1956-10-29         311.0         27030</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   402022 53.51271 -1.282505 1956-10-29         311.0         27030</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16353:   197431 51.67324 -1.249224 2023-05-17            NA          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16354:   197431 51.67324 -1.249224 2023-05-17            NA          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16355:   197431 51.67324 -1.249224 2023-05-17            NA          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16356:   197431 51.67324 -1.249224 2023-05-17            NA          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16357:   197431 51.67324 -1.249224 2023-05-17            NA          &lt;NA&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">loadAPI</span><span class="op">(</span>easting <span class="op">=</span> <span class="fl">378235</span> , northing <span class="op">=</span> <span class="fl">276165</span>, dist <span class="op">=</span> <span class="fl">30</span>, ID <span class="op">=</span> <span class="st">'nrfa'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    wiskiID        label      riverName observedProperty easting northing</span>
@@ -206,9 +194,9 @@ Available metrics;
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">loadAPI</span><span class="op">(</span>ID <span class="op">=</span> <span class="st">'L1207'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    parameter period          type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     level  86400           min</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     level    900 instantaneous</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     level  86400           max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     level    900 instantaneous</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     level  86400           max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     level  86400           min</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">loadAPI</span><span class="op">(</span>ID <span class="op">=</span> <span class="st">'L1207'</span>,</span>
 <span class="r-in">measure <span class="op">=</span> <span class="st">'level'</span>,</span>
